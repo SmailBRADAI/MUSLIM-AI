@@ -14,6 +14,8 @@ export default defineConfig({
         globPatterns: ["**/*.{js,css,html,svg,woff2,webmanifest}"],
         maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
         navigateFallback: "index.html",
+        // T051: handles taps on the lock-screen card; see public/sw-extra.js.
+        importScripts: ["sw-extra.js"],
       },
     }),
   ],
