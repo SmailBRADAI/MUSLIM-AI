@@ -1,0 +1,36 @@
+name: Hajj & Umrah app
+
+on:
+  pull_request:
+    paths: ["apps/hajj-umrah/**", ".github/workflows/hajj-umrah.yml"]
+  push:
+    branches: [main]
+    paths: ["apps/hajj-umrah/**", ".github/workflows/hajj-umrah.yml"]
+
+defaults:
+  run:
+    working-directory: apps/hajj-umrah
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: apps/hajj-umrah/package-lock.json
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+        env:
+          CI: "true"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: apps/hajj-umrah/test-results
