@@ -89,7 +89,9 @@ describe("Settings (T015)", () => {
     await userEvent.click(screen.getByRole("button", { name: /Change/ }));
     await userEvent.click(screen.getByRole("button", { name: /Umrah rituals/ }));
     await userEvent.click(screen.getByRole("button", { name: /My guide/ }));
-    expect(screen.getByText("3 / 5")).toBeInTheDocument();
+    // Tawaf was done, so the guide opens on Ihram, the first step not done.
+    expect(screen.getByText("1 / 5")).toBeInTheDocument();
+    expect(screen.getByText("20%")).toBeInTheDocument();
   });
 
   it("says so when the journey choice can't be saved", async () => {

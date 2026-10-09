@@ -22,17 +22,11 @@
   "guide": "My guide",
   "settings": "Settings",
   "umrahGuide": "Umrah guide",
-  "tawaf": "Tawaf around the Kaaba",
   "progress": "Guide progress",
   "instructionTitle": "What should I do?",
-  "instruction": "Begin in line with the Black Stone, keeping the Kaaba to your left. Complete seven calm circuits and remember Allah as you are able.",
-  "audio": "Listen to the explanation",
-  "audioTime": "2 minutes",
-  "relatedDuas": "Related supplications",
   "details": "Details and common mistakes",
   "complete": "Mark complete — Continue",
   "previous": "Previous step",
-  "next": "Next: Two rak’ahs after Tawaf",
   "reassurance": "Your progress is saved automatically on this device",
   "saveFailed": "Your progress could not be saved on this device. It stays visible until you close the app.",
   "notAvailable": "This section is ready to use offline",
@@ -75,5 +69,11 @@
     "progressKept": "Progress is kept for each journey on this device"
   },
   "guideNotReady": "The guide for this type of Hajj is being prepared and reviewed, and is not available yet.",
-  "choiceNotSaved": "Your choice could not be saved on this device; it applies until you close the app."
+  "choiceNotSaved": "Your choice could not be saved on this device; it applies until you close the app.",
+  "nextStep": "Next",
+  "stepDone": "Done",
+  "undo": "I haven't finished this step",
+  "commonMistakes": "Common mistakes",
+  "otherSchools": "Other schools",
+  "sources": "Sources"
 }

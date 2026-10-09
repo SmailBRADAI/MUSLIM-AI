@@ -145,6 +145,9 @@ small { color: var(--muted); font-size: 13px; line-height: 1.6; }
 .action-icon.sage { color: var(--forest); background: var(--sage-pale); }
 .rotate { transform: rotate(90deg); }
 .detail-note { padding: 15px 18px; color: var(--muted); background: var(--sage-pale); line-height: 1.8; font-size: 14px; }
+.detail-note h3 { margin: 14px 0 4px; color: var(--ink, inherit); font-size: 14px; }
+.detail-note p { margin: 0; }
+.detail-note ul { margin: 4px 0 0; padding-inline-start: 18px; }
 .next-note { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 18px 0 10px; color: var(--muted); font-size: 14px; }
 .next-note svg { color: var(--gold); }
 .complete-button { width: 100%; min-height: 58px; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 10px 18px; border: 0; border-radius: 17px; color: var(--white); background: var(--action); box-shadow: 0 7px 20px rgba(28,106,82,.22); font-weight: 700; font-size: 17px; cursor: pointer; }
