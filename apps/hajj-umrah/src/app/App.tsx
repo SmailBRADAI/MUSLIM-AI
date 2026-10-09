@@ -3,6 +3,7 @@ import { AppHeader } from "../components/AppHeader";
 import { BottomNav } from "../components/BottomNav";
 import { Icon } from "../components/Icon";
 import * as db from "../data/db";
+import { readCardPreference } from "../data/lockcard";
 import { journeyContent } from "../data/content";
 import { fetchManifest, loadPack } from "../data/packs";
 import type { PackState } from "../data/packs";
@@ -45,6 +46,8 @@ export default function App() {
   const [onboarding, setOnboarding] = useState<OnboardingStep | null>(null);
   // T048: Live mode is off at each launch and never stored; the location is watched only in the Guide.
   const [live, setLive] = useState(false);
+  // T051: the lock-screen card is remembered on the device, but only counts as on while notifications are still allowed.
+  const [lockCard, setLockCard] = useState(readCardPreference);
 
   useEffect(() => {
     let cancelled = false;
@@ -108,6 +111,20 @@ export default function App() {
       window.removeEventListener("online", check);
     };
   }, [language, installedVersion]);
+
+  // T051: a tap on the lock-screen card while the app is closed opens it at the Guide.
+  useEffect(() => {
+    if (!ready) return;
+    try {
+      const url = new URL(location.href);
+      if (url.searchParams.get("open") !== "guide") return;
+      url.searchParams.delete("open");
+      history.replaceState(null, "", url);
+      setScreen("guide");
+    } catch {
+      // No URL support or history access: the app simply opens at Home.
+    }
+  }, [ready]);
 
   useEffect(() => {
     document.documentElement.dir = isRtl(language) ? "rtl" : "ltr";
@@ -206,7 +223,7 @@ export default function App() {
           />
         )}
         {screen === "guide" && content && (
-          <Guide key={journey} journey={content.journey} texts={content.texts} completed={completed} onStepDone={markStep} saveFailed={saveFailed} live={live} onLiveChange={setLive} />
+          <Guide key={journey} journey={content.journey} texts={content.texts} completed={completed} onStepDone={markStep} saveFailed={saveFailed} live={live} onLiveChange={setLive} lockCard={lockCard} onLockCardChange={setLockCard} />
         )}
         {screen === "guide" && !content && <GuideNotReady />}
         {screen === "settings" && journey && (

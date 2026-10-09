@@ -82,7 +82,7 @@
 
 ## Phase 8c: User story 9 — Swipe and lock-screen card (P2)
 
-- [ ] T051 [US9] Swipe between steps (FR-024) and the opt-in lock-screen card (FR-025, via notification and a small service-worker script) with the optional screen wake lock (FR-026); ar/en/ur strings; unit tests (swipe logic, notification content and sync, wake lock) and e2e (swipe in ar and en, notification with granted and denied permission, axe, no sideways scroll)
+- [x] T051 [US9] Swipe between steps (FR-024) and the opt-in lock-screen card (FR-025, via notification and a small service-worker script) with the optional screen wake lock (FR-026); ar/en/ur strings; unit tests (swipe logic, notification content and sync, wake lock) and e2e (swipe in ar and en, notification with granted and denied permission, axe, no sideways scroll)
 
 ## Phase 9: Polish and release
 

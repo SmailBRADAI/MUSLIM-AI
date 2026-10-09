@@ -263,8 +263,8 @@ small { color: var(--muted); font-size: 13px; line-height: 1.6; }
 
 /* T048 Live mode: an opt-in card at the top of the Guide. The switch shows its state by the knob's
    position and a check mark as well as colour; the location never leaves the device. */
-.live-card { margin: 18px 0 0; padding: 12px 14px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); }
-.live-card.on { border-color: #c9dccc; }
+.live-card, .setting-card { margin: 18px 0 0; padding: 12px 14px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); }
+.live-card.on, .setting-card.on { border-color: #c9dccc; }
 .live-head { display: flex; align-items: center; gap: 12px; }
 .live-head .grow { min-width: 0; gap: 2px; }
 .live-head strong { font-size: 17px; line-height: 1.45; }
@@ -286,4 +286,14 @@ small { color: var(--muted); font-size: 13px; line-height: 1.6; }
 [dir="rtl"] .live-go svg { transform: rotate(180deg); }
 .live-off { min-height: 48px; justify-self: start; padding: 0 16px; border: 1px solid var(--line); border-radius: 14px; color: var(--ink); background: var(--surface); font-weight: 700; cursor: pointer; }
 .live-attribution { font-size: 12px; }
-.language-ur .live-card { line-height: 2; }
+.language-ur .live-card, .language-ur .setting-card { line-height: 2; }
+
+/* T051: swipe between steps, lock-screen card. Vertical scroll stays native. */
+.swipe-area { margin: 0; touch-action: pan-y; }
+.swipe-area > .instruction-card { margin-top: 0; }
+.swipe-area.slide { animation: swipe-in .18s ease-out; }
+@keyframes swipe-in { from { opacity: .4; transform: translateX(var(--slide-from)); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .swipe-area.slide { animation: none; } }
+.swipe-hint { display: flex; align-items: center; gap: 10px; margin: 18px 0 12px; padding: 10px 14px; border-radius: 14px; background: var(--sage-pale); color: var(--ink); line-height: 1.6; }
+.swipe-hint svg { flex: 0 0 auto; }
+.swipe-hint .live-off { flex: 0 0 auto; min-height: 48px; }

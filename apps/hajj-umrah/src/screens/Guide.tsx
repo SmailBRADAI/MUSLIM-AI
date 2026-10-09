@@ -2,15 +2,36 @@ import { useEffect, useRef, useState } from "react";
 import { SaiDiagram, TawafDiagram } from "../components/Diagrams";
 import { Icon } from "../components/Icon";
 import { LiveMode } from "../components/LiveMode";
+import { LockCard, WakeLockSwitch } from "../components/LockCard";
 import { PlaceVisual } from "../components/PlaceVisual";
 import { ReviewBadge } from "../components/ReviewBadge";
 import { RulingTag } from "../components/RulingTag";
+import { useSwipe } from "../components/useSwipe";
 import type { StepTexts } from "../data/content";
 import { completion, currentStep, orderedSteps } from "../data/progress";
+import { prefersReducedMotion } from "../data/swipe";
 import { displayStatus, isPlace } from "../data/types";
 import type { Journey, JourneyType, Stage, Step } from "../data/types";
-import { useT } from "../i18n";
+import { isRtl, useLanguage, useT } from "../i18n";
 import type { Strings } from "../i18n";
+
+const HINT_KEY = "rafiq.swipeHint";
+const hintSeen = () => {
+  try {
+    return localStorage.getItem(HINT_KEY) === "1";
+  } catch {
+    return false;
+  }
+};
+const rememberHint = () => {
+  try {
+    localStorage.setItem(HINT_KEY, "1");
+  } catch {
+    // Storage blocked: the hint comes back next time, which is harmless.
+  }
+};
+/** Swiping is for touch screens; on a mouse-and-keyboard device the hint would only be noise. */
+const hasTouch = () => typeof matchMedia !== "function" || matchMedia("(pointer: coarse)").matches;
 
 const guideLabel = (t: Strings, type: JourneyType) => (type === "umrah" ? t.umrahGuide : t.journeys[type]);
 
@@ -49,6 +70,8 @@ export function Guide({
   saveFailed,
   live = false,
   onLiveChange,
+  lockCard = false,
+  onLockCardChange,
 }: {
   journey: Journey;
   texts: StepTexts;
@@ -59,8 +82,13 @@ export function Guide({
   /** T048: Live mode, on for this session only; the card is shown when onLiveChange is given. */
   live?: boolean;
   onLiveChange?: (on: boolean) => void;
+  /** T051: the lock-screen card, remembered on the device; the toggle is shown when onLockCardChange is given. */
+  lockCard?: boolean;
+  onLockCardChange?: (on: boolean) => void;
 }) {
   const t = useT();
+  const language = useLanguage();
+  const rtl = isRtl(language);
   const steps = orderedSteps(journey);
   const [index, setIndex] = useState(() => {
     const current = currentStep(journey, completed);
@@ -70,6 +98,11 @@ export function Guide({
   // One action at a time: a double tap must not complete the step that slides in under the finger.
   const [saving, setSaving] = useState(false);
   const savingRef = useRef(false);
+  // T051: swipe changes the step shown (never marks it done) and is announced without moving focus.
+  const [slide, setSlide] = useState<"next" | "previous" | null>(null);
+  const [swiped, setSwiped] = useState("");
+  const [hint, setHint] = useState(() => !hintSeen() && hasTouch());
+  const [keepAwake, setKeepAwake] = useState(false);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const moved = useRef(false);
   const step = steps[index];
@@ -107,8 +140,24 @@ export function Guide({
   const goTo = (i: number) => {
     setIndex(i);
     setDetails(false);
+    setSwiped("");
     moved.current = true;
   };
+  const dismissHint = () => {
+    setHint(false);
+    rememberHint();
+  };
+  const swipe = useSwipe((direction) => {
+    const target = direction === "next" ? index + 1 : index - 1;
+    if (savingRef.current || target < 0 || target >= steps.length) return;
+    setIndex(target);
+    setDetails(false);
+    // Entering from the side the step sits on in reading order; no slide for reduced motion.
+    setSlide(prefersReducedMotion() ? null : direction);
+    const title = texts[steps[target].id]?.title ?? steps[target].id;
+    setSwiped(t.swipe.announce.replace("{n}", String(target + 1)).replace("{total}", String(steps.length)).replace("{title}", title));
+    if (hint) dismissHint();
+  }, rtl);
   const markDone = () =>
     run(async () => {
       if (!done) await onStepDone(step.id, true);
@@ -160,6 +209,22 @@ export function Guide({
           busy={saving}
         />
       )}
+      {onLockCardChange && (
+        <LockCard
+          on={lockCard}
+          onChange={onLockCardChange}
+          step={step}
+          text={text}
+          index={index}
+          total={steps.length}
+          finished={percent === 100}
+          onMove={(delta) => {
+            const target = index + delta;
+            if (target >= 0 && target < steps.length) goTo(target);
+          }}
+        />
+      )}
+      <WakeLockSwitch on={keepAwake} onChange={setKeepAwake} />
       <section className="progress-panel">
         <div className="progress-label"><span>{t.progress}</span><strong>{percent}%</strong></div>
         <div className="progress-track"><span style={{ width: `${percent}%` }} /></div>
@@ -185,6 +250,20 @@ export function Guide({
 
       {/* T047: where this step is performed, above the step content. Content is validated in CI, but an
           unknown place must not crash the guide. */}
+      {hint && (
+        <div className="swipe-hint">
+          <Icon name="sparkle" size={18} />
+          <span className="grow">{t.swipe.hint}</span>
+          <button type="button" className="live-off" onClick={dismissHint}>{t.swipe.dismiss}</button>
+        </div>
+      )}
+      <div
+        className={slide ? "swipe-area slide" : "swipe-area"}
+        data-slide={slide ?? undefined}
+        style={slide ? ({ "--slide-from": `${(slide === "next") === rtl ? -28 : 28}px` } as React.CSSProperties) : undefined}
+        onAnimationEnd={() => setSlide(null)}
+        {...swipe}
+      >
       {isPlace(step.place) && <PlaceVisual place={step.place} />}
       <section className="instruction-card">
         <div className="instruction-meta">
@@ -197,6 +276,8 @@ export function Guide({
         {step.diagram === "tawaf" && text.diagramLabel && <TawafDiagram label={text.diagramLabel} />}
         {step.diagram === "sai" && text.diagramLabel && <SaiDiagram label={text.diagramLabel} />}
       </section>
+      </div>
+      <p className="visually-hidden" role="status">{swiped}</p>
 
       <div className="action-list">
         {/* TODO(T035, T036): related supplications and audio, shown only when the step has them. */}

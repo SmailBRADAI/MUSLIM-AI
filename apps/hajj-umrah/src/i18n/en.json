@@ -210,5 +210,28 @@
       "yalamlam": "Yalamlam",
       "dhat-irq": "Dhat Irq"
     }
+  },
+  "swipe": {
+    "hint": "Swipe the card sideways to change step.",
+    "dismiss": "Got it",
+    "announce": "Step {n} of {total}: {title}"
+  },
+  "lockCard": {
+    "title": "Lock-screen card",
+    "hint": "Shows the current step as a notification, so you can read it with the phone locked.",
+    "privacy": "Only the step title and a short instruction are shown. No location or personal data.",
+    "turnOff": "Turn off the lock-screen card",
+    "errors": {
+      "unsupported": "This browser cannot show notifications. On iPhone, add the app to the Home Screen first, then open it from there.",
+      "denied": "Notifications are blocked. Allow them for this app in the browser or phone settings, then turn this on again.",
+      "failed": "The notification could not be shown. Try turning it off and on again."
+    }
+  },
+  "wakeLock": {
+    "title": "Keep screen on while reading",
+    "hint": "Stops the screen from dimming while the Guide is open.",
+    "unsupported": "This browser cannot keep the screen on.",
+    "failed": "The screen could not be kept on. Battery saver may be blocking it.",
+    "turnOff": "Turn off keeping the screen on"
   }
 }
