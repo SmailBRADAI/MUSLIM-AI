@@ -23,6 +23,7 @@ A pilgrim who downloaded the guide opens the app in airplane mode at the Haram. 
 4. **Given** any step, **Then** it shows its ruling label (per the declared framework) and its review status, and the "reviewed" mark appears only for approved content.
 5. **Given** the Tawaf step in any language, **Then** the diagram shows counter-clockwise movement with the Kaaba on the pilgrim's left.
 6. **Given** any step (Umrah or Hajj), **Then** a compact "you are here" visual at the top of the step shows the pilgrimage places (Miqat, Makkah with the Mataf, Maqam Ibrahim and the Mas'a, the Jamarat, Mina, Muzdalifah, Arafah) with the step's place highlighted by a marker and a bold name as well as colour, and a caption in the pilgrim's language, for example "أنا في المطاف" / "I am in the Mataf". It works offline.
+7. **Given** the Ihram, Tawaf and Sa'i steps of the Umrah, **Then** the step shows original illustrations drawn in the app: a schematic of the five miqats around Makkah with who ihrams from which; the men's and women's ihram clothing; the Tawaf route with the Kaaba on the left, the Black Stone, the Yemeni Corner and the Hijr (inside the Hijr is not valid); and the Sa'i track with the green markers and the zone where men run. The Umrah also has an ihram reference step with the prohibitions as an icon grid, and the permitted things. Every illustration has a text caption and works offline, in all three languages, with no sideways scroll on a narrow screen.
 
 ### User story 2 — Choose language and journey on first launch (Priority: P1)
 
@@ -133,6 +134,7 @@ Requested by the project owner: "Based on the GPS location, I would like to have
 - **FR-021**: Place detection MUST work offline from place shapes bundled with the app (approximate shapes from OpenStreetMap, ODbL, shown with attribution and marked approximate until verified): Mataf, Maqam Ibrahim, Mas'a, Masjid al-Haram, Makkah, Mina, Jamarat, Muzdalifah, Arafah (including Namirah) and the miqats Dhul-Hulayfah (Abyar Ali), Al-Juhfah (and Rabigh), Qarn al-Manazil (As-Sayl al-Kabir), Yalamlam and Dhat Irq. The most specific matching place MUST win (Mataf, Mas'a or Jamarat before Masjid al-Haram, Makkah or Mina). If the reported accuracy is worse than 50 m at Masjid al-Haram or 300 m elsewhere, the app MUST say the location is uncertain.
 - **FR-022**: Live mode MUST only suggest: the first step not done, in journey order, whose place is at the detected place; for Hajj, steps of today's Dhu al-Hijjah day (Umm al-Qura calendar) first. It MUST NOT mark a step done. It MUST NOT assert that the pilgrim is inside Arafah, Muzdalifah, Mina or a miqat: it says the pilgrim seems to be near it and to check the official boundary signs, in Arabic, English and Urdu.
 - **FR-023**: Live mode MUST report permission denied, location unavailable, timeout and no browser support, each with a way to turn it off; announce settled place changes in a polite live region without moving focus; and keep 44 px targets and no sideways scroll at narrow widths.
+- **FR-024**: Ritual guidance taken from a secondary compilation of the sheikhs' words (the booklet «صفة العمرة المصورة» by Ali Badawi, from the words of Ibn Baz, supplied by the project owner) MUST be cited in the step's sources together with the primary sources the booklet itself names, MUST stay `draft`, and MUST NOT silently replace existing text: where the booklet differs from the existing content or from Ibn Al-Uthaymeen's view, the existing text stays and the difference is recorded for the content reviewer in `content/sources/`. The booklet's own pictures and photographs MUST NOT be copied, traced or embedded (they are a third party's copyrighted work); the app's illustrations are original drawings. Labels in an illustration that carry religious content (who uses which miqat, the prohibitions, the invalid path in the Hijr) are reviewed step text (`diagramLabel`, `diagramItems`); names of places are UI strings.
 - **FR-018**: If progress cannot be saved on the device, the app MUST say so instead of claiming it was saved.
 - **FR-008**: Audio MUST be optional and downloaded separately.
 - **FR-009**: Content updates MUST be checked only when online and MUST NOT block use of the installed version.
@@ -174,6 +176,10 @@ Requested by the project owner: "Based on the GPS location, I would like to have
 - Q: Map data source? → A: OpenStreetMap (ODbL licence, attribution "© OpenStreetMap contributors" shown in the app).
 - Q: App name? → A: **رفيق المناسك** (English: Rafiq al-Manasik, Urdu: رفیق المناسک).
 - Q: Distribution? → A: Installable PWA first; published to the app stores later, so the code must stay wrappable in a native shell.
+
+### Session 2026-10-09 (booklet supplied by the project owner)
+
+- Q: May the printed booklet «صفة العمرة المصورة» (Ali Badawi, Dar Nour al-Islam, 2018, from the words of Ibn Baz) be used to enrich the Umrah content and illustrations? → A: The owner asked to "extract knowledge and illustrations" from it. Its knowledge is used as a secondary source (FR-024) and recorded in `content/sources/badawi-sifat-al-umrah.md`; its images are not reused, since the publication is copyrighted, so original illustrations are drawn instead. Using the booklet's own images or quoting it at length needs the publisher's permission.
 
 ### Still open
 
