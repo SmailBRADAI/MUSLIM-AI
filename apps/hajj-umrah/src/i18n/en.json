@@ -168,5 +168,47 @@
       "date": "13 Dhu al-Hijjah",
       "name": "Third day of Tashriq"
     }
+  },
+  "live": {
+    "title": "Live mode",
+    "hint": "Suggests the step for where you are, using your location.",
+    "privacy": "Your location stays on this device. It is never saved or sent.",
+    "finding": "Finding your location…",
+    "uncertain": "Your location is not precise enough to tell where you are. Wait a moment, or move to a more open spot.",
+    "outside": "Live mode works in Makkah and at the holy sites. You don't seem to be there now.",
+    "suggested": "Suggested step",
+    "goToStep": "Go to this step",
+    "openNow": "This step is open below.",
+    "noStep": "No remaining step of your journey is performed here.",
+    "onlySuggests": "Live mode only suggests. It never marks a step done.",
+    "checkSigns": "Locations are approximate. Check the official boundary signs.",
+    "attribution": "Places are approximate. Map data {attribution}",
+    "turnOff": "Turn off live mode",
+    "errors": {
+      "denied": "Location permission is off for this app. To use live mode, allow location in your browser or phone settings.",
+      "unavailable": "Your location is not available right now. Live mode will keep trying.",
+      "timeout": "Finding your location is taking longer than usual. Live mode will keep trying.",
+      "unsupported": "This browser cannot share your location, so live mode is not available."
+    },
+    "regions": {
+      "maqam": "You seem to be near the Station of Ibrahim",
+      "mataf": "You seem to be in the Mataf",
+      "masa": "You seem to be in the Mas'a, between Safa and Marwah",
+      "haram": "You seem to be in Masjid al-Haram",
+      "makkah": "You seem to be in Makkah",
+      "mina": "You seem to be near Mina",
+      "jamarat": "You seem to be at the Jamarat",
+      "muzdalifah": "You seem to be near Muzdalifah",
+      "arafah": "You seem to be near Arafah",
+      "miqat": "You seem to be near the miqat of {miqat}"
+    },
+    "miqats": {
+      "dhul-hulayfah": "Dhul-Hulayfah (Abyar Ali)",
+      "juhfah": "Al-Juhfah",
+      "rabigh": "Al-Juhfah (Rabigh)",
+      "qarn": "Qarn al-Manazil (As-Sayl al-Kabir)",
+      "yalamlam": "Yalamlam",
+      "dhat-irq": "Dhat Irq"
+    }
   }
 }
