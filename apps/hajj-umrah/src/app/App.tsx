@@ -72,6 +72,8 @@ export default function App() {
   // T028: the installed pack for the current language drives "Ready offline" and the guide's content.
   useEffect(() => {
     let cancelled = false;
+    // Never show the previous language's pack while this one loads.
+    setPack({ state: "none" });
     loadPack(language)
       .catch((): PackState => ({ state: "none" }))
       .then((state) => !cancelled && setPack(state));
@@ -82,19 +84,26 @@ export default function App() {
 
   // T029: when online, look for a newer pack in the background. The installed version stays in use;
   // the pilgrim updates from Settings when they choose (FR-009). Failures are ignored.
-  const installedVersion = pack.state === "ready" ? pack.pack.version : null;
+  const installedVersion = pack.state === "ready" && pack.pack.language === language ? pack.pack.version : null;
   useEffect(() => {
     setUpdateAvailable(false);
-    if (!installedVersion || !navigator.onLine) return;
+    if (!installedVersion) return;
     let cancelled = false;
-    fetchManifest()
-      .then((m) => {
-        const latest = m.packs.find((p) => p.language === language);
-        if (!cancelled && latest && latest.version !== installedVersion) setUpdateAvailable(true);
-      })
-      .catch(() => undefined);
+    const check = () => {
+      if (!navigator.onLine) return;
+      fetchManifest()
+        .then((m) => {
+          const latest = m.packs.find((p) => p.language === language);
+          if (!cancelled && latest && latest.version !== installedVersion) setUpdateAvailable(true);
+        })
+        .catch(() => undefined);
+    };
+    check();
+    // Also check when the connection comes back.
+    window.addEventListener("online", check);
     return () => {
       cancelled = true;
+      window.removeEventListener("online", check);
     };
   }, [language, installedVersion]);
 

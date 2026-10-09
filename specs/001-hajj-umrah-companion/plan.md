@@ -124,7 +124,8 @@ interface StepText {
 - `src/data/packs.ts` downloads a pack, checks its size and SHA-256, stores it, and only then records it as installed in IndexedDB. A pack whose stored file has disappeared (cleared site data) is reported as lost, so the app can ask to download again.
 - Storage goes through a small `PackStore` interface: Cache Storage on the web, native files under Capacitor later.
 - "Resume": text packs are a few KB, so an interrupted download is retried from the start (up to 3 attempts) and is never marked installed. Byte-range resume is added with audio packs (T036), where files are large.
-- The text content also stays bundled in the app, so the guide works before the first download; once a pack is installed for the current language, the guide reads from it.
+- The text content also stays bundled in the app, so the guide works before the first download. The guide reads an installed pack only when its journey version is newer than the bundled one, so an old download never hides a correction or a withdrawn approval. Every content change therefore bumps the journey's `version` (content/README.md).
+- Downloads continue when the pilgrim leaves Settings; the old pack's file is deleted after an update. Checks that need the network re-run when the device comes back online.
 
 ## Risks
 

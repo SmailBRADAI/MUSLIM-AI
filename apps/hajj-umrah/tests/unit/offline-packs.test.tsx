@@ -4,6 +4,7 @@ import userEvent from "@testing-library/user-event";
 import { formatSize, OfflinePacks } from "../../src/components/OfflinePacks";
 import * as packs from "../../src/data/packs";
 import type { InstalledPack } from "../../src/data/db";
+import type { DownloadJob } from "../../src/data/packs";
 import type { PackManifestEntry } from "../../src/data/pack-format";
 import { I18nProvider } from "../../src/i18n";
 
@@ -26,6 +27,24 @@ const installed = (language: "ar" | "en" | "ur", version: string): InstalledPack
   updated: "2026-10-09",
   installedAt: "2026-10-09T00:00:00Z",
 });
+
+function fakeJob(language: "ar" | "en" | "ur", promise: Promise<InstalledPack>, share = 0): DownloadJob {
+  const listeners = new Set<(share: number) => void>();
+  let cancelled = false;
+  return {
+    language,
+    promise,
+    share,
+    get cancelled() {
+      return cancelled;
+    },
+    cancel: () => void (cancelled = true),
+    subscribe(listener) {
+      listeners.add(listener);
+      return () => listeners.delete(listener);
+    },
+  };
+}
 
 function renderPacks(onInstalled = vi.fn()) {
   render(
@@ -53,11 +72,9 @@ describe("OfflinePacks (T027)", () => {
 
   it("downloads with progress and reports success", async () => {
     let finish!: () => void;
-    vi.spyOn(packs, "downloadPack").mockImplementation(async (e, options) => {
-      options?.onProgress?.(0.5);
-      await new Promise<void>((resolve) => (finish = resolve));
-      return installed(e.language, e.version);
-    });
+    vi.spyOn(packs, "startDownload").mockImplementation((e) =>
+      fakeJob(e.language, new Promise((resolve) => (finish = () => resolve(installed(e.language, e.version)))), 0.5),
+    );
     const onInstalled = renderPacks();
     await userEvent.click((await screen.findAllByRole("button", { name: "Download" }))[0]);
     expect(screen.getByRole("progressbar", { name: /Downloading English/ })).toHaveAttribute("value", "0.5");
@@ -65,12 +82,14 @@ describe("OfflinePacks (T027)", () => {
       lang === "en" ? { state: "ready", pack: installed("en", "v2"), content: {} as never } : { state: "none" },
     );
     finish();
-    expect(await screen.findByText(/On this device/)).toBeInTheDocument();
+    // Announced to screen readers, and shown on the row.
+    expect(await screen.findByText("English: On this device")).toBeInTheDocument();
+    expect((await screen.findAllByRole("listitem"))[0]).toHaveTextContent("On this device");
     expect(onInstalled).toHaveBeenCalled();
   });
 
   it("shows an error and a retry button when the download fails", async () => {
-    vi.spyOn(packs, "downloadPack").mockRejectedValue(new Error("network"));
+    vi.spyOn(packs, "startDownload").mockImplementation((e) => fakeJob(e.language, Promise.reject(new Error("network"))));
     renderPacks();
     await userEvent.click((await screen.findAllByRole("button", { name: "Download" }))[0]);
     expect(await screen.findByRole("alert")).toHaveTextContent("Download failed");
@@ -95,6 +114,32 @@ describe("OfflinePacks (T027)", () => {
     renderPacks();
     expect(await screen.findByText(/You are offline/)).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: "Download" })).not.toBeInTheDocument();
+  });
+
+  it("does not report an error when the pilgrim cancels", async () => {
+    let fail!: (e: Error) => void;
+    vi.spyOn(packs, "startDownload").mockImplementation((e) => {
+      const job = fakeJob(e.language, new Promise((_, reject) => (fail = reject)));
+      const cancel = job.cancel;
+      job.cancel = () => {
+        cancel();
+        fail(new DOMException("aborted", "AbortError"));
+      };
+      return job;
+    });
+    renderPacks();
+    await userEvent.click((await screen.findAllByRole("button", { name: "Download" }))[0]);
+    await userEvent.click(screen.getByRole("button", { name: "Cancel" }));
+    expect(await screen.findAllByRole("button", { name: "Download" })).toHaveLength(3);
+    expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+  });
+
+  it("shows a download that is still running when the screen opens again", async () => {
+    vi.spyOn(packs, "runningDownload").mockImplementation((lang) =>
+      lang === "en" ? fakeJob("en", new Promise(() => undefined), 0.4) : null,
+    );
+    renderPacks();
+    expect(await screen.findByRole("progressbar", { name: /Downloading English/ })).toHaveAttribute("value", "0.4");
   });
 
   it("formats sizes in the reader's language", () => {

@@ -16,6 +16,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Full history, so the content packs' "updated" date is the last content change, not HEAD.
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 22

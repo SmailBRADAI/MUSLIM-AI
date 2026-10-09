@@ -93,6 +93,29 @@ describe("downloadPack (T026)", () => {
   });
 });
 
+describe("updates and cancelling (T026)", () => {
+  it("deletes the old pack's file after an update", async () => {
+    const store = memoryStore();
+    const first = await downloadPack(await entry(), { store, fetcher: respond(bytes) as typeof fetch });
+    const v2 = { ...(await entry()), version: "v2", url: "packs/en/v2/content.json" };
+    await downloadPack(v2, { store, fetcher: respond(bytes) as typeof fetch });
+    expect(store.files.has(first.url)).toBe(false);
+    expect((await db.getInstalledPack("en"))?.version).toBe("v2");
+  });
+
+  it("installs nothing when cancelled after the transfer finished", async () => {
+    const controller = new AbortController();
+    const store = memoryStore();
+    const fetcher = (async () => {
+      const response = await respond(bytes)();
+      queueMicrotask(() => controller.abort());
+      return response;
+    }) as typeof fetch;
+    await expect(downloadPack(await entry(), { store, fetcher, signal: controller.signal })).rejects.toThrow();
+    expect(await db.getInstalledPack("en")).toBeNull();
+  });
+});
+
 describe("loadPack (T026)", () => {
   it("reports no pack before any download", async () => {
     expect((await loadPack("ur", memoryStore())).state).toBe("none");

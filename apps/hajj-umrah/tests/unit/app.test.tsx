@@ -143,10 +143,12 @@ describe("App", () => {
     await db.setLanguage("en");
     const pack = { id: "en", language: "en", version: "v1", url: "u", sha256: "x", sizeBytes: 7200, updated: "2026-10-09", installedAt: "" } as const;
     const texts = { ...enUmrah, "umrah.ihram": { ...enUmrah["umrah.ihram"], title: "Ihram (from pack)" } };
+    // A pack newer than the copy bundled with the app.
+    const newer = { ...(umrah as Journey), version: "99.0.0" };
     const load = vi.spyOn(packs, "loadPack").mockResolvedValue({
       state: "ready",
       pack,
-      content: { format: 1, language: "en", version: "v1", journeys: [umrah as Journey], texts: { umrah: texts as unknown as StepTexts } },
+      content: { format: 1, language: "en", version: "v1", journeys: [newer], texts: { umrah: texts as unknown as StepTexts } },
     });
     render(<App />);
     expect(await screen.findByText("Your guide is ready offline")).toBeInTheDocument();
@@ -190,6 +192,22 @@ describe("App", () => {
     load.mockRestore();
     online.mockRestore();
     manifest.mockRestore();
+  });
+
+  it("prefers the app's bundled content over an older or equal installed pack (constitution I)", async () => {
+    await db.setLanguage("en");
+    const pack = { id: "en", language: "en", version: "v1", url: "u", sha256: "x", sizeBytes: 7200, updated: "2026-10-09", installedAt: "" } as const;
+    const texts = { ...enUmrah, "umrah.ihram": { ...enUmrah["umrah.ihram"], title: "Ihram (stale pack)" } };
+    const load = vi.spyOn(packs, "loadPack").mockResolvedValue({
+      state: "ready",
+      pack,
+      content: { format: 1, language: "en", version: "v1", journeys: [umrah as Journey], texts: { umrah: texts as unknown as StepTexts } },
+    });
+    render(<App />);
+    await screen.findByText("Your guide is ready offline");
+    await userEvent.click(screen.getByRole("button", { name: /Umrah rituals/ }));
+    expect(screen.getByRole("heading", { level: 1, name: "Ihram" })).toBeInTheDocument();
+    load.mockRestore();
   });
 
   it("asks to download again when the pack's files were cleared (T028, T030)", async () => {

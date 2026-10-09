@@ -92,7 +92,11 @@ export async function downloadPack(entry: PackManifestEntry, options: DownloadOp
       const bytes = await fetchBytes(url, entry.bytes, onProgress, fetcher, signal);
       if (bytes.length !== entry.bytes) throw new PackVerificationError(`expected ${entry.bytes} bytes, got ${bytes.length}`);
       if ((await sha256Hex(bytes)) !== entry.sha256) throw new PackVerificationError("checksum does not match");
+      // A cancel after the transfer must still leave nothing installed.
+      signal?.throwIfAborted();
+      const previous = await db.getInstalledPack(entry.language);
       await store.put(url, new TextDecoder().decode(bytes));
+      signal?.throwIfAborted();
       const installed: InstalledPack = {
         id: entry.language,
         language: entry.language,
@@ -105,6 +109,7 @@ export async function downloadPack(entry: PackManifestEntry, options: DownloadOp
       };
       // Recorded last: a pack is never marked installed unless its verified file is stored.
       await db.saveInstalledPack(installed);
+      if (previous && previous.url !== url) await store.delete(previous.url).catch(() => undefined);
       await requestPersistentStorage();
       return installed;
     } catch (error) {
@@ -113,6 +118,55 @@ export async function downloadPack(entry: PackManifestEntry, options: DownloadOp
     }
   }
   throw lastError;
+}
+
+export interface DownloadJob {
+  language: Language;
+  promise: Promise<InstalledPack>;
+  cancel(): void;
+  readonly cancelled: boolean;
+  share: number;
+  /** Called with progress from 0 to 1; returns an unsubscribe function. */
+  subscribe(listener: (share: number) => void): () => void;
+}
+
+const inFlight = new Map<Language, DownloadJob>();
+
+/**
+ * Starts a download that keeps running when the pilgrim leaves the screen. A second call for the same
+ * language returns the running download instead of starting another.
+ */
+export function startDownload(entry: PackManifestEntry, options: Omit<DownloadOptions, "signal" | "onProgress"> = {}): DownloadJob {
+  const running = inFlight.get(entry.language);
+  if (running) return running;
+  const controller = new AbortController();
+  const listeners = new Set<(share: number) => void>();
+  const job: DownloadJob = {
+    language: entry.language,
+    share: 0,
+    cancel: () => controller.abort(),
+    get cancelled() {
+      return controller.signal.aborted;
+    },
+    subscribe(listener) {
+      listeners.add(listener);
+      return () => listeners.delete(listener);
+    },
+    promise: downloadPack(entry, {
+      ...options,
+      signal: controller.signal,
+      onProgress: (share) => {
+        job.share = share;
+        listeners.forEach((listener) => listener(share));
+      },
+    }).finally(() => inFlight.delete(entry.language)),
+  };
+  inFlight.set(entry.language, job);
+  return job;
+}
+
+export function runningDownload(language: Language) {
+  return inFlight.get(language) ?? null;
 }
 
 export type PackState =

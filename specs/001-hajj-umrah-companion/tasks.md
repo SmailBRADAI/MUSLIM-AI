@@ -48,7 +48,7 @@
 ## Phase 5: User story 3 — Prepare for offline use (P1)
 
 - [x] T025 [US3] `scripts/build-packs.ts` emits `public/packs/{lang}/{version}/` and a `manifest.json` with sizes
-- [x] T026 [US3] `src/data/packs.ts`: download to Cache Storage with resume, verify, then mark installed; request `navigator.storage.persist()`
+- [x] T026 [US3] `src/data/packs.ts`: download to Cache Storage (retry from the start for text packs; byte-range resume with audio, see plan), verify, then mark installed; request `navigator.storage.persist()`
 - [x] T027 [US3] Download screen (the "Offline content" section of Settings): per-pack size, audio off by default, progress, cancel, errors
 - [x] T028 [US3] "Ready offline" card on Home from installed pack metadata (language, size, version date)
 - [x] T029 [US3] Online-only update check that never blocks the installed version
