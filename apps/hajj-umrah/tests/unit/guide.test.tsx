@@ -146,3 +146,24 @@ describe("Hajj day view (T032)", () => {
     expect(screen.queryByText(/Dhu al-Hijjah/)).not.toBeInTheDocument();
   });
 });
+
+describe("Ruling notes (T033)", () => {
+  it("shows other schools' positions in the details, after the step's own ruling", async () => {
+    const noted: Journey = { ...journey, stages: [{ id: "s", order: 1, steps: [step("t.one", 1, { rulingNote: "otherSchools" })] }] };
+    render(
+      <I18nProvider language="en">
+        <Guide
+          journey={noted}
+          texts={{ "t.one": { ...text("One"), otherSchools: "The Hanafi school holds otherwise." } }}
+          completed={[]}
+          onStepDone={async () => undefined}
+          saveFailed={false}
+        />
+      </I18nProvider>,
+    );
+    expect(screen.queryByText("The Hanafi school holds otherwise.")).not.toBeInTheDocument();
+    await userEvent.click(screen.getByRole("button", { name: /Details/ }));
+    expect(screen.getByRole("heading", { level: 3, name: "Other schools" })).toBeInTheDocument();
+    expect(screen.getByText("The Hanafi school holds otherwise.")).toBeInTheDocument();
+  });
+});

@@ -88,6 +88,9 @@ for (const { button, ui, texts, dir } of languages) {
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
     }
     await expect(page.locator(".stage-now")).toHaveText(`${ui.days["10"].date} · ${ui.days["10"].name}`);
+    // T033: the Hajj Sa'i notes the other view on the Tamattu' pilgrim's second Sa'i.
+    await expect(page.getByRole("heading", { level: 3, name: ui.otherSchools })).toBeVisible();
+    await expect(page.getByText(texts["hajj-tamattu.sai"].otherSchools)).toBeVisible();
     // Every step button keeps a 44px touch target inside the day groups (constitution IV).
     for (const box of await page.locator(".stage-groups .steps button").evaluateAll((els) => els.map((e) => e.getBoundingClientRect()))) {
       expect(box.width).toBeGreaterThanOrEqual(44);

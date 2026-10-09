@@ -62,7 +62,7 @@
 
 - [x] T031 [US4] Content for `hajj-tamattu`, `hajj-qiran`, `hajj-ifrad` by day (8–13 Dhu al-Hijjah), draft status; Hajj stages are a day or a named part (`kind`: Tamattu' Umrah, arrival, farewell)
 - [x] T032 [US4] Day view grouping steps by stage; Tamattu' starts with the Umrah; Home's journey cards open the chosen journey (Hajj asks the type)
-- [ ] T033 [US4] Ruling notes for steps where schools differ
+- [x] T033 [US4] Ruling notes for steps where schools differ (other schools as `otherSchools` notes; where Ibn Baz and Ibn Al-Uthaymeen differ on a detail, the details give both views)
 
 ## Phase 7: User story 5 — Supplications (P2)
 

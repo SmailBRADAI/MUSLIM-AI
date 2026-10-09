@@ -63,3 +63,39 @@ describe("Hajj journeys (T031)", () => {
     expect([has("hajj-tamattu"), has("hajj-qiran"), has("hajj-ifrad")]).toEqual([true, true, false]);
   });
 });
+
+describe("Ruling notes (T033)", () => {
+  const LANGS = ["ar", "en", "ur"] as const;
+  const noted = HAJJ.flatMap((id) => orderedSteps(journey(id)).filter((s) => s.rulingNote).map((s) => ({ id, step: s })));
+
+  it("gives other schools' positions on the steps where they differ, in every language, with a source", () => {
+    const suffixes = new Set(noted.map(({ step }) => step.id.split(".")[1]));
+    for (const s of ["arafah", "muzdalifah", "mina-nights", "jamarat-11", "jamarat-12", "tawaf-wada", "sai", "tawaf-qudum", "umrah-sai"]) {
+      expect(suffixes.has(s), s).toBe(true);
+    }
+    for (const { id, step } of noted) {
+      expect(step.rulingNote).toBe("otherSchools");
+      expect(step.meta.source).toContain("ابن قدامة، المغني، كتاب الحج");
+      for (const lang of LANGS) {
+        const text = files.texts[lang][`${id}.json`][step.id] as Record<string, unknown>;
+        expect(String(text.otherSchools ?? "").trim(), `${step.id} ${lang}`).not.toBe("");
+      }
+    }
+  });
+
+  it("shows both sheikhs' views where they differ on a detail (the weak leaving Muzdalifah)", () => {
+    const names = { ar: ["ابن باز", "ابن عثيمين"], en: ["Ibn Baz", "Ibn Al-Uthaymeen"], ur: ["ابن باز", "ابن عثیمین"] };
+    for (const id of HAJJ) {
+      const step = orderedSteps(journey(id)).find((s) => s.id === `${id}.muzdalifah`)!;
+      expect(step.meta.source.some((s) => s.includes("أسماء بنت أبي بكر"))).toBe(true);
+      for (const lang of LANGS) {
+        const details = String(files.texts[lang][`${id}.json`][step.id].details);
+        for (const name of names[lang]) expect(details, `${id} ${lang}`).toContain(name);
+      }
+    }
+  });
+
+  it("uses one ruling label wherever the two sheikhs agree on it", () => {
+    for (const id of HAJJ) expect(orderedSteps(journey(id)).filter((s) => s.rulingViews)).toEqual([]);
+  });
+});
