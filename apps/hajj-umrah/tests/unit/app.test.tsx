@@ -48,12 +48,12 @@ describe("App", () => {
   });
 
   it("shows the Tawaf arrow counter-clockwise in every language", async () => {
-    await db.saveProgress({ journeyId: "umrah", completedStepIds: ["umrah.ihram"], updatedAt: "2026-10-09T00:00:00Z" });
+    await db.saveProgress({ journeyId: "umrah", completedStepIds: ["umrah.ihram", "umrah.ihram-rules"], updatedAt: "2026-10-09T00:00:00Z" });
     render(<App />);
     for (const name of ["العربية", "English", "اردو"]) {
       await userEvent.click(await screen.findByRole("button", { name }));
       await userEvent.click(screen.getAllByRole("button", { name: /دليلي|My guide|میری رہنمائی/ })[0]);
-      expect(document.querySelector(".direction-arrow")?.textContent).toBe("↺");
+      expect(document.querySelector(".kaaba-diagram")).toHaveAttribute("data-direction", "counterclockwise");
     }
   });
 
@@ -62,13 +62,13 @@ describe("App", () => {
     await userEvent.click(await screen.findByRole("button", { name: "English" }));
     await userEvent.click(screen.getByRole("button", { name: /Umrah rituals/ }));
     expect(screen.getByRole("heading", { level: 1, name: "Ihram" })).toBeInTheDocument();
-    expect(screen.getByText("1 / 5")).toBeInTheDocument();
-    expect(screen.getByText("Next: Tawaf")).toBeInTheDocument();
+    expect(screen.getByText("1 / 6")).toBeInTheDocument();
+    expect(screen.getByText("Next: What ihram forbids and allows")).toBeInTheDocument();
 
     await userEvent.click(screen.getByRole("button", { name: /Mark complete/ }));
-    expect(await screen.findByRole("heading", { level: 1, name: "Tawaf" })).toBeInTheDocument();
-    expect(screen.getByText("2 / 5")).toBeInTheDocument();
-    expect(screen.getByText("20%")).toBeInTheDocument();
+    expect(await screen.findByRole("heading", { level: 1, name: "What ihram forbids and allows" })).toBeInTheDocument();
+    expect(screen.getByText("2 / 6")).toBeInTheDocument();
+    expect(screen.getByText("17%")).toBeInTheDocument();
     expect((await db.getProgress("umrah")).completedStepIds).toEqual(["umrah.ihram"]);
   });
 
@@ -83,7 +83,7 @@ describe("App", () => {
 
     // Tapping Next on a done step moves on and never un-marks it.
     await userEvent.click(screen.getByRole("button", { name: /^Next/ }));
-    expect(screen.getByRole("heading", { level: 1, name: "Tawaf" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 1, name: "What ihram forbids and allows" })).toBeInTheDocument();
     expect((await db.getProgress("umrah")).completedStepIds).toEqual(["umrah.ihram"]);
 
     await userEvent.click(screen.getByRole("button", { name: "Previous step" }));
@@ -95,7 +95,7 @@ describe("App", () => {
   it("shows details, common mistakes, other schools and sources from the content", async () => {
     await db.saveProgress({
       journeyId: "umrah",
-      completedStepIds: ["umrah.ihram", "umrah.tawaf", "umrah.tawaf-prayer"],
+      completedStepIds: ["umrah.ihram", "umrah.ihram-rules", "umrah.tawaf", "umrah.tawaf-prayer"],
       updatedAt: "2026-10-09T00:00:00Z",
     });
     await db.setLanguage("en");
@@ -110,15 +110,15 @@ describe("App", () => {
 
   it("shows the real current step and progress on Home (T022)", async () => {
     await db.setLanguage("en");
-    await db.saveProgress({ journeyId: "umrah", completedStepIds: ["umrah.ihram", "umrah.tawaf"], updatedAt: "2026-10-09T00:00:00Z" });
+    await db.saveProgress({ journeyId: "umrah", completedStepIds: ["umrah.ihram", "umrah.ihram-rules", "umrah.tawaf"], updatedAt: "2026-10-09T00:00:00Z" });
     render(<App />);
     expect(await screen.findByText("Current step: Two rak'ahs after Tawaf")).toBeInTheDocument();
-    expect(screen.getByText("40%")).toBeInTheDocument();
+    expect(screen.getByText("50%")).toBeInTheDocument();
   });
 
   it("says when every step is done", async () => {
     await db.setLanguage("en");
-    const all = ["umrah.ihram", "umrah.tawaf", "umrah.tawaf-prayer", "umrah.sai", "umrah.halq"];
+    const all = ["umrah.ihram", "umrah.ihram-rules", "umrah.tawaf", "umrah.tawaf-prayer", "umrah.sai", "umrah.halq"];
     await db.saveProgress({ journeyId: "umrah", completedStepIds: all, updatedAt: "2026-10-09T00:00:00Z" });
     render(<App />);
     expect(await screen.findByText("All steps are done")).toBeInTheDocument();

@@ -104,7 +104,7 @@ describe("Step places (T047)", () => {
   const places = (id: string) => orderedSteps(journey(id)).map((s) => s.place);
 
   it("follows the Umrah from the miqat through the Haram", () => {
-    expect(places("umrah")).toEqual(["miqat", "mataf", "maqam", "masa", "makkah"]);
+    expect(places("umrah")).toEqual(["miqat", "miqat", "mataf", "maqam", "masa", "makkah"]);
   });
 
   it("puts each Hajj step where it is performed", () => {

@@ -28,6 +28,7 @@
     }
   },
   "$defs": {
+    "diagram": { "enum": ["tawaf", "sai", "miqat", "ihram-dress", "ihram-rules"] },
     "meta": {
       "type": "object",
       "required": ["source", "status", "version"],
@@ -64,7 +65,13 @@
         "rulingNote": { "type": "string", "description": "Other schools' positions, informational only" },
         "supplicationIds": { "type": "array", "items": { "type": "string" } },
         "audioId": { "type": "string" },
-        "diagram": { "enum": ["tawaf", "sai"] },
+        "diagram": {
+          "description": "One illustration, or several shown in this order. The caption of the first is the text's diagramLabel; the labels inside and the later captions are the text's diagramItems",
+          "oneOf": [
+            { "$ref": "#/$defs/diagram" },
+            { "type": "array", "items": { "$ref": "#/$defs/diagram" }, "minItems": 1, "uniqueItems": true }
+          ]
+        },
         "place": {
           "enum": ["miqat", "mataf", "maqam", "masa", "makkah", "mina", "jamarat", "muzdalifah", "arafah"],
           "description": "Where the step is performed, shown as the Guide's \"you are here\" visual: maqam is behind Maqam Ibrahim (the two rak'ahs after Tawaf), masa is between Safa and Marwah, makkah is elsewhere in Makkah"

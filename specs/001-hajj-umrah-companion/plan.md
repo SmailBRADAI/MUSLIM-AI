@@ -93,7 +93,7 @@ interface Step {
   rulingNote?: string;       // i18n key for other schools' positions, informational only
   supplicationIds: string[];
   audioId?: string;
-  diagram?: "tawaf" | "sai";
+  diagram?: Diagram | Diagram[]; // "tawaf" | "sai" | "miqat" | "ihram-dress" | "ihram-rules" (T049)
   place: Place;              // where the step is performed (T047)
   meta: ContentMeta;
   // title, instruction, details, mistakes come from i18n/{lang} by step id
@@ -114,7 +114,8 @@ interface StepText {
   instruction: string;
   details: string;
   mistakes: string;
-  diagramLabel?: string; // required when the step has a diagram; what the diagram shows
+  diagramLabel?: string; // required when the step has a diagram; caption of its first diagram
+  diagramItems?: Record<string, string>; // reviewed labels inside the diagrams (T049); required keys per diagram in src/data/diagrams.ts
   review: { status: ReviewStatus; reviewer?: string; reviewedAt?: string };
 }
 ```
@@ -151,6 +152,14 @@ interface StepText {
 - `PlaceVisual` (`src/components/PlaceVisual.tsx`) is a compact `<figure>` at the top of the step, above the instruction card, with no network or map tiles: an inline SVG route of the places in the order a pilgrim meets them (Miqat, Makkah, Jamarat, Mina, Muzdalifah, Arafah), and, for a place inside Masjid al-Haram (Mataf, Maqam, Mas'a), an inset of the Kaaba, the Mataf, Maqam Ibrahim and the Mas'a with Safa and Marwah. The step's place is filled and carries a pin and a bold, underlined name; the others are muted, so colour is not the only signal.
 - Geography does not mirror with text direction: the drawing is `dir="ltr"` in every language, like the Tawaf and Sa'i diagrams; the names are HTML text under the drawing (they scale with text size and wrap instead of scrolling sideways). The graphic is `role="img"` with an `aria-label` naming the highlighted place; the visible caption ("أنا في المطاف" / "I am in the Mataf" / "میں مطاف میں ہوں") is the `figcaption`.
 - Place names and captions are UI strings in `src/i18n/{ar,en,ur}.json` (`places.<place>.name`, `.here`), with one caption per place so each language can use its own preposition. The schematic shows order and grouping, not distances or exact positions; the offline map (T037) is where real positions belong.
+
+### Booklet enrichment and illustrations (T049)
+
+- **Source.** The booklet «صفة العمرة المصورة، خطوة... خطوة» (Ali Badawi, from the words of Ibn Baz, Dar Nour al-Islam, April 2018) is a secondary compilation. Its content is extracted page by page into `content/sources/badawi-sifat-al-umrah.md`, each point marked as covered, differing or missing against the current Umrah content. Only missing points the booklet clearly states are added (to details and mistakes of the matching step, in ar, en and ur), the step's `sources` cite the booklet and the primary sources it names, the status stays `draft`, and the journey and step versions are bumped. Differences are never silently overwritten: the existing text stays and the difference is listed in the notes file for the content reviewer.
+- **New step** `umrah.ihram-rules` (order 2, ruling `wajib`: the booklet says the prohibitions "must be avoided", place `miqat`): the prohibitions of ihram and the permitted things, so later steps move down by one.
+- **Illustrations** are original inline SVG React components (`src/components/Illustrations.tsx`; Tawaf and Sa'i stay in `Diagrams.tsx`): `MiqatMap`, `IhramDress`, `IhramRules`, plus an extended `TawafDiagram` (Hijr, Black Stone, Yemeni Corner, the invalid path inside the Hijr) and `SaiDiagram` (the two green markers and the zone where men run). No image of the booklet is copied or traced; figures are abstract with no faces. Each is a `<figure>` with a visible `<figcaption>`, the drawing is `role="img"` with an `aria-label` and `dir="ltr"` (geography and the Tawaf direction do not mirror), and status is never colour alone (shapes, numbers and text labels). Colours come from `src/index.css`.
+- **Labels.** Names of places (Safa, Marwah, Black Stone, Yemeni Corner, Hijr) are UI strings (`diagrams.*`). Labels with religious content (who uses which miqat, what is prohibited or permitted, men's and women's dress, the invalid path in the Hijr) are reviewed step text: `diagramLabel` is the caption of the step's first diagram and `diagramItems` holds the other captions and labels. `src/data/diagrams.ts` lists the diagram ids and the `diagramItems` keys each one requires; the validator reports a missing key per language. A step may list several diagrams (`diagram` is an id or an array); the Guide shows them in order in the instruction card.
+- **Tests.** Unit: each component per language (fixed `dir`, caption, accessible name, labels from the right source), content validation of the new rules, the content itself (the five miqats, the new step). E2E with axe on the miqat, Tawaf and Sa'i illustrations in Arabic, English and Urdu, and no horizontal scroll at a narrow width.
 
 ### Live mode (T048)
 

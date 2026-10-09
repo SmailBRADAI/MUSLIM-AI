@@ -79,7 +79,7 @@ describe("Diagrams (T021)", () => {
       </I18nProvider>,
     );
     expect(container.querySelector(".kaaba-diagram")).toHaveAttribute("dir", "ltr");
-    expect(container.querySelector(".direction-arrow")?.textContent).toBe("↺");
+    expect(container.querySelector(".kaaba-diagram")).toHaveAttribute("data-direction", "counterclockwise");
 
     const sai = container.querySelector(".sai-diagram")!;
     expect(sai).toHaveAttribute("dir", "ltr");

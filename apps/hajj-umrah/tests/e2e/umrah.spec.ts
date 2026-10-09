@@ -8,7 +8,7 @@ import en from "../../src/i18n/en.json" with { type: "json" };
 import ur from "../../src/i18n/ur.json" with { type: "json" };
 import { onboard } from "./helpers";
 
-const STEPS = ["umrah.ihram", "umrah.tawaf", "umrah.tawaf-prayer", "umrah.sai", "umrah.halq"] as const;
+const STEPS = ["umrah.ihram", "umrah.ihram-rules", "umrah.tawaf", "umrah.tawaf-prayer", "umrah.sai", "umrah.halq"] as const;
 const languages = [
   { button: "العربية", ui: ar, texts: arTexts },
   { button: "English", ui: en, texts: enTexts },
