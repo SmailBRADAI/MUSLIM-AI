@@ -41,7 +41,7 @@
 - [x] T021 [P] [US1] `TawafDiagram` and `SaiDiagram` components with fixed direction in all languages
 - [x] T022 [US1] Home "Continue my journey" shows real current step and progress
 - [x] T023 [US1] Previous step and step list navigation; out-of-order completion allowed
-- [ ] T024 [P] [US1] Unit tests for progress logic; e2e: full Umrah offline in each language
+- [x] T024 [P] [US1] Unit tests for progress logic; e2e: full Umrah offline in each language
 
 **Checkpoint**: MVP — the spec's SC-001 and SC-004 pass with draft content.
 
