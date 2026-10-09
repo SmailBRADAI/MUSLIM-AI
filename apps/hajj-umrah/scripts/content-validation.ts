@@ -42,8 +42,16 @@ export function validateContent(files: ContentFiles): string[] {
     const journey = data as Journey;
     unique(journeyIds, "journey", journey.id, file);
 
+    const hajj = journey.type !== "umrah";
     for (const stage of journey.stages) {
       unique(stageIds, "stage", stage.id, file);
+      // The Guide groups Hajj steps by day (T032): every Hajj stage is one day or one named part, never both.
+      if (hajj && (stage.day === undefined) === (stage.kind === undefined)) {
+        errors.push(`${file}: stage "${stage.id}" needs exactly one of day or kind`);
+      }
+      if (!hajj && (stage.day !== undefined || stage.kind !== undefined)) {
+        errors.push(`${file}: stage "${stage.id}" has a Hajj day or kind in an Umrah journey`);
+      }
 
       for (const step of stage.steps) {
         unique(stepIds, "step", step.id, file);

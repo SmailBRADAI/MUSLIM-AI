@@ -97,6 +97,14 @@ interface Step {
   // title, instruction, details, mistakes come from i18n/{lang} by step id
 }
 
+interface Stage {
+  id: string;
+  order: number;
+  day?: number;              // Hajj: Dhu al-Hijjah day, 8–13
+  kind?: "umrah" | "arrival" | "farewell"; // Hajj: a stage that is not one day; exactly one of day/kind
+  steps: Step[];
+}
+
 // content/i18n/{lang}/{journey}.json, keyed by step id. Each translation is reviewed on its own
 // (constitution I); the app shows "reviewed" only when step meta AND this text are approved.
 interface StepText {
@@ -126,6 +134,13 @@ interface StepText {
 - "Resume": text packs are a few KB, so an interrupted download is retried from the start (up to 3 attempts) and is never marked installed. Byte-range resume is added with audio packs (T036), where files are large.
 - The text content also stays bundled in the app, so the guide works before the first download. The guide reads an installed pack only when its journey version is newer than the bundled one, so an old download never hides a correction or a withdrawn approval. Every content change therefore bumps the journey's `version` (content/README.md).
 - Downloads continue when the pilgrim leaves Settings; the old pack's file is deleted after an update. Checks that need the network re-run when the device comes back online.
+
+### Hajj journeys (T031–T033)
+
+- One journey file per type: `hajj-tamattu`, `hajj-qiran`, `hajj-ifrad`. Step ids are unique across journeys, so each journey has its own steps and texts; progress is already stored per journey.
+- Tamattu' begins with its own Umrah stage (`kind: "umrah"`), whose texts reuse the Umrah guide's wording where it applies, with the Tamattu' intention and shortening (rather than shaving) before the Hajj. Qiran and Ifrad begin with arrival in Makkah (`kind: "arrival"`): ihram, Tawaf al-Qudum and the optional early Sa'i. All three end with the Farewell Tawaf (`kind: "farewell"`).
+- The Guide shows the stage of the open step (day number and name, or the part's name) and groups the step list by stage. Stage names are UI strings (`src/i18n`), not content, since they only name the day.
+- Ruling labels follow Ibn Baz and Ibn Al-Uthaymeen. Where the two differ on a detail rather than the label, the step's details state both views; `rulingViews` is used only when their labels differ. Other schools' positions go in the step's `otherSchools` note (`rulingNote`), shown under "Other schools" in the details.
 
 ### Test site
 

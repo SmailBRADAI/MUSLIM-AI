@@ -120,7 +120,7 @@ The pilgrim searches steps and supplications in their language, offline.
 ### Key entities
 
 - **Journey**: type (umrah, hajj-tamattu, hajj-qiran, hajj-ifrad), ordered stages.
-- **Stage**: a group of steps, e.g. a Hajj day.
+- **Stage**: a group of steps. In Hajj, each stage is either one day (8 to 13 Dhu al-Hijjah) or a named part that is not a single day: the Umrah of Tamattu', arrival in Makkah (Qiran, Ifrad), or the farewell.
 - **Step**: id, order, title, instruction, details, common mistakes, ruling, related supplication ids, audio id, diagram, per-language text.
 - **Supplication**: Arabic text, transliteration, translations, source, grading, specific-to-step or general.
 - **ContentMeta**: source reference, review status (draft, in-review, approved), reviewer, reviewed date, version.

@@ -113,6 +113,22 @@ describe("validateContent", () => {
     expect(validateContent({ ...base, texts: { ...base.texts, en } })).toContain('i18n/en/umrah.json: "umrah.tawf" matches no step in any journey');
   });
 
+  it("requires each Hajj stage to be one day or one named part (T031)", () => {
+    const base = files();
+    const journey = structuredClone(base.journeys["umrah.json"]) as { type: string; stages: { day?: number; kind?: string }[] };
+    journey.type = "hajj-ifrad";
+    const check = () => validateContent({ ...base, journeys: { "umrah.json": journey } });
+    expect(check()).toContain('umrah.json: stage "umrah.main" needs exactly one of day or kind');
+    journey.stages[0].day = 9;
+    expect(check()).toEqual([]);
+    journey.stages[0].kind = "farewell";
+    expect(check()).toContain('umrah.json: stage "umrah.main" needs exactly one of day or kind');
+    delete journey.stages[0].day;
+    expect(check()).toEqual([]);
+    journey.type = "umrah";
+    expect(check()).toContain('umrah.json: stage "umrah.main" has a Hajj day or kind in an Umrah journey');
+  });
+
   it("rejects duplicate step ids across journey files", () => {
     const base = files();
     const errors = validateContent({

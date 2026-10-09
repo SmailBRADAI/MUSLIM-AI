@@ -1,0 +1,178 @@
+{
+  "hajj-tamattu.umrah-ihram": {
+    "title": "Ihram for Umrah (Tamattu')",
+    "instruction": "Before the miqat, take a bath, put perfume on your body, and wear the two ihram sheets (a woman wears any modest clothing). At the miqat, make the intention for Umrah, to be followed by Hajj, and begin the Talbiyah.",
+    "details": "Tamattu' means entering ihram for Umrah in the months of Hajj, leaving ihram after it, then entering ihram for Hajj in the same year; it requires a sacrifice (hady). Ihram is a pillar: the Umrah is not valid without it, and it must be made at the miqat. If you fear illness or another obstacle may stop you, make a condition when you form the intention. The Talbiyah is a sunnah; men say it aloud and women quietly, until the Umrah Tawaf begins.",
+    "mistakes": "Passing the miqat without ihram, especially on a plane; thinking ihram is only the clothing, without the intention; uncovering the right shoulder from the start of ihram, when it is only for the Tawaf.",
+    "review": {
+      "status": "draft"
+    }
+  },
+  "hajj-tamattu.umrah-tawaf": {
+    "title": "Tawaf",
+    "instruction": "Start at the Black Stone, keep the Kaaba on your left, and walk seven full rounds. Each round starts and ends at the Black Stone.",
+    "details": "Tawaf is a pillar of the Umrah. Ibn Baz held that wudu is a condition for it; Ibn Al-Uthaymeen inclined to the view that it is not a condition, while urging wudu to be safe. So make wudu before Tawaf. Touch the Black Stone, or point to it if you cannot without pushing; touch the Yemeni Corner if you easily can, without pointing to it. Men uncover the right shoulder for this whole Tawaf and walk briskly in the first three rounds. No round has its own fixed supplication; supplicate with what you wish.",
+    "mistakes": "Walking inside the Hijr (the semicircle by the Kaaba); pushing and hurting others to kiss the Black Stone; kissing the Yemeni Corner or wiping the Kaaba's walls; walking briskly in every round; reading a booklet with a set prayer for each round.",
+    "diagramLabel": "Keep the Kaaba on your left and walk counter-clockwise; each round starts at the Black Stone.",
+    "review": {
+      "status": "draft"
+    }
+  },
+  "hajj-tamattu.umrah-tawaf-prayer": {
+    "title": "Two rak'ahs after Tawaf",
+    "instruction": "After the Tawaf, cover your right shoulder and pray two rak'ahs behind the Station of Ibrahim if you easily can, otherwise anywhere in the mosque.",
+    "details": "These two rak'ahs are a sunnah. After Al-Fatihah, it is sunnah to recite Al-Kafirun in the first and Al-Ikhlas in the second. Then it is sunnah to drink Zamzam water, and to touch the Black Stone before going to the Mas'a if you easily can.",
+    "mistakes": "Insisting on praying right behind the Station in a crowd and blocking people doing Tawaf; making the prayer long or sitting for a long time in the Tawaf area; keeping the shoulder uncovered in the prayer.",
+    "review": {
+      "status": "draft"
+    }
+  },
+  "hajj-tamattu.umrah-sai": {
+    "title": "Sa'i between Safa and Marwah",
+    "instruction": "Climb Safa and face the Kaaba, then walk to Marwah: that is one round. Walking back to Safa is the second. Complete seven rounds, ending at Marwah.",
+    "details": "Sa'i is a pillar of the Umrah according to Ibn Baz and Ibn Al-Uthaymeen. It starts at Safa and ends at Marwah. Men walk fast between the two green markers; women walk. Ritual purity is not required for it, but it is better. Standing on Safa and Marwah to remember Allah and supplicate is a sunnah.",
+    "mistakes": "Starting at Marwah; counting there and back as one round; hurrying along the whole Mas'a instead of only between the green markers; women hurrying between the markers.",
+    "diagramLabel": "Safa to Marwah is one round, Marwah to Safa another. Between the two green markers men walk fast; women walk.",
+    "review": {
+      "status": "draft"
+    }
+  },
+  "hajj-tamattu.umrah-taqsir": {
+    "title": "Shortening the hair: end of the Umrah",
+    "instruction": "After Sa'i, men shorten the hair of the whole head; women cut a fingertip's length from the ends of their hair. Your Umrah is complete, and you stay out of ihram until the 8th of Dhu al-Hijjah.",
+    "details": "Shaving or shortening is obligatory (wajib) in the Umrah. For the Tamattu' pilgrim, shortening is better here when the Hajj is near, so that hair remains to be shaved on the Day of Sacrifice; the Prophet ﷺ told his companions who had performed Umrah to shorten their hair. Shortening must cover the whole head. Everything forbidden by ihram then becomes allowed until you enter ihram for Hajj.",
+    "mistakes": "Cutting a few hairs from one side only; leaving ihram before shortening; a woman shaving her head.",
+    "review": {
+      "status": "draft"
+    }
+  },
+  "hajj-tamattu.ihram": {
+    "title": "Ihram for Hajj",
+    "instruction": "On the morning of the 8th, take a bath, put perfume on your body and wear the ihram clothing where you are staying, then make the intention for Hajj and begin the Talbiyah.",
+    "details": "Ihram is a pillar of Hajj. The Tamattu' pilgrim enters ihram from the place where they are staying, without going back to the miqat or to the Haram mosque: the companions entered ihram for Hajj from where they were camped, at al-Abtah. If you fear illness or another obstacle may stop you, make a condition when you form the intention. Keep saying the Talbiyah until you stone Jamrat al-Aqabah on the 10th.",
+    "mistakes": "Going back to the miqat, or insisting on entering ihram in the Haram mosque; thinking ihram is only the clothing, without the intention.",
+    "review": {
+      "status": "draft"
+    }
+  },
+  "hajj-tamattu.mina-tarwiyah": {
+    "title": "Going to Mina (Day of Tarwiyah)",
+    "instruction": "After entering ihram, go to Mina before noon. Pray Dhuhr, Asr, Maghrib, Isha and the next Fajr there, each at its own time, shortening the four-rak'ah prayers to two without combining them.",
+    "details": "Going to Mina on the 8th and spending the night before Arafah there is a sunnah, as the Prophet ﷺ did. Whoever goes straight to Arafah has left a sunnah but owes nothing. Keep saying the Talbiyah often.",
+    "mistakes": "Thinking that the night in Mina before Arafah is obligatory; combining the prayers in Mina; shortening Maghrib or Fajr, which are never shortened.",
+    "review": {
+      "status": "draft"
+    }
+  },
+  "hajj-tamattu.arafah": {
+    "title": "Standing at Arafah",
+    "instruction": "After sunrise, go to Arafah. At Dhuhr time, pray Dhuhr and Asr combined and shortened, two rak'ahs each. Then devote yourself to remembering Allah and supplicating, facing the qiblah, until sunset.",
+    "details": "Standing at Arafah is the greatest pillar of Hajj; the Prophet ﷺ said: «Hajj is Arafah». Whoever is within Arafah at any time before dawn on the 10th has caught the Hajj. Whoever stands there by day must stay until sunset; that is obligatory. Make sure you are inside the boundary signs of Arafah: the whole of Arafah is a place of standing, and you do not need to climb or see the mountain. The Prophet ﷺ did not fast this day at Arafah.",
+    "mistakes": "Staying outside the boundaries of Arafah; leaving before sunset; climbing the mountain or touching its rocks as an act of worship; facing the mountain instead of the qiblah when supplicating; spending the afternoon in idle talk.",
+    "review": {
+      "status": "draft"
+    }
+  },
+  "hajj-tamattu.muzdalifah": {
+    "title": "Night at Muzdalifah",
+    "instruction": "After sunset, leave Arafah calmly for Muzdalifah. On arrival, pray Maghrib and Isha combined, with Isha shortened to two rak'ahs. Spend the night there, pray Fajr early, then remember Allah and supplicate facing the qiblah until it is very light, and leave before sunrise.",
+    "details": "Spending the night at Muzdalifah is obligatory (wajib). Allah says: «When you depart from Arafat, remember Allah at al-Mash'ar al-Haram». The whole of Muzdalifah is a place to stay. The Prophet ﷺ slept until Fajr, and allowed the weak, such as women, children and the elderly, and those who look after them, to leave for Mina in the last part of the night. If you fear you will not reach Muzdalifah before midnight, pray Maghrib and Isha on the way.",
+    "mistakes": "Leaving Muzdalifah early in the night without an excuse; spending the night outside its boundaries; staying up all night in prayer believing it is the sunnah there, when the Prophet ﷺ slept until Fajr.",
+    "review": {
+      "status": "draft"
+    }
+  },
+  "hajj-tamattu.jamrat-aqabah": {
+    "title": "Stoning Jamrat al-Aqabah",
+    "instruction": "In Mina, throw seven pebbles one after another at Jamrat al-Aqabah, the large Jamrah nearest Makkah, saying «Allahu akbar» with each one. Stop the Talbiyah when you begin.",
+    "details": "Stoning Jamrat al-Aqabah on the 10th is obligatory. The Sunnah is to do it after sunrise; the Prophet ﷺ stoned it in the forenoon. The pebbles are small, a little bigger than a chickpea; they can be picked up in Muzdalifah, Mina or anywhere else, and need not be washed. Make sure each pebble falls into the basin. Someone who cannot stone because of illness or old age may appoint another pilgrim to stone for them.",
+    "mistakes": "Throwing all seven pebbles at once, which counts as one; throwing large stones, shoes or other objects; pushing and hurting people; appointing someone else without a real excuse.",
+    "review": {
+      "status": "draft"
+    }
+  },
+  "hajj-tamattu.hady": {
+    "title": "Sacrifice (Hady)",
+    "instruction": "Slaughter your hady: a sheep or goat, or a seventh share of a camel or cow, on the 10th or in the three days after it, yourself or through a trusted agent.",
+    "details": "The hady is obligatory for the Tamattu' pilgrim: Allah says «whoever performs Umrah followed by Hajj must offer what sacrifice is easy for him; whoever cannot find one must fast three days during the Hajj and seven when you return». The three days may be the days of Tashriq. The animal must meet the age and soundness conditions of a sacrifice, and is slaughtered within the Haram, in Mina or Makkah. It is sunnah to eat from it and give some away.",
+    "mistakes": "Slaughtering before the Day of Sacrifice; choosing an animal that does not meet the conditions; slaughtering outside the Haram; leaving the hady when you are able to offer it.",
+    "review": {
+      "status": "draft"
+    }
+  },
+  "hajj-tamattu.halq": {
+    "title": "Shaving or shortening the hair",
+    "instruction": "Men shave the head, which is better, or shorten the hair of the whole head. Women cut a fingertip's length from the ends of their hair.",
+    "details": "Shaving or shortening is obligatory in Hajj. The Prophet ﷺ prayed for mercy for those who shave three times, and for those who shorten once. Once you have stoned Jamrat al-Aqabah and shaved or shortened, everything forbidden by ihram is allowed except marital relations: you may wear your normal clothes and perfume. The Sunnah order on the 10th is stoning, then the sacrifice for those who offer one, then shaving, then Tawaf; to those who changed the order the Prophet ﷺ said: «Do it, there is no harm».",
+    "mistakes": "Cutting a few hairs from one side only; a woman shaving her head; resuming marital relations before Tawaf al-Ifadah.",
+    "review": {
+      "status": "draft"
+    }
+  },
+  "hajj-tamattu.tawaf-ifadah": {
+    "title": "Tawaf al-Ifadah",
+    "instruction": "Go to the Haram and walk seven rounds around the Kaaba, starting at the Black Stone with the Kaaba on your left. Then pray two rak'ahs behind the Station of Ibrahim if you easily can.",
+    "details": "Tawaf al-Ifadah is a pillar of Hajj: Allah says «and let them circumambulate the Ancient House». It is best done on the 10th, and may be done in the days after it. Men do not uncover the shoulder or walk briskly in it. After it you do the Sa'i of Hajj; then everything forbidden by ihram becomes allowed, including marital relations.",
+    "mistakes": "Uncovering the right shoulder or walking briskly, which are only for the first Tawaf on arrival; walking inside the Hijr; leaving Makkah without performing it.",
+    "diagramLabel": "Keep the Kaaba on your left and walk counter-clockwise; each round starts at the Black Stone.",
+    "review": {
+      "status": "draft"
+    }
+  },
+  "hajj-tamattu.sai": {
+    "title": "Sa'i for Hajj",
+    "instruction": "After Tawaf al-Ifadah, do Sa'i between Safa and Marwah: seven rounds starting at Safa and ending at Marwah, as in your Umrah.",
+    "details": "Sa'i is a pillar of Hajj according to Ibn Baz and Ibn Al-Uthaymeen. The Tamattu' pilgrim's Sa'i of Umrah does not count for the Hajj, so you do Sa'i again: Aisha reported that those who had entered ihram for Umrah went around once more for their Hajj after returning from Mina. Men walk fast between the two green markers; women walk. Once it is done, after the stoning and shaving, all the restrictions of ihram end.",
+    "mistakes": "Thinking the Umrah Sa'i is enough for the Tamattu' pilgrim; starting at Marwah; counting there and back as one round.",
+    "diagramLabel": "Safa to Marwah is one round, Marwah to Safa another. Between the two green markers men walk fast; women walk.",
+    "review": {
+      "status": "draft"
+    }
+  },
+  "hajj-tamattu.mina-nights": {
+    "title": "Nights in Mina",
+    "instruction": "Return to Mina and spend most of the nights of the 11th and 12th there, and of the 13th as well if you stay.",
+    "details": "Spending the nights of the days of Tashriq in Mina is obligatory: the Prophet ﷺ gave Al-Abbas permission to stay in Makkah on those nights to provide water for the pilgrims, which shows that others must stay. If you cannot find a place in Mina, stay next to its last tents, and nothing is owed. People with a real need, such as those serving the pilgrims, are excused.",
+    "mistakes": "Spending the nights in Makkah or elsewhere without an excuse; thinking these nights in Mina are optional.",
+    "review": {
+      "status": "draft"
+    }
+  },
+  "hajj-tamattu.jamarat-11": {
+    "title": "Stoning the three Jamarat (11th)",
+    "instruction": "After the sun passes its zenith (after midday), throw seven pebbles at each Jamrah in order, saying «Allahu akbar» with each pebble: first the small Jamrah, nearest Masjid al-Khayf, then the middle one, then Jamrat al-Aqabah.",
+    "details": "Stoning on the days of Tashriq is obligatory, and its time begins after the sun passes its zenith, as the Prophet ﷺ did. After the small and the middle Jamrah, it is sunnah to step aside, face the qiblah and supplicate at length; do not stop after Jamrat al-Aqabah. Stoning may continue into the night when it is crowded. Someone who cannot stone because of illness, old age or a similar reason may appoint a pilgrim; at each Jamrah the deputy stones for himself first, then for the other person.",
+    "mistakes": "Stoning before midday; changing the order of the three Jamarat; throwing all seven pebbles at once; appointing someone else without a real excuse.",
+    "review": {
+      "status": "draft"
+    }
+  },
+  "hajj-tamattu.jamarat-12": {
+    "title": "Stoning the three Jamarat (12th)",
+    "instruction": "After midday, stone the three Jamarat as on the 11th. If you want to leave early, leave Mina before sunset; otherwise stay the night and stone on the 13th.",
+    "details": "Allah says: «whoever hastens to leave in two days, there is no sin upon him, and whoever stays on, there is no sin upon him, for whoever is mindful of Allah». Staying on is better, as the Prophet ﷺ did. If the sun sets while you are in Mina by your own choice, you must stay the night and stone on the 13th; if you had already set off and were held up by the crowds, you may carry on.",
+    "mistakes": "Stoning before midday in order to leave early; leaving Mina before stoning; staying until after sunset and then leaving without the stoning of the 13th.",
+    "review": {
+      "status": "draft"
+    }
+  },
+  "hajj-tamattu.jamarat-13": {
+    "title": "Stoning the three Jamarat (13th)",
+    "instruction": "If you stayed in Mina, stone the three Jamarat after midday as on the previous days. If you left Mina on the 12th, there is nothing to do today: mark this step done.",
+    "details": "For those who stay, stoning on the 13th is obligatory. It is the last day of stoning, and its time ends at sunset. Staying for it is better, as the Prophet ﷺ did.",
+    "mistakes": "Stoning before midday; leaving without stoning after spending the night of the 13th in Mina.",
+    "review": {
+      "status": "draft"
+    }
+  },
+  "hajj-tamattu.tawaf-wada": {
+    "title": "Farewell Tawaf",
+    "instruction": "When you are ready to leave Makkah, walk seven rounds around the Kaaba as your last act there, then set off.",
+    "details": "The Farewell Tawaf is obligatory for the pilgrim: Ibn Abbas said «The people were commanded to make their last moment at the House, except that it was lightened for the menstruating woman». There is no Sa'i after it. If you delayed Tawaf al-Ifadah until you leave, it counts for both. Do it after you have finished the stoning; if you then stay on in Makkah for a long time, repeat it.",
+    "mistakes": "Doing it before finishing the stoning; staying on in Makkah for a long time after it; leaving Makkah without it.",
+    "diagramLabel": "Keep the Kaaba on your left and walk counter-clockwise; each round starts at the Black Stone.",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

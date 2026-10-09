@@ -11,7 +11,8 @@ describe("buildPacks (T025)", () => {
     const en = JSON.parse(packs[1].body);
     expect(en.language).toBe("en");
     expect(en.texts.umrah["umrah.tawaf"].title).toBe("Tawaf");
-    expect(en.journeys.map((j: { id: string }) => j.id)).toEqual(["umrah"]);
+    expect(en.journeys.map((j: { id: string }) => j.id)).toEqual(["hajj-ifrad", "hajj-qiran", "hajj-tamattu", "umrah"]);
+    expect(en.texts["hajj-tamattu"]["hajj-tamattu.arafah"].title).toBe("Standing at Arafah");
   });
 
   it("lists size and checksum of each file, and its versioned path", () => {

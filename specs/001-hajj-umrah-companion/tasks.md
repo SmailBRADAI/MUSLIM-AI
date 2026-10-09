@@ -60,7 +60,7 @@
 
 ## Phase 6: User story 4 — Hajj by day (P2)
 
-- [ ] T031 [US4] Content for `hajj-tamattu`, `hajj-qiran`, `hajj-ifrad` by day (8–13 Dhu al-Hijjah), draft status
+- [x] T031 [US4] Content for `hajj-tamattu`, `hajj-qiran`, `hajj-ifrad` by day (8–13 Dhu al-Hijjah), draft status; Hajj stages are a day or a named part (`kind`: Tamattu' Umrah, arrival, farewell)
 - [ ] T032 [US4] Day view grouping steps by stage; Tamattu' starts with the Umrah
 - [ ] T033 [US4] Ruling notes for steps where schools differ
 

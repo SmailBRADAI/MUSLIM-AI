@@ -18,6 +18,10 @@
           "id": { "type": "string" },
           "order": { "type": "integer" },
           "day": { "type": "integer", "minimum": 8, "maximum": 13, "description": "Dhu al-Hijjah day, Hajj only" },
+          "kind": {
+            "enum": ["umrah", "arrival", "farewell"],
+            "description": "Hajj only, for a stage that is not a single day: the Tamattu' Umrah, arrival in Makkah (Qiran, Ifrad), or the farewell"
+          },
           "steps": { "type": "array", "items": { "$ref": "#/$defs/step" } }
         }
       }
