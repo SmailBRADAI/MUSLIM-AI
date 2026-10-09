@@ -127,6 +127,11 @@ interface StepText {
 - The text content also stays bundled in the app, so the guide works before the first download. The guide reads an installed pack only when its journey version is newer than the bundled one, so an old download never hides a correction or a withdrawn approval. Every content change therefore bumps the journey's `version` (content/README.md).
 - Downloads continue when the pilgrim leaves Settings; the old pack's file is deleted after an update. Checks that need the network re-run when the device comes back online.
 
+### Test site
+
+- `main` is published to GitHub Pages (`.github/workflows/hajj-umrah-pages.yml`) at `https://<owner>.github.io/MUSLIM-AI/`, so the app can be installed on a phone over https and tested offline. The site is public but unlisted; it is a test site, not a release (store release is Phase 6).
+- The app uses relative paths (Vite `base`, manifest `start_url: "./"`), so it works under a sub-path.
+
 ## Risks
 
 - **Content review is the critical path.** Code can ship with draft content marked as pending, but nothing should be presented as authoritative until reviewed. The clarifications in the spec must be answered first.

@@ -54,6 +54,10 @@
 - [x] T029 [US3] Online-only update check that never blocks the installed version
 - [x] T030 [P] [US3] e2e: interrupted download is not marked ready; cleared storage prompts re-download
 
+## Test site
+
+- [x] T046 Publish `main` to GitHub Pages for testing on a phone; app works under a sub-path (relative manifest paths)
+
 ## Phase 6: User story 4 — Hajj by day (P2)
 
 - [ ] T031 [US4] Content for `hajj-tamattu`, `hajj-qiran`, `hajj-ifrad` by day (8–13 Dhu al-Hijjah), draft status
