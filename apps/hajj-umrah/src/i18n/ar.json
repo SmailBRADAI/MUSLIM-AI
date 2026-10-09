@@ -77,7 +77,10 @@
   "diagrams": {
     "safa": "الصفا",
     "marwah": "المروة",
-    "greenMarkers": "العلمان الأخضران"
+    "greenMarkers": "العلمان الأخضران",
+    "blackStone": "الحجر الأسود",
+    "yemeniCorner": "الركن اليماني",
+    "hijr": "حِجر إسماعيل"
   },
   "places": {
     "miqat": {

@@ -2,6 +2,7 @@
 // scripts/validate-content.ts reads the files and runs them.
 import { Ajv2020 } from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
+import { diagramsOf, requiredDiagramItems } from "../src/data/diagrams.ts";
 import type { Journey, ReviewStatus, StepText } from "../src/data/types.ts";
 import type { Language } from "../src/i18n/index.tsx";
 
@@ -87,8 +88,14 @@ export function validateContent(files: ContentFiles): string[] {
           for (const field of STEP_TEXT_FIELDS) {
             if (typeof text[field] !== "string" || !text[field].trim()) errors.push(`${file}: "${step.id}" is missing ${lang} ${field}`);
           }
-          if (step.diagram && !String(text.diagramLabel ?? "").trim()) {
-            errors.push(`${file}: "${step.id}" has a ${step.diagram} diagram but no ${lang} diagramLabel`);
+          const diagrams = diagramsOf(step);
+          if (diagrams.length && !String(text.diagramLabel ?? "").trim()) {
+            errors.push(`${file}: "${step.id}" has a ${diagrams[0]} diagram but no ${lang} diagramLabel`);
+          }
+          // T049: the labels inside the illustrations are reviewed text too, one per key and language.
+          const items = text.diagramItems as Record<string, unknown> | undefined;
+          for (const key of requiredDiagramItems(diagrams)) {
+            if (typeof items?.[key] !== "string" || !items[key].trim()) errors.push(`${file}: "${step.id}" is missing ${lang} diagram label "${key}"`);
           }
           if (step.rulingNote && !String(text[step.rulingNote] ?? "").trim()) {
             errors.push(`${file}: "${step.id}" is missing ${lang} ruling note "${step.rulingNote}"`);

@@ -3,7 +3,7 @@ import type { Step, StepText } from "./types";
 import { isRtl } from "../i18n";
 import type { Language, Strings } from "../i18n";
 
-// T051 (FR-025): the lock-screen card is a local notification (a web app cannot draw on the lock
+// T051 (FR-026): the lock-screen card is a local notification (a web app cannot draw on the lock
 // screen). The text is the step's reviewed content in the current language; no location, no
 // personal data, and no religious wording of its own.
 

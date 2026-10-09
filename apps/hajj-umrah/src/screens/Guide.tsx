@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { SaiDiagram, TawafDiagram } from "../components/Diagrams";
+import { DiagramView } from "../components/Illustrations";
+import { diagramsOf } from "../data/diagrams";
 import { Icon } from "../components/Icon";
 import { LiveMode } from "../components/LiveMode";
 import { LockCard, WakeLockSwitch } from "../components/LockCard";
@@ -273,8 +274,11 @@ export function Guide({
         </div>
         <h2>{t.instructionTitle}</h2>
         <p>{text.instruction}</p>
-        {step.diagram === "tawaf" && text.diagramLabel && <TawafDiagram label={text.diagramLabel} />}
-        {step.diagram === "sai" && text.diagramLabel && <SaiDiagram label={text.diagramLabel} />}
+        {/* T049: the step's illustrations in order; the first is captioned by diagramLabel, the others by their own item. */}
+        {diagramsOf(step).map((diagram, i) => {
+          const caption = i === 0 ? text.diagramLabel : text.diagramItems?.[`${diagram}.caption`];
+          return caption ? <DiagramView key={diagram} diagram={diagram} caption={caption} items={text.diagramItems} /> : null;
+        })}
       </section>
       </div>
       <p className="visually-hidden" role="status">{swiped}</p>
@@ -288,7 +292,7 @@ export function Guide({
         </button>
         {details && (
           <div className="detail-note" id="step-details">
-            <p>{text.details}</p>
+            {text.details.split("\n\n").map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
             <h3>{t.commonMistakes}</h3>
             <p>{text.mistakes}</p>
             {otherSchools && (

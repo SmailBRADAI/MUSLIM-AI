@@ -4,7 +4,7 @@ import { buildCard, cardSupport, clearCard, isCardMessage, requestCardPermission
 import { useLanguage, useT } from "../i18n";
 import { Icon } from "./Icon";
 
-// T051 (FR-025, FR-026): the lock-screen card toggle (a notification kept in step with the Guide) and
+// T051 (FR-026, FR-027): the lock-screen card toggle (a notification kept in step with the Guide) and
 // the optional "keep screen on" switch.
 
 type CardError = "unsupported" | "denied" | "failed";

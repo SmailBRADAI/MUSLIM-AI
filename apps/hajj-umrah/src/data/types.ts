@@ -19,6 +19,14 @@ export function isPlace(value: unknown): value is Place {
   return typeof value === "string" && (PLACES as readonly string[]).includes(value);
 }
 
+/** Illustrations a step can show in the Guide (T021, T049). Their reviewed labels are in StepText.diagramLabel and diagramItems. */
+export const DIAGRAMS = ["tawaf", "sai", "miqat", "ihram-dress", "ihram-rules"] as const;
+export type Diagram = (typeof DIAGRAMS)[number];
+
+export function isDiagram(value: unknown): value is Diagram {
+  return typeof value === "string" && (DIAGRAMS as readonly string[]).includes(value);
+}
+
 export interface ContentMeta {
   source: string[];
   status: ReviewStatus;
@@ -46,7 +54,8 @@ export interface Step {
   rulingNote?: string;
   supplicationIds: string[];
   audioId?: string;
-  diagram?: "tawaf" | "sai";
+  /** One illustration, or several shown in this order; the first one's caption is StepText.diagramLabel. */
+  diagram?: Diagram | Diagram[];
   /** Where the step is performed: maqam is behind Maqam Ibrahim, masa is between Safa and Marwah, makkah is elsewhere in Makkah. */
   place: Place;
   meta: ContentMeta;
@@ -88,6 +97,8 @@ export interface StepText {
   mistakes: string;
   /** Required when the step has a diagram: what it shows, reviewed with the rest of the text. */
   diagramLabel?: string;
+  /** Reviewed labels inside the illustrations, and the captions of the second and later ones (keys: src/data/diagrams.ts). */
+  diagramItems?: Record<string, string>;
   review: TextReview;
 }
 

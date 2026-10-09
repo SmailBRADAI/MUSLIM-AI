@@ -1,4 +1,4 @@
-// T051 (FR-024): swipe recognition, pure so it can be tested without a browser.
+// T051 (FR-025): swipe recognition, pure so it can be tested without a browser.
 
 /** The finger must travel at least this far sideways (CSS px). */
 export const SWIPE_MIN_DISTANCE = 60;

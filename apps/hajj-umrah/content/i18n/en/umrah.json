@@ -2,8 +2,64 @@
   "umrah.ihram": {
     "title": "Ihram",
     "instruction": "Before the miqat, take a bath, put perfume on your body, and wear the two ihram sheets (a woman wears any modest clothing). At the miqat, make the intention to enter Umrah and begin the Talbiyah.",
-    "details": "Ihram is the intention to enter the rite. It is a pillar: the Umrah is not valid without it. It must be made at the miqat; someone going for Umrah may not pass the miqat without it. If you fear illness or another obstacle may stop you, make a condition when you form the intention. The Talbiyah is a sunnah; men say it aloud and women quietly, until the Tawaf begins.",
-    "mistakes": "Passing the miqat without ihram, especially on a plane; thinking ihram is only the clothing, without the intention; uncovering the right shoulder from the start of ihram, when it is only for the Umrah Tawaf.",
+    "details": "Ihram is the intention to enter the rite. It is a pillar: the Umrah is not valid without it. It must be made at the miqat; someone going for Umrah may not pass the miqat without it. If you fear illness or another obstacle may stop you, make a condition when you form the intention. The Talbiyah is a sunnah; men say it aloud and women quietly, until the Tawaf begins.\n\nThere are five miqats, set by the Prophet ﷺ; passing them without ihram is forbidden for whoever intends Hajj or Umrah: Al-Juhfah for the people of Sham (Syria), Egypt and the Maghrib; As-Sayl al-Kabir for the people of Najd and Ta'if (in Saudi Arabia) and of Kuwait; Dhul-Hulayfah for the people of Madinah; Yalamlam for the people of Yemen; and Dhat 'Irq for the people of Iraq and Iran.\n\nWhen you reach the miqat it is recommended to take a bath, clean yourself and put perfume on your body, not on the ihram clothes; if you cannot bathe, there is no blame. It is established in the two Sahihs that A'ishah, may Allah be pleased with her, said: \"I used to perfume the Messenger of Allah ﷺ for his ihram before he entered ihram, and for his release before he circled the House.\" It is recommended to take what you need from the moustache, nails, pubic hair and armpits before ihram, so that you do not need to do so while in ihram.\n\nA man wears an izar and a rida (two sheets); it is recommended that they be white and clean, and that he enter ihram in sandals, for the Prophet's words ﷺ: \"Let one of you enter ihram in an izar, a rida and sandals\" (reported by Imam Ahmad). A woman may enter ihram in any of her ordinary clothes, black, green or other, taking care not to imitate men or wear what is adorned; she does not wear the niqab or gloves, but covers her face and hands with something other than them, because the Prophet ﷺ forbade the woman in ihram to wear the niqab and gloves. Some people limit a woman's ihram to green, black or white only; the booklet says this has no basis.\n\nThen you intend in your heart to enter the Umrah, for the Prophet's words ﷺ: \"Actions are only by intentions, and each person gets only what they intended.\" It is prescribed to say what you intend: \"Labbayka 'umrah\" or \"Allahumma labbayka 'umrah\". Saying the intention aloud is prescribed only for ihram, because it is reported from the Prophet ﷺ. It is best to say it after you are seated on your mount, animal, car or other, because the Prophet ﷺ only called out after he had mounted his camel and it set off from the miqat; the booklet calls this the most correct of the scholars' views.\n\nIf a woman reaches the miqat in her period or postnatal bleeding, she bathes, enters ihram with the others and does what the pilgrim does except the Tawaf of the House, as the Prophet ﷺ commanded A'ishah and Asma' bint Umays, may Allah be pleased with them.",
+    "mistakes": "Passing the miqat without ihram, especially on a plane; thinking ihram is only the clothing, without the intention; uncovering the right shoulder from the start of ihram, when it is only for the Umrah Tawaf.; a woman wearing the niqab or gloves in ihram; fixing one colour for a woman's ihram; perfuming the ihram clothes (the recommendation is to perfume the body); not trimming what you need (moustache, nails and so on) before ihram, then needing to do so while in ihram.",
+    "diagramLabel": "The five miqats around Makkah and who each is for. A schematic: directions and distances are approximate.",
+    "diagramItems": {
+      "miqat.1.name": "Al-Juhfah",
+      "miqat.1.for": "For the people of Sham (Syria), Egypt and the Maghrib",
+      "miqat.2.name": "As-Sayl al-Kabir",
+      "miqat.2.for": "For the people of Najd and Ta'if (in Saudi Arabia) and of Kuwait",
+      "miqat.3.name": "Dhul-Hulayfah",
+      "miqat.3.for": "For the people of Madinah",
+      "miqat.4.name": "Yalamlam",
+      "miqat.4.for": "For the people of Yemen",
+      "miqat.5.name": "Dhat 'Irq",
+      "miqat.5.for": "For the people of Iraq and Iran",
+      "ihram-dress.caption": "Ihram clothing: a man wears an izar, a rida and sandals; a woman wears any of her ordinary clothes, without niqab or gloves.",
+      "ihram-dress.man": "Man: izar and rida, recommended white and clean, and sandals.",
+      "ihram-dress.tawaf": "In the Umrah Tawaf: idtiba', with the right shoulder uncovered; it is covered again before the two rak'ahs of Tawaf.",
+      "ihram-dress.woman": "Woman: any of her ordinary clothes, without niqab or gloves; she covers her face and hands with something else."
+    },
+    "review": {
+      "status": "draft"
+    }
+  },
+  "umrah.ihram-rules": {
+    "title": "What ihram forbids and allows",
+    "instruction": "While in ihram, avoid the prohibitions below; its permitted things are no harm. When the Umrah is complete with shaving or shortening, everything ihram forbade becomes allowed again.",
+    "details": "The prohibitions are the things a person in ihram must avoid because of the ihram and having entered the rite. For men only: wearing sewn clothing such as a shirt, burnous, trousers, turbans and leather socks (khuffs), and covering the head with something that clings to it, such as a cap, turban, shemagh or ghutra. For women only: wearing the niqab and gloves. For everyone: perfume after the ihram is tied; shaving or cutting hair, shaving the pubic hair, or cutting nails; killing game, or helping to kill it; cutting the trees and green plants of the Haram; proposing to a woman or making a marriage contract; intercourse and what leads to it; touching with desire, kissing and looking with desire, and everything that leads to intercourse. The booklet explains that rafath is intercourse and what leads to it, fusuq is committing sins, and jidal is quarrelling with others.\n\nExpiation: whoever does any of this forgetfully or out of ignorance owes nothing; whoever does it on purpose owes an expiation of his choice: fasting three days, or feeding six poor people of the Haram, or slaughtering a sheep distributed to the poor of the Haram.\n\nPermitted things: bathing and changing clothes; smelling scents; scratching the skin; wearing a belt, a ring, the earpiece and glasses; taking shade under an umbrella; slaughtering livestock; slaughtering chickens and the like; hunting in the sea and eating it; killing harmful insects and reptiles; killing the five fawasiq.",
+    "mistakes": "A man wearing sewn clothes or covering his head with something that clings; a woman wearing the niqab or gloves; using perfume after ihram is tied; taking hair or nails after ihram; hunting or helping to hunt; proposing or making a marriage contract; touching with desire and what leads to intercourse.",
+    "diagramLabel": "What ihram forbids and allows, in symbols: a ✗ mark means forbidden for the person in ihram, a ✓ mark means permitted.",
+    "diagramItems": {
+      "ihram-rules.prohibited": "Forbidden in ihram",
+      "ihram-rules.permitted": "Permitted in ihram",
+      "ihram-rules.men": "For men only",
+      "ihram-rules.women": "For women only",
+      "ihram-rules.all": "For everyone",
+      "ihram-rules.sewn": "Sewn clothing",
+      "ihram-rules.headCover": "Covering the head with something that clings",
+      "ihram-rules.gloves": "Wearing gloves",
+      "ihram-rules.niqab": "Wearing the niqab",
+      "ihram-rules.perfume": "Perfume after ihram is tied",
+      "ihram-rules.hair": "Shaving or cutting hair, or shaving pubic hair",
+      "ihram-rules.nails": "Cutting nails",
+      "ihram-rules.hunting": "Killing game, or helping to kill it",
+      "ihram-rules.trees": "Cutting the Haram's trees and green plants",
+      "ihram-rules.marriage": "Proposing to a woman, or a marriage contract",
+      "ihram-rules.intercourse": "Intercourse",
+      "ihram-rules.touching": "Touching with desire, kissing and looking with desire",
+      "ihram-rules.ok.ghusl": "Bathing and changing clothes",
+      "ihram-rules.ok.scent": "Smelling scents",
+      "ihram-rules.ok.scratch": "Scratching the skin",
+      "ihram-rules.ok.wear": "Wearing a belt, a ring, the earpiece and glasses",
+      "ihram-rules.ok.shade": "Taking shade under an umbrella",
+      "ihram-rules.ok.livestock": "Slaughtering livestock",
+      "ihram-rules.ok.poultry": "Slaughtering chickens and the like",
+      "ihram-rules.ok.sea": "Hunting in the sea and eating it",
+      "ihram-rules.ok.insects": "Killing harmful insects and reptiles",
+      "ihram-rules.ok.fawasiq": "Killing the five fawasiq"
+    },
     "review": {
       "status": "draft"
     }
@@ -11,9 +67,13 @@
   "umrah.tawaf": {
     "title": "Tawaf",
     "instruction": "Start at the Black Stone, keep the Kaaba on your left, and walk seven full rounds. Each round starts and ends at the Black Stone.",
-    "details": "Tawaf is a pillar of the Umrah. Ibn Baz held that wudu is a condition for it; Ibn Al-Uthaymeen inclined to the view that it is not a condition, while urging wudu to be safe. So make wudu before Tawaf. Touch the Black Stone, or point to it if you cannot without pushing; touch the Yemeni Corner if you easily can, without pointing to it. Men uncover the right shoulder for this whole Tawaf and walk briskly in the first three rounds. No round has its own fixed supplication; supplicate with what you wish.",
-    "mistakes": "Walking inside the Hijr (the semicircle by the Kaaba); pushing and hurting others to kiss the Black Stone; kissing the Yemeni Corner or wiping the Kaaba's walls; walking briskly in every round; reading a booklet with a set prayer for each round.",
+    "details": "Tawaf is a pillar of the Umrah. Ibn Baz held that wudu is a condition for it; Ibn Al-Uthaymeen inclined to the view that it is not a condition, while urging wudu to be safe. So make wudu before Tawaf. Touch the Black Stone, or point to it if you cannot without pushing; touch the Yemeni Corner if you easily can, without pointing to it. Men uncover the right shoulder for this whole Tawaf and walk briskly in the first three rounds. No round has its own fixed supplication; supplicate with what you wish.\n\nAt the start, head for the Black Stone and face it, then touch it with your right hand and kiss it if you easily can without hurting people by pushing, and say: \"Bismillah wallahu akbar\" (in the name of Allah, and Allah is the greatest). If kissing is hard, touch it with your hand or a stick and kiss what you touched it with; if touching is hard, point to it and say \"Allahu akbar\", and do not kiss what you pointed with; do this each time you are level with it. When you are level with the Yemeni Corner, touch it with your right hand and say \"Bismillah wallahu akbar\" and do not kiss it; if it is hard, leave it and carry on with your Tawaf, without pointing to it and without saying takbir when level with it, because that is not established from the Prophet ﷺ as far as we know. It is recommended to say between the Yemeni Corner and the Black Stone: \"Our Lord, give us good in this world and good in the Hereafter, and protect us from the punishment of the Fire.\"\n\nRaml is walking fast with short steps, and idtiba' is that a man puts the middle of his rida under his right shoulder with its two ends over his left shoulder. Raml and idtiba' are not prescribed in any other Tawaf, nor in Sa'i, nor for women, because the Prophet ﷺ did them only in his first Tawaf when he arrived in Makkah.\n\nThe conditions for a valid Tawaf, as in the booklet's graphic: intention; purity from major impurity (and see above for the sheikhs' words on it); covering the 'awrah; keeping the House on your left; going round the whole House, so it is not valid from inside the Hijr; starting and ending at the Black Stone; seven rounds; and continuity between the rounds unless there is an excuse. It is recommended to be clean of minor impurity and of filth, humble and submissive to your Lord, and to say much dhikr and supplication; reading some Qur'an is good. No particular dhikr or supplication is required in Tawaf or in Sa'i.\n\nThe whole mosque is a place for Tawaf: there is no harm in doing it behind the Station, especially in a crowd, and Tawaf in the mosque's porticoes is valid, though Tawaf near the Kaaba is better when easy. If you doubt the number of rounds, build on what is certain, which is the lesser: if you doubt whether you did three or four, count three.\n\nWomen must cover themselves and leave adornment and perfume in Tawaf, for they are 'awrah; a woman's face is the most visible of her adornment, so she shows it only to her mahrams, for Allah's words: \"and not to show their adornment except to their husbands\" (the verse). So she may not uncover her face to kiss the Black Stone if any men can see her, and if she cannot reach it to touch and kiss it she does not push among the men but goes round behind them, which is better for her and a greater reward than Tawaf near the Kaaba while pushing men.",
+    "mistakes": "Walking inside the Hijr (the semicircle by the Kaaba); pushing and hurting others to kiss the Black Stone; kissing the Yemeni Corner or wiping the Kaaba's walls; walking briskly in every round; reading a booklet with a set prayer for each round.; saying takbir or pointing when level with the Yemeni Corner; raml or idtiba' in another Tawaf or for a woman; fixing a dhikr or supplication for each round of Tawaf or Sa'i; a woman uncovering her face at the Black Stone in front of men, or pushing among them; a woman going round with adornment and perfume.",
     "diagramLabel": "Keep the Kaaba on your left and walk counter-clockwise; each round starts at the Black Stone.",
+    "diagramItems": {
+      "tawaf.invalid": "From inside the Hijr: the Tawaf is not valid",
+      "tawaf.valid": "From outside the Hijr: the Tawaf is valid"
+    },
     "review": {
       "status": "draft"
     }
@@ -21,7 +81,7 @@
   "umrah.tawaf-prayer": {
     "title": "Two rak'ahs after Tawaf",
     "instruction": "After the Tawaf, cover your right shoulder and pray two rak'ahs behind the Station of Ibrahim if you easily can, otherwise anywhere in the mosque.",
-    "details": "These two rak'ahs are a sunnah. After Al-Fatihah, it is sunnah to recite Al-Kafirun in the first and Al-Ikhlas in the second. Then it is sunnah to drink Zamzam water, and to touch the Black Stone before going to the Mas'a if you easily can.",
+    "details": "These two rak'ahs are a sunnah. After Al-Fatihah, it is sunnah to recite Al-Kafirun in the first and Al-Ikhlas in the second. Then it is sunnah to drink Zamzam water, and to touch the Black Stone before going to the Mas'a if you easily can. After the Tawaf a man puts his rida back over both shoulders with its two ends on his chest, before he prays the two rak'ahs of Tawaf.",
     "mistakes": "Insisting on praying right behind the Station in a crowd and blocking people doing Tawaf; making the prayer long or sitting for a long time in the Tawaf area; keeping the shoulder uncovered in the prayer.",
     "review": {
       "status": "draft"
@@ -30,10 +90,14 @@
   "umrah.sai": {
     "title": "Sa'i between Safa and Marwah",
     "instruction": "Climb Safa and face the Kaaba, then walk to Marwah: that is one round. Walking back to Safa is the second. Complete seven rounds, ending at Marwah.",
-    "details": "Sa'i is a pillar of the Umrah according to Ibn Baz and Ibn Al-Uthaymeen. It starts at Safa and ends at Marwah. Men walk fast between the two green markers; women walk. Ritual purity is not required for it, but it is better. Standing on Safa and Marwah to remember Allah and supplicate is a sunnah.",
+    "details": "Sa'i is a pillar of the Umrah according to Ibn Baz and Ibn Al-Uthaymeen. It starts at Safa and ends at Marwah. Men walk fast between the two green markers; women walk. Ritual purity is not required for it, but it is better. Standing on Safa and Marwah to remember Allah and supplicate is a sunnah.\n\nHow it is done: go out to Safa from its door and climb it or stand at it; climbing is better if you easily can. There, recite Allah's words: \"Indeed, Safa and Marwah are among the symbols of Allah\" (the verse); this verse is recited only on first going up Safa, in the first round, following the Prophet ﷺ. Face the qiblah, praise Allah and say: \"La ilaha illallah, wallahu akbar. La ilaha illallah wahdahu la sharika lah, lahul-mulku wa lahul-hamd, yuhyi wa yumit, wa huwa 'ala kulli shay'in qadir. La ilaha illallah wahdah, anjaza wa'dah, wa nasara 'abdah, wa hazamal-ahzaba wahdah\" (There is no god but Allah, and Allah is the greatest. There is no god but Allah alone, with no partner; His is the dominion and His the praise; He gives life and causes death, and He is able to do all things. There is no god but Allah alone: He fulfilled His promise, gave victory to His servant and defeated the confederates alone). Then supplicate with what you easily can, raising your hands, and repeat this dhikr and supplication three times. Then go down and walk to Marwah until you reach the first marker; a man then goes fast until the second marker, and walks again. A woman is not to hurry between the two markers, because she is 'awrah; what is prescribed for her is to walk the whole Sa'i. Then climb Marwah or stand at it (climbing is better if you easily can), and say and do there as you did on Safa, except reciting the verse. Then go down, walking where it is walking and hurrying where it is hurrying, until you reach Safa. Do this seven times, going is one round and returning is one round, because the Prophet ﷺ did so and said: \"Take your rites from me.\"\n\nIt is recommended to say much dhikr and supplication in your Sa'i, and to be pure of major and minor impurity; but if you did Sa'i without purity it is enough, and likewise a woman whose period or postnatal bleeding starts after Tawaf does Sa'i and it is enough, because purity is not a condition for Sa'i, only recommended. If you doubt the number of rounds, build on what is certain, which is the lesser.",
     "otherSchools": "The Hanafi school holds that Sa'i is obligatory (wajib) rather than a pillar, so leaving it is made up with a sacrifice. Ibn Baz and Ibn Al-Uthaymeen hold that it is a pillar, without which the Umrah is not complete.",
-    "mistakes": "Starting at Marwah; counting there and back as one round; hurrying along the whole Mas'a instead of only between the green markers; women hurrying between the markers.",
+    "mistakes": "Starting at Marwah; counting there and back as one round; hurrying along the whole Mas'a instead of only between the green markers; women hurrying between the markers.; reciting the verse about Safa and Marwah at every ascent (it is recited only on the first ascent of Safa); fixing a dhikr or supplication for each round.",
     "diagramLabel": "Safa to Marwah is one round, Marwah to Safa another. Between the two green markers men walk fast; women walk.",
+    "diagramItems": {
+      "sai.menRun": "A man goes fast between the two green markers",
+      "sai.womenWalk": "A woman walks the whole Sa'i"
+    },
     "review": {
       "status": "draft"
     }
@@ -41,8 +105,8 @@
   "umrah.halq": {
     "title": "Shaving or shortening the hair",
     "instruction": "After Sa'i, men shave the head or shorten all of their hair; shaving is better. Women cut a fingertip's length from the ends of their hair. This ends your Umrah.",
-    "details": "Shaving or shortening is obligatory (wajib) in the Umrah. Shortening must cover the whole head, not part of it. Once done, your Umrah is complete and everything forbidden by ihram becomes allowed again.",
-    "mistakes": "Cutting a few hairs from one side only; leaving ihram before shaving or shortening; a woman shaving her head.",
+    "details": "Shaving or shortening is obligatory (wajib) in the Umrah. Shortening must cover the whole head, not part of it. Once done, your Umrah is complete and everything forbidden by ihram becomes allowed again. Shaving is better for a man; if he shortens and leaves shaving for the Hajj, that is good too. If he arrives in Makkah close to the time of Hajj, shortening is better for him so that he can shave the rest of his head in the Hajj, because when the Prophet ﷺ and his companions arrived in Makkah on the fourth of Dhu al-Hijjah, he commanded those who had not brought a sacrificial animal to come out of ihram and shorten. Shortening part of the head is not enough, just as shaving part of it is not enough. A woman is prescribed only shortening: she takes from each braid about the length of a fingertip or less, the 'anmulah' being the tip of the finger, and takes nothing more.",
+    "mistakes": "Cutting a few hairs from one side only; leaving ihram before shaving or shortening; a woman shaving her head.; a woman taking more than a fingertip from each braid; being content with shaving part of the head.",
     "review": {
       "status": "draft"
     }

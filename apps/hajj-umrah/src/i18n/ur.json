@@ -77,7 +77,10 @@
   "diagrams": {
     "safa": "صفا",
     "marwah": "مروہ",
-    "greenMarkers": "سبز نشان"
+    "greenMarkers": "سبز نشان",
+    "blackStone": "حجرِ اسود",
+    "yemeniCorner": "رکنِ یمانی",
+    "hijr": "حطیم (حِجرِ اسماعیل)"
   },
   "places": {
     "miqat": {

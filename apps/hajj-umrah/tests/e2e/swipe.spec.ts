@@ -62,18 +62,18 @@ test("English: swiping left shows the next step, right the previous, and nothing
   await onboard(page, "English");
   await openGuide(page);
   await expect(page.getByText(en.swipe.hint)).toBeVisible();
-  await expect(pill(page)).toHaveText("1 / 5");
+  await expect(pill(page)).toHaveText("1 / 6");
   await swipe(page, -120);
-  await expect(pill(page)).toHaveText("2 / 5");
+  await expect(pill(page)).toHaveText("2 / 6");
   await expect(page.locator(".progress-label strong")).toHaveText("0%");
   await expect(page.getByText(en.swipe.hint)).toHaveCount(0);
-  await expect(page.getByRole("status").filter({ hasText: /Step 2 of 5/ })).toHaveCount(1);
+  await expect(page.getByRole("status").filter({ hasText: /Step 2 of 6/ })).toHaveCount(1);
   await swipe(page, 120);
-  await expect(pill(page)).toHaveText("1 / 5");
+  await expect(pill(page)).toHaveText("1 / 6");
   await expect(page.locator(".steps li.done")).toHaveCount(0);
   // A vertical drag does not change the step.
   await swipe(page, -20, 150);
-  await expect(pill(page)).toHaveText("1 / 5");
+  await expect(pill(page)).toHaveText("1 / 6");
 });
 
 test("Arabic: the swipe is mirrored (right is next), and the hint is shown", async ({ page }) => {
@@ -81,10 +81,10 @@ test("Arabic: the swipe is mirrored (right is next), and the hint is shown", asy
   await openGuide(page);
   await expect(page.getByText(ar.swipe.hint)).toBeVisible();
   await swipe(page, 120);
-  await expect(pill(page)).toHaveText("2 / 5");
+  await expect(pill(page)).toHaveText("2 / 6");
   await expect(page.locator(".progress-label strong")).toHaveText("0%");
   await swipe(page, -120);
-  await expect(pill(page)).toHaveText("1 / 5");
+  await expect(pill(page)).toHaveText("1 / 6");
 });
 
 test.describe("lock-screen card", () => {
@@ -103,14 +103,14 @@ test.describe("lock-screen card", () => {
     await expect(toggle).toHaveAttribute("aria-checked", "true");
     await expect.poll(async () => (await cards(page)).map((c) => c.title)).toEqual(["Ihram"]);
     const [card] = await cards(page);
-    expect(card.body).toMatch(/^1 \/ 5/);
+    expect(card.body).toMatch(/^1 \/ 6/);
     expect(card.lang).toBe("en");
     expect(card.dir).toBe("ltr");
 
     await swipe(page, -120);
     await expect.poll(async () => (await cards(page)).map((c) => c.title)).not.toContain("Ihram");
     expect((await cards(page)).length).toBe(1);
-    expect((await cards(page))[0].body).toMatch(/^2 \/ 5/);
+    expect((await cards(page))[0].body).toMatch(/^2 \/ 6/);
 
     await toggle.click();
     await expect.poll(async () => (await cards(page)).length).toBe(0);
@@ -141,7 +141,7 @@ test("a message from the notification worker changes the step", async ({ page })
   await page.getByRole("switch", { name: en.lockCard.title }).click();
   await expect(page.getByRole("switch", { name: en.lockCard.title })).toHaveAttribute("aria-checked", "true");
   await page.evaluate(() => navigator.serviceWorker.dispatchEvent(new MessageEvent("message", { data: { type: "rafiq-step-action", action: "next" } })));
-  await expect(pill(page)).toHaveText("2 / 5");
+  await expect(pill(page)).toHaveText("2 / 6");
 });
 });
 

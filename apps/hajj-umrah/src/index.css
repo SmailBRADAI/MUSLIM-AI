@@ -142,12 +142,7 @@ small { color: var(--muted); font-size: 13px; line-height: 1.6; }
 .tag.pending { border: 1px dashed rgba(255,255,255,.35); background: transparent; }
 .instruction-card h2 { margin: 18px 0 7px; font-size: 25px; }
 .instruction-card p { position: relative; z-index: 2; margin: 0; color: rgba(255,255,255,.82); font-size: 17px; line-height: 1.9; }
-.kaaba-diagram { position: relative; height: 150px; margin: 10px -20px 0; overflow: hidden; direction: ltr; }
-.diagram-kaaba { position: absolute; z-index: 2; left: 50%; top: 50%; transform: translate(-50%, -50%); color: #e6c990; }
-.orbit { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); border: 1px dashed rgba(255,255,255,.2); border-radius: 50%; }
-.orbit-a { width: 170px; height: 95px; }
-.orbit-b { width: 240px; height: 130px; }
-.direction-arrow { position: absolute; left: calc(50% + 80px); top: 47px; color: #e6c990; font: 30px "Manrope"; }
+.kaaba-diagram { margin: 10px 0 0; direction: ltr; }
 
 .action-list { margin-top: 16px; overflow: hidden; border: 1px solid var(--line); border-radius: 20px; background: var(--surface); }
 .action-row { width: 100%; min-height: 72px; display: flex; align-items: center; gap: 12px; padding: 11px 14px; border: 0; border-bottom: 1px solid var(--line); color: var(--ink); background: transparent; text-align: start; cursor: pointer; }
@@ -297,3 +292,66 @@ small { color: var(--muted); font-size: 13px; line-height: 1.6; }
 .swipe-hint { display: flex; align-items: center; gap: 10px; margin: 18px 0 12px; padding: 10px 14px; border-radius: 14px; background: var(--sage-pale); color: var(--ink); line-height: 1.6; }
 .swipe-hint svg { flex: 0 0 auto; }
 .swipe-hint .live-off { flex: 0 0 auto; min-height: 48px; }
+
+/* T049: teaching illustrations (Tawaf route, miqat map, ihram clothing and rules), drawn on the dark instruction card.
+   Line colour --ill-line, allowed --ill-ok and forbidden --ill-no all pass 3:1 against --forest; marks and text carry the meaning too. */
+:root { --ill-line: #e6c990; --ill-ok: #9fd8b0; --ill-no: #ffb4a2; --ill-fill: rgba(255,255,255,.12); }
+.diagram { margin-top: 14px; }
+.diagram:first-of-type { margin-top: 0; }
+.kaaba-diagram svg, .miqat-map svg { display: block; width: 100%; height: auto; }
+.tawaf-valid { fill: none; stroke: var(--ill-ok); stroke-width: 3; }
+.kaaba-diagram marker path { fill: var(--ill-ok); }
+.tawaf-invalid { fill: none; stroke: var(--ill-no); stroke-width: 3; stroke-dasharray: 5 4; }
+.tawaf-kaaba { fill: #0b0b0b; stroke: var(--ill-line); stroke-width: 2; }
+.tawaf-hijr { fill: var(--ill-fill); stroke: var(--ill-line); stroke-width: 3; }
+.tawaf-stone { fill: var(--ill-line); stroke: #0b0b0b; stroke-width: 1.5; }
+.tawaf-no circle { fill: var(--ill-no); }
+.tawaf-no path { stroke: var(--forest-deep); stroke-width: 2; fill: none; stroke-linecap: round; }
+.tawaf-badges circle, .miqat-point circle { fill: var(--ill-line); stroke: var(--forest-deep); stroke-width: 1.5; }
+.tawaf-badges text, .miqat-point text { fill: var(--forest-deep); font: 700 13px "Manrope", sans-serif; }
+.diagram-legend { display: grid; gap: 6px; margin: 10px 0 0; padding: 0; list-style: none; color: rgba(255,255,255,.88); font-size: 14px; line-height: 1.6; }
+.diagram-legend li { display: flex; align-items: flex-start; gap: 8px; }
+.legend-num { flex: 0 0 22px; height: 22px; display: grid; place-items: center; border-radius: 50%; color: var(--forest-deep); background: var(--ill-line); font: 700 12px "Manrope", sans-serif; }
+.legend-mark { flex: 0 0 18px; width: 18px; height: 18px; margin-top: 2px; }
+.legend-mark circle { stroke: none; }
+.legend-mark.ok circle { fill: var(--ill-ok); }
+.legend-mark.no circle { fill: var(--ill-no); }
+.legend-mark path { fill: none; stroke: var(--forest-deep); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.sai-legend { margin-top: 8px; }
+.legend-swatch { flex: 0 0 28px; width: 28px; height: 10px; margin-top: 7px; }
+.swatch-run { stroke: var(--ill-ok); stroke-width: 5; stroke-linecap: round; }
+.swatch-walk { stroke: var(--ill-line); stroke-width: 3; stroke-linecap: round; }
+.sai-run { stroke: var(--ill-ok); stroke-width: 6; }
+.sai-post { stroke: #9fd8b0; stroke-width: 4; stroke-linecap: round; }
+.miqat-coast { fill: none; stroke: rgba(255,255,255,.35); stroke-width: 2; stroke-dasharray: 2 5; stroke-linecap: round; }
+.miqat-line { stroke: rgba(255,255,255,.45); stroke-width: 1.5; stroke-dasharray: 4 4; }
+.miqat-kaaba { fill: #0b0b0b; stroke: var(--ill-line); stroke-width: 2; }
+.miqat-kaaba-band { fill: var(--ill-line); }
+.miqat-makkah { fill: rgba(255,255,255,.9); font: 700 12px "Manrope", "Noto Naskh Arabic", sans-serif; }
+.miqat-legend li strong { color: var(--white); }
+.rules { display: grid; gap: 10px; }
+.rules-head { display: flex; align-items: center; gap: 8px; color: var(--white); font-size: 16px; font-weight: 800; }
+.rules-head:not(:first-child) { margin-top: 8px; }
+.head-mark { flex: 0 0 22px; width: 22px; height: 22px; }
+.head-mark.small { flex-basis: 18px; width: 18px; height: 18px; margin-top: 3px; }
+.head-mark circle { stroke: none; }
+.head-mark.no circle { fill: var(--ill-no); }
+.head-mark.ok circle { fill: var(--ill-ok); }
+.head-mark path { fill: none; stroke: var(--forest-deep); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.rules-group-title { color: var(--ill-line); font-size: 13px; font-weight: 700; }
+.rules-group { display: grid; gap: 6px; }
+.rules-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); gap: 8px; margin: 0; padding: 0; list-style: none; }
+.rules-grid li { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 6px; border: 1px solid rgba(255,255,255,.18); border-radius: 12px; background: rgba(255,255,255,.06); color: rgba(255,255,255,.92); font-size: 13px; line-height: 1.5; text-align: center; }
+.rules-glyph { width: 40px; height: 40px; fill: none; stroke: var(--ill-line); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.glyph-no circle { fill: var(--ill-no); stroke: none; }
+.glyph-no path { stroke: var(--forest-deep); stroke-width: 1.8; }
+.rules-list { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; color: rgba(255,255,255,.92); font-size: 14px; line-height: 1.6; }
+.rules-list li { display: flex; align-items: flex-start; gap: 8px; }
+.dress-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+.dress-cell { flex: 1 1 130px; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 8px 6px; border: 1px solid rgba(255,255,255,.18); border-radius: 12px; background: rgba(255,255,255,.06); color: rgba(255,255,255,.92); font-size: 13px; line-height: 1.5; text-align: center; }
+.dress-art > svg { display: block; width: 100%; max-width: 130px; height: auto; }
+.dress-head { fill: none; stroke: var(--ill-line); stroke-width: 2; }
+.dress-cloth { fill: #f4efe3; stroke: var(--ill-line); stroke-width: 2; stroke-linejoin: round; }
+.dress-fold { fill: none; stroke: #9a8f78; stroke-width: 1.5; stroke-linecap: round; }
+.dress-bare { fill: none; stroke: var(--ill-line); stroke-width: 2; stroke-dasharray: 4 3; stroke-linejoin: round; }
+.dress-sandal { fill: var(--ill-line); }

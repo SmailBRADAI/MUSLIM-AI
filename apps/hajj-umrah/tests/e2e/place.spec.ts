@@ -19,7 +19,7 @@ async function expectAccessible(page: Page) {
 
 test("Arabic Tawaf step: I am in the Mataf", async ({ page }) => {
   await onboard(page, "العربية");
-  await openStep(page, 2);
+  await openStep(page, 3);
   const visual = page.locator(".place-visual");
   await expect(visual.locator("figcaption")).toHaveText("أنا في المطاف");
   await expect(visual.getByRole("img")).toHaveAccessibleName(ar.placeMapLabel.replace("{place}", "المطاف"));
