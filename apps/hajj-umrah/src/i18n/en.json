@@ -12,7 +12,6 @@
   "hajj": "Hajj rituals",
   "hajjHint": "Hajj stages organized by day",
   "continue": "Continue my journey",
-  "current": "Current step: Tawaf",
   "explore": "Helpful tools",
   "duas": "Supplications",
   "duasHint": "Selected and verified prayers",
@@ -75,5 +74,13 @@
   "undo": "I haven't finished this step",
   "commonMistakes": "Common mistakes",
   "otherSchools": "Other schools",
-  "sources": "Sources"
+  "sources": "Sources",
+  "diagrams": {
+    "safa": "Safa",
+    "marwah": "Marwah",
+    "greenMarkers": "Green markers"
+  },
+  "currentStep": "Current step",
+  "allStepsDone": "All steps are done",
+  "stepList": "Steps"
 }

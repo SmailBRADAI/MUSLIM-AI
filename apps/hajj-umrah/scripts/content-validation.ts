@@ -60,6 +60,9 @@ export function validateContent(files: ContentFiles): string[] {
           for (const field of STEP_TEXT_FIELDS) {
             if (typeof text[field] !== "string" || !text[field].trim()) errors.push(`${file}: "${step.id}" is missing ${lang} ${field}`);
           }
+          if (step.diagram && !String(text.diagramLabel ?? "").trim()) {
+            errors.push(`${file}: "${step.id}" has a ${step.diagram} diagram but no ${lang} diagramLabel`);
+          }
           if (step.rulingNote && !String(text[step.rulingNote] ?? "").trim()) {
             errors.push(`${file}: "${step.id}" is missing ${lang} ruling note "${step.rulingNote}"`);
           }

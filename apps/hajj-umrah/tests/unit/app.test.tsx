@@ -102,6 +102,31 @@ describe("App", () => {
     expect(screen.getByText("القرآن الكريم، سورة البقرة 2:158")).toBeInTheDocument();
   });
 
+  it("shows the real current step and progress on Home (T022)", async () => {
+    await db.setLanguage("en");
+    await db.saveProgress({ journeyId: "umrah", completedStepIds: ["umrah.ihram", "umrah.tawaf"], updatedAt: "2026-10-09T00:00:00Z" });
+    render(<App />);
+    expect(await screen.findByText("Current step: Two rak'ahs after Tawaf")).toBeInTheDocument();
+    expect(screen.getByText("40%")).toBeInTheDocument();
+  });
+
+  it("says when every step is done", async () => {
+    await db.setLanguage("en");
+    const all = ["umrah.ihram", "umrah.tawaf", "umrah.tawaf-prayer", "umrah.sai", "umrah.halq"];
+    await db.saveProgress({ journeyId: "umrah", completedStepIds: all, updatedAt: "2026-10-09T00:00:00Z" });
+    render(<App />);
+    expect(await screen.findByText("All steps are done")).toBeInTheDocument();
+    expect(screen.getByText("100%")).toBeInTheDocument();
+  });
+
+  it("hides the progress card for a journey with no content yet", async () => {
+    await db.setLanguage("en");
+    await db.setJourney("hajj-ifrad");
+    render(<App />);
+    await screen.findByRole("navigation");
+    expect(screen.queryByText(/Current step/)).not.toBeInTheDocument();
+  });
+
   it("says progress was not saved when undo can't be written", async () => {
     await db.saveProgress({ journeyId: "umrah", completedStepIds: ["umrah.ihram"], updatedAt: "2026-10-09T00:00:00Z" });
     await db.setLanguage("en");

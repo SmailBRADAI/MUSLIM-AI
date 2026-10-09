@@ -27,10 +27,16 @@ for (const { button, dir } of languages) {
       expect(results.violations).toEqual([]);
     });
 
-    test("guide has no WCAG A/AA violations", async ({ page }) => {
+    test("guide has no WCAG A/AA violations, including the Tawaf and Sa'i diagrams", async ({ page }) => {
       await page.locator(".journey-card.primary").click();
-      const results = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag22aa"]).analyze();
-      expect(results.violations).toEqual([]);
+      // Steps 1, 2 (Tawaf diagram) and 4 (Sa'i diagram).
+      for (const n of [1, 2, 4]) {
+        await page.locator(".steps button").nth(n - 1).click();
+        const results = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag22aa"]).analyze();
+        expect(results.violations).toEqual([]);
+      }
+      await expect(page.locator(".sai-diagram")).toBeVisible();
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
     });
   });
 }

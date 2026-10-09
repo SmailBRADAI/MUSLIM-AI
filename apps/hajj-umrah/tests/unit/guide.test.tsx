@@ -72,7 +72,7 @@ describe("Guide (T020)", () => {
   it("ends on the last step with a disabled Done button", () => {
     renderGuide(["t.one", "t.two"], async () => undefined);
     expect(screen.getByText("2 / 2")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /Done/ })).toBeDisabled();
+    expect(screen.getByRole("button", { name: "Done" })).toBeDisabled();
     expect(screen.queryByText(/^Next:/)).not.toBeInTheDocument();
   });
 
@@ -86,5 +86,22 @@ describe("Guide (T020)", () => {
       </I18nProvider>,
     );
     expect(screen.getByRole("heading", { level: 1, name: "One" })).toHaveFocus();
+  });
+});
+
+describe("Step list (T023)", () => {
+  it("opens any step from the list and allows completing steps out of order", async () => {
+    const onStepDone = vi.fn(async () => undefined);
+    renderGuide([], onStepDone);
+    await userEvent.click(screen.getByRole("button", { name: "2. Two" }));
+    expect(screen.getByRole("heading", { level: 1, name: "Two" })).toHaveFocus();
+    expect(screen.getByRole("button", { name: "2. Two" })).toHaveAttribute("aria-current", "step");
+    await userEvent.click(screen.getByRole("button", { name: /Mark complete/ }));
+    expect(onStepDone).toHaveBeenCalledWith("t.two", true);
+  });
+
+  it("names done steps for screen readers", () => {
+    renderGuide(["t.one"], async () => undefined);
+    expect(screen.getByRole("button", { name: "1. One (Done)" })).toBeInTheDocument();
   });
 });

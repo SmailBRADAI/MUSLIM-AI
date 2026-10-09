@@ -3,7 +3,8 @@ import { render, screen } from "@testing-library/react";
 import { ReviewBadge } from "../../src/components/ReviewBadge";
 import { RulingTag } from "../../src/components/RulingTag";
 import { displayStatus } from "../../src/data/types";
-import { I18nProvider } from "../../src/i18n";
+import { SaiDiagram, TawafDiagram } from "../../src/components/Diagrams";
+import { I18nProvider, strings } from "../../src/i18n";
 
 const inEnglish = (ui: React.ReactNode) => render(<I18nProvider language="en">{ui}</I18nProvider>);
 
@@ -64,5 +65,42 @@ describe("RulingTag", () => {
     );
     expect(screen.getByText("Ibn Baz: Obligatory")).toBeInTheDocument();
     expect(screen.getByText("Ibn Al-Uthaymeen: Sunnah")).toBeInTheDocument();
+  });
+});
+
+describe("Diagrams (T021)", () => {
+  it.each(["ar", "en", "ur"] as const)("keeps Tawaf counter-clockwise and Safa to Marwah left-to-right in %s", (language) => {
+    const { container } = render(
+      <I18nProvider language={language}>
+        <div dir={language === "en" ? "ltr" : "rtl"}>
+          <TawafDiagram label="tawaf caption" />
+          <SaiDiagram label="sai caption" />
+        </div>
+      </I18nProvider>,
+    );
+    expect(container.querySelector(".kaaba-diagram")).toHaveAttribute("dir", "ltr");
+    expect(container.querySelector(".direction-arrow")?.textContent).toBe("↺");
+
+    const sai = container.querySelector(".sai-diagram")!;
+    expect(sai).toHaveAttribute("dir", "ltr");
+    const out = sai.querySelector(".sai-track.out")!;
+    // The outward line runs from Safa (left) to Marwah (right) and points at Marwah.
+    expect(Number(out.getAttribute("x1"))).toBeLessThan(Number(out.getAttribute("x2")));
+    const markerId = sai.querySelector("marker")!.id;
+    expect(out.getAttribute("marker-end")).toBe(`url(#${markerId})`);
+    const labels = sai.querySelectorAll(".sai-labels span");
+    expect(labels[0].textContent).toBe(strings[language].diagrams.safa);
+    expect(labels[2].textContent).toBe(strings[language].diagrams.marwah);
+  });
+
+  it("shows the reviewed caption as visible text", () => {
+    inEnglish(<SaiDiagram label="Safa to Marwah is one round" />);
+    expect(screen.getByText("Safa to Marwah is one round")).toBeVisible();
+  });
+
+  it("gives each Sa'i diagram its own arrow marker id", () => {
+    const { container } = inEnglish(<><SaiDiagram label="a" /><SaiDiagram label="b" /></>);
+    const ids = [...container.querySelectorAll("marker")].map((m) => m.id);
+    expect(new Set(ids).size).toBe(2);
   });
 });

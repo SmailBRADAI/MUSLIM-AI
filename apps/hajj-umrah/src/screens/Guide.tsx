@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { SaiDiagram, TawafDiagram } from "../components/Diagrams";
 import { Icon } from "../components/Icon";
 import { ReviewBadge } from "../components/ReviewBadge";
 import { RulingTag } from "../components/RulingTag";
@@ -90,17 +91,20 @@ export function Guide({
       <section className="progress-panel">
         <div className="progress-label"><span>{t.progress}</span><strong>{percent}%</strong></div>
         <div className="progress-track"><span style={{ width: `${percent}%` }} /></div>
-        <ol className="steps">
+        {/* T023: any step can be opened from here, and steps may be done in any order. */}
+        <ol className="steps" aria-label={t.stepList}>
           {steps.map((s, i) => {
             const isDone = completed.includes(s.id);
             return (
-              <li
-                key={s.id}
-                className={[isDone && "done", i === index && "current"].filter(Boolean).join(" ") || undefined}
-                aria-current={i === index ? "step" : undefined}
-                aria-label={`${titleOf(s.id)}${isDone ? ` (${t.stepDone})` : ""}`}
-              >
-                {isDone ? <Icon name="check" size={13} /> : i + 1}
+              <li key={s.id} className={[isDone && "done", i === index && "current"].filter(Boolean).join(" ") || undefined}>
+                <button
+                  onClick={() => goTo(i)}
+                  disabled={saving}
+                  aria-current={i === index ? "step" : undefined}
+                  aria-label={`${i + 1}. ${titleOf(s.id)}${isDone ? ` (${t.stepDone})` : ""}`}
+                >
+                  <span className="step-dot">{isDone ? <Icon name="check" size={13} /> : i + 1}</span>
+                </button>
               </li>
             );
           })}
@@ -115,15 +119,8 @@ export function Guide({
         </div>
         <h2>{t.instructionTitle}</h2>
         <p>{text.instruction}</p>
-        {step.diagram === "tawaf" && (
-          <div className="kaaba-diagram" aria-hidden="true">
-            <span className="orbit orbit-a" />
-            <span className="orbit orbit-b" />
-            <span className="diagram-kaaba"><Icon name="kaaba" size={40} /></span>
-            {/* Tawaf is always counter-clockwise; this must never mirror with text direction. */}
-            <span className="direction-arrow">↺</span>
-          </div>
-        )}
+        {step.diagram === "tawaf" && text.diagramLabel && <TawafDiagram label={text.diagramLabel} />}
+        {step.diagram === "sai" && text.diagramLabel && <SaiDiagram label={text.diagramLabel} />}
       </section>
 
       <div className="action-list">

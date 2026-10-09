@@ -115,12 +115,14 @@ small { color: var(--muted); font-size: 13px; line-height: 1.6; }
 .progress-panel { margin: 22px 0 18px; padding: 16px 18px 14px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); }
 .progress-label { display: flex; justify-content: space-between; font-size: 14px; font-weight: 700; }
 .progress-panel .progress-track { background: var(--stone); margin: 10px 0 14px; }
-.steps { display: flex; align-items: center; justify-content: space-between; margin: 0; padding: 0; list-style: none; direction: ltr; }
-.steps li { width: 28px; height: 28px; display: grid; place-items: center; color: var(--muted); border: 1px solid var(--line); border-radius: 50%; background: var(--surface); font: 700 12px "Manrope", sans-serif; }
-.steps li.done { color: var(--white); border-color: var(--action); background: var(--action); }
-/* The current step gets a ring as well as color, so status is never shown by color alone. */
-.steps li.current { color: var(--action); border: 2px solid var(--action); box-shadow: 0 0 0 3px var(--sage); }
-.steps li.done.current { color: var(--white); background: var(--action); }
+.steps { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; margin: 0 -8px; padding: 0; list-style: none; }
+/* 44px touch target around a 28px dot (constitution IV). */
+.steps button { min-width: 44px; min-height: 44px; display: grid; place-items: center; padding: 0; border: 0; border-radius: 50%; background: transparent; cursor: pointer; }
+.step-dot { width: 28px; height: 28px; display: grid; place-items: center; color: var(--muted); border: 1px solid var(--line); border-radius: 50%; background: var(--surface); font: 700 12px "Manrope", sans-serif; }
+.steps li.done .step-dot { color: var(--white); border-color: var(--action); background: var(--action); }
+/* The open step gets a ring as well as color, so status is never shown by color alone. */
+.steps li.current .step-dot { color: var(--action); border: 2px solid var(--action); box-shadow: 0 0 0 3px var(--sage); }
+.steps li.done.current .step-dot { color: var(--white); background: var(--action); }
 .guide-heading h1:focus { outline: none; }
 
 .instruction-card { position: relative; padding: 20px; overflow: hidden; border-radius: 24px; color: var(--white); background: linear-gradient(145deg, var(--forest), var(--forest-deep)); box-shadow: var(--shadow); }
@@ -131,7 +133,7 @@ small { color: var(--muted); font-size: 13px; line-height: 1.6; }
 .tag.pending { border: 1px dashed rgba(255,255,255,.35); background: transparent; }
 .instruction-card h2 { margin: 18px 0 7px; font-size: 25px; }
 .instruction-card p { position: relative; z-index: 2; margin: 0; color: rgba(255,255,255,.82); font-size: 17px; line-height: 1.9; }
-.kaaba-diagram { position: relative; height: 150px; margin: 10px -20px -20px; overflow: hidden; direction: ltr; }
+.kaaba-diagram { position: relative; height: 150px; margin: 10px -20px 0; overflow: hidden; direction: ltr; }
 .diagram-kaaba { position: absolute; z-index: 2; left: 50%; top: 50%; transform: translate(-50%, -50%); color: #e6c990; }
 .orbit { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); border: 1px dashed rgba(255,255,255,.2); border-radius: 50%; }
 .orbit-a { width: 170px; height: 95px; }
@@ -191,3 +193,17 @@ small { color: var(--muted); font-size: 13px; line-height: 1.6; }
 .settings-group { margin-bottom: 26px; }
 .settings-group h2 { margin: 0 0 12px; font-size: 18px; }
 .text-link { color: var(--action); font-weight: 700; }
+
+/* T021 Sa'i diagram: fixed left-to-right, never mirrored. */
+.sai-diagram { margin: 12px 0 0; direction: ltr; color: #e6c990; }
+.sai-diagram svg { display: block; width: 100%; height: auto; }
+.sai-track { stroke: currentColor; stroke-width: 3; }
+.sai-track.back { stroke-dasharray: 6 5; }
+.sai-diagram marker path { fill: currentColor; }
+.sai-hill { fill: rgba(255,255,255,.12); stroke: currentColor; stroke-width: 2; }
+/* Outlined as well as tinted, so the zone is visible without relying on color (constitution IV). */
+.sai-green { fill: rgba(120,190,140,.25); stroke: #9fd8b0; stroke-width: 2; stroke-dasharray: 4 3; }
+.sai-labels { display: flex; justify-content: space-between; align-items: baseline; font-weight: 700; font-size: 14px; }
+.sai-green-label { color: #9fd8b0; font-size: 12px; }
+.diagram { margin: 0; }
+.diagram figcaption { position: relative; z-index: 2; margin-top: 10px; color: rgba(255,255,255,.88); font-size: 15px; line-height: 1.8; }

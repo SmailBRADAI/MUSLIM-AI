@@ -71,6 +71,8 @@ export interface StepText {
   instruction: string;
   details: string;
   mistakes: string;
+  /** Required when the step has a diagram: what it shows, reviewed with the rest of the text. */
+  diagramLabel?: string;
   review: TextReview;
 }
 

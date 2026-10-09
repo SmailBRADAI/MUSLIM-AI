@@ -104,6 +104,7 @@ interface StepText {
   instruction: string;
   details: string;
   mistakes: string;
+  diagramLabel?: string; // required when the step has a diagram; what the diagram shows
   review: { status: ReviewStatus; reviewer?: string; reviewedAt?: string };
 }
 ```

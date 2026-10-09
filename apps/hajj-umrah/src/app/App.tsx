@@ -4,7 +4,7 @@ import { BottomNav } from "../components/BottomNav";
 import { Icon } from "../components/Icon";
 import * as db from "../data/db";
 import { journeyContent } from "../data/content";
-import { setStepDone, withStep } from "../data/progress";
+import { completion, currentStep, setStepDone, withStep } from "../data/progress";
 import type { JourneyType } from "../data/types";
 import { I18nProvider, isRtl, strings } from "../i18n";
 import type { Language } from "../i18n";
@@ -110,6 +110,12 @@ export default function App() {
 
   if (!ready) return null;
   const content = journey ? journeyContent(journey) : null;
+  const current = content ? currentStep(content.journey, completed) : null;
+  const homeStatus = content && {
+    done: !current,
+    currentTitle: current ? (content.texts[language][current.id]?.title ?? null) : null,
+    percent: Math.round(completion(content.journey, completed) * 100),
+  };
 
   if (onboarding) {
     return (
@@ -134,7 +140,7 @@ export default function App() {
         {choiceNotSaved && (
           <p className="save-note save-failed" role="alert"><Icon name="shield" size={16} />{strings[language].choiceNotSaved}</p>
         )}
-        {screen === "home" && <Home setScreen={setScreen} />}
+        {screen === "home" && <Home setScreen={setScreen} status={homeStatus} />}
         {screen === "guide" && content && (
           <Guide key={journey} journey={content.journey} texts={content.texts[language]} completed={completed} onStepDone={markStep} saveFailed={saveFailed} />
         )}

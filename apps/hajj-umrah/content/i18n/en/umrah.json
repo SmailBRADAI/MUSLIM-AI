@@ -4,21 +4,28 @@
     "instruction": "Before the miqat, take a bath, put perfume on your body, and wear the two ihram sheets (a woman wears any modest clothing). At the miqat, make the intention to enter Umrah and begin the Talbiyah.",
     "details": "Ihram is the intention to enter the rite. It is a pillar: the Umrah is not valid without it. It must be made at the miqat; someone going for Umrah may not pass the miqat without it. If you fear illness or another obstacle may stop you, make a condition when you form the intention. The Talbiyah is a sunnah; men say it aloud and women quietly, until the Tawaf begins.",
     "mistakes": "Passing the miqat without ihram, especially on a plane; thinking ihram is only the clothing, without the intention; uncovering the right shoulder from the start of ihram, when it is only for the Umrah Tawaf.",
-    "review": { "status": "draft" }
+    "review": {
+      "status": "draft"
+    }
   },
   "umrah.tawaf": {
     "title": "Tawaf",
     "instruction": "Start at the Black Stone, keep the Kaaba on your left, and walk seven full rounds. Each round starts and ends at the Black Stone.",
     "details": "Tawaf is a pillar of the Umrah. Ibn Baz held that wudu is a condition for it; Ibn Al-Uthaymeen inclined to the view that it is not a condition, while urging wudu to be safe. So make wudu before Tawaf. Touch the Black Stone, or point to it if you cannot without pushing; touch the Yemeni Corner if you easily can, without pointing to it. Men uncover the right shoulder for this whole Tawaf and walk briskly in the first three rounds. No round has its own fixed supplication; supplicate with what you wish.",
     "mistakes": "Walking inside the Hijr (the semicircle by the Kaaba); pushing and hurting others to kiss the Black Stone; kissing the Yemeni Corner or wiping the Kaaba's walls; walking briskly in every round; reading a booklet with a set prayer for each round.",
-    "review": { "status": "draft" }
+    "diagramLabel": "Keep the Kaaba on your left and walk counter-clockwise; each round starts at the Black Stone.",
+    "review": {
+      "status": "draft"
+    }
   },
   "umrah.tawaf-prayer": {
     "title": "Two rak'ahs after Tawaf",
     "instruction": "After the Tawaf, cover your right shoulder and pray two rak'ahs behind the Station of Ibrahim if you easily can, otherwise anywhere in the mosque.",
     "details": "These two rak'ahs are a sunnah. After Al-Fatihah, it is sunnah to recite Al-Kafirun in the first and Al-Ikhlas in the second. Then it is sunnah to drink Zamzam water, and to touch the Black Stone before going to the Mas'a if you easily can.",
     "mistakes": "Insisting on praying right behind the Station in a crowd and blocking people doing Tawaf; making the prayer long or sitting for a long time in the Tawaf area; keeping the shoulder uncovered in the prayer.",
-    "review": { "status": "draft" }
+    "review": {
+      "status": "draft"
+    }
   },
   "umrah.sai": {
     "title": "Sa'i between Safa and Marwah",
@@ -26,13 +33,18 @@
     "details": "Sa'i is a pillar of the Umrah according to Ibn Baz and Ibn Al-Uthaymeen. It starts at Safa and ends at Marwah. Men walk fast between the two green markers; women walk. Ritual purity is not required for it, but it is better. Standing on Safa and Marwah to remember Allah and supplicate is a sunnah.",
     "otherSchools": "The Hanafi school holds that Sa'i is obligatory (wajib) rather than a pillar, so leaving it is made up with a sacrifice. Ibn Baz and Ibn Al-Uthaymeen hold that it is a pillar, without which the Umrah is not complete.",
     "mistakes": "Starting at Marwah; counting there and back as one round; hurrying along the whole Mas'a instead of only between the green markers; women hurrying between the markers.",
-    "review": { "status": "draft" }
+    "diagramLabel": "Safa to Marwah is one round, Marwah to Safa another. Between the two green markers men walk fast; women walk.",
+    "review": {
+      "status": "draft"
+    }
   },
   "umrah.halq": {
     "title": "Shaving or shortening the hair",
     "instruction": "After Sa'i, men shave the head or shorten all of their hair; shaving is better. Women cut a fingertip's length from the ends of their hair. This ends your Umrah.",
     "details": "Shaving or shortening is obligatory (wajib) in the Umrah. Shortening must cover the whole head, not part of it. Once done, your Umrah is complete and everything forbidden by ihram becomes allowed again.",
     "mistakes": "Cutting a few hairs from one side only; leaving ihram before shaving or shortening; a woman shaving her head.",
-    "review": { "status": "draft" }
+    "review": {
+      "status": "draft"
+    }
   }
 }
