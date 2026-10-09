@@ -3,6 +3,7 @@ import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { validateContent } from "../../scripts/content-validation";
 import type { ContentFiles } from "../../scripts/content-validation";
+import { PLACES } from "../../src/data/types";
 
 const schema = JSON.parse(
   readFileSync(join(__dirname, "../../../../specs/001-hajj-umrah-companion/contracts/content-pack.schema.json"), "utf8"),
@@ -25,6 +26,7 @@ function files(stepMeta: object = {}, overrides: Partial<ContentFiles> = {}): Co
             id: "umrah.tawaf",
             order: 2,
             ruling: "rukn",
+            place: "mataf",
             supplicationIds: [],
             meta: { source: ["Ibn Baz, at-Tahqiq wal-Idah"], status: "draft", version: "2026.10.0", ...stepMeta },
           },
@@ -54,6 +56,27 @@ describe("validateContent", () => {
     expect(validateContent(withDiagram)).toContain('umrah.json: "umrah.tawaf" has a tawaf diagram but no ar diagramLabel');
     const labelled = { "umrah.json": { "umrah.tawaf": { ...text, diagramLabel: "Kaaba on your left" } } };
     expect(validateContent({ ...withDiagram, texts: { ar: labelled, en: labelled, ur: labelled } })).toEqual([]);
+  });
+
+  describe("step place (T047)", () => {
+    const step = (f: ContentFiles) =>
+      (f.journeys["umrah.json"] as { stages: { steps: Record<string, unknown>[] }[] }).stages[0].steps[0];
+
+    it("requires every step to name its place", () => {
+      const missing = files();
+      delete step(missing).place;
+      expect(validateContent(missing).join()).toMatch(/must have required property 'place'/);
+    });
+
+    it("accepts only places from the fixed list", () => {
+      const unknown = files();
+      step(unknown).place = "jeddah";
+      expect(validateContent(unknown).join()).toMatch(/place must be equal to one of the allowed values/);
+    });
+
+    it("lists the same places in the schema and the app", () => {
+      expect(schema.$defs.step.properties.place.enum).toEqual([...PLACES]);
+    });
   });
 
   it("rejects a step with no source", () => {

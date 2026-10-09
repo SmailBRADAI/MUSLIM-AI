@@ -79,6 +79,45 @@
     "marwah": "Marwah",
     "greenMarkers": "Green markers"
   },
+  "places": {
+    "miqat": {
+      "name": "Miqat",
+      "here": "I am at the Miqat"
+    },
+    "mataf": {
+      "name": "Mataf",
+      "here": "I am in the Mataf"
+    },
+    "maqam": {
+      "name": "Station of Ibrahim",
+      "here": "I am at the Station of Ibrahim"
+    },
+    "masa": {
+      "name": "Mas'a",
+      "here": "I am in the Mas'a, between Safa and Marwah"
+    },
+    "makkah": {
+      "name": "Makkah",
+      "here": "I am in Makkah"
+    },
+    "mina": {
+      "name": "Mina",
+      "here": "I am in Mina"
+    },
+    "jamarat": {
+      "name": "Jamarat",
+      "here": "I am at the Jamarat"
+    },
+    "muzdalifah": {
+      "name": "Muzdalifah",
+      "here": "I am in Muzdalifah"
+    },
+    "arafah": {
+      "name": "Arafah",
+      "here": "I am at Arafah"
+    }
+  },
+  "placeMapLabel": "Map of the pilgrimage places. Highlighted: {place}",
   "currentStep": "Current step",
   "allStepsDone": "All steps are done",
   "stepList": "Steps",

@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { SaiDiagram, TawafDiagram } from "../components/Diagrams";
 import { Icon } from "../components/Icon";
+import { PlaceVisual } from "../components/PlaceVisual";
 import { ReviewBadge } from "../components/ReviewBadge";
 import { RulingTag } from "../components/RulingTag";
 import type { StepTexts } from "../data/content";
 import { completion, currentStep, orderedSteps } from "../data/progress";
-import { displayStatus } from "../data/types";
+import { displayStatus, isPlace } from "../data/types";
 import type { Journey, JourneyType, Stage, Step } from "../data/types";
 import { useT } from "../i18n";
 import type { Strings } from "../i18n";
@@ -162,6 +163,9 @@ export function Guide({
         )}
       </section>
 
+      {/* T047: where this step is performed, above the step content. Content is validated in CI, but an
+          unknown place must not crash the guide. */}
+      {isPlace(step.place) && <PlaceVisual place={step.place} />}
       <section className="instruction-card">
         <div className="instruction-meta">
           <span className="ritual-icon"><Icon name="compass" /></span>

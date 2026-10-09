@@ -22,6 +22,7 @@ A pilgrim who downloaded the guide opens the app in airplane mode at the Haram. 
 3. **Given** the pilgrim marked a step by mistake, **When** they tap "Previous step", **Then** they return to it and can unmark it.
 4. **Given** any step, **Then** it shows its ruling label (per the declared framework) and its review status, and the "reviewed" mark appears only for approved content.
 5. **Given** the Tawaf step in any language, **Then** the diagram shows counter-clockwise movement with the Kaaba on the pilgrim's left.
+6. **Given** any step (Umrah or Hajj), **Then** a compact "you are here" visual at the top of the step shows the pilgrimage places (Miqat, Makkah with the Mataf, Maqam Ibrahim and the Mas'a, the Jamarat, Mina, Muzdalifah, Arafah) with the step's place highlighted by a marker and a bold name as well as colour, and a caption in the pilgrim's language, for example "أنا في المطاف" / "I am in the Mataf". It works offline.
 
 ### User story 2 — Choose language and journey on first launch (Priority: P1)
 
@@ -105,6 +106,7 @@ The pilgrim searches steps and supplications in their language, offline.
 - **FR-005**: All P1 content MUST work offline after download, including fonts and app code.
 - **FR-006**: The app MUST show "Ready offline" status with size, language and content version.
 - **FR-007**: Every content item MUST carry source, ruling (where applicable), review status, reviewer, and version; unapproved items MUST be marked as pending review. Each language's text has its own review status: a step is shown as reviewed in a language only when both the step and that language's text are approved.
+- **FR-019**: Each step MUST name the one place where it is performed, from a fixed list: miqat, mataf, maqam (Maqam Ibrahim, for the two rak'ahs after Tawaf), masa (between Safa and Marwah), makkah (elsewhere in Makkah, for example shaving or shortening after the Umrah), mina, jamarat, muzdalifah, arafah. The guide MUST show it as a "you are here" visual drawn in the app (no map tiles or network). The place is part of the step's reviewed content; the place names and caption are UI strings, since they name geography, not rulings.
 - **FR-018**: If progress cannot be saved on the device, the app MUST say so instead of claiming it was saved.
 - **FR-008**: Audio MUST be optional and downloaded separately.
 - **FR-009**: Content updates MUST be checked only when online and MUST NOT block use of the installed version.
@@ -121,7 +123,7 @@ The pilgrim searches steps and supplications in their language, offline.
 
 - **Journey**: type (umrah, hajj-tamattu, hajj-qiran, hajj-ifrad), ordered stages.
 - **Stage**: a group of steps. In Hajj, each stage is either one day (8 to 13 Dhu al-Hijjah) or a named part that is not a single day: the Umrah of Tamattu', arrival in Makkah (Qiran, Ifrad), or the farewell.
-- **Step**: id, order, title, instruction, details, common mistakes, ruling, related supplication ids, audio id, diagram, per-language text.
+- **Step**: id, order, place, title, instruction, details, common mistakes, ruling, related supplication ids, audio id, diagram, per-language text.
 - **Supplication**: Arabic text, transliteration, translations, source, grading, specific-to-step or general.
 - **ContentMeta**: source reference, review status (draft, in-review, approved), reviewer, reviewed date, version.
 - **TextReview**: per-language review status, reviewer and date for a step's translated text.

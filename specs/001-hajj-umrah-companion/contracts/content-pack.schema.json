@@ -43,7 +43,7 @@
     },
     "step": {
       "type": "object",
-      "required": ["id", "order", "ruling", "supplicationIds", "meta"],
+      "required": ["id", "order", "ruling", "place", "supplicationIds", "meta"],
       "properties": {
         "id": { "type": "string", "pattern": "^[a-z0-9-]+(\\.[a-z0-9-]+)+$" },
         "order": { "type": "integer" },
@@ -65,6 +65,10 @@
         "supplicationIds": { "type": "array", "items": { "type": "string" } },
         "audioId": { "type": "string" },
         "diagram": { "enum": ["tawaf", "sai"] },
+        "place": {
+          "enum": ["miqat", "mataf", "maqam", "masa", "makkah", "mina", "jamarat", "muzdalifah", "arafah"],
+          "description": "Where the step is performed, shown as the Guide's \"you are here\" visual: maqam is behind Maqam Ibrahim (the two rak'ahs after Tawaf), masa is between Safa and Marwah, makkah is elsewhere in Makkah"
+        },
         "meta": { "$ref": "#/$defs/meta" }
       }
     }
