@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AppHeader } from "../components/AppHeader";
 import { BottomNav } from "../components/BottomNav";
 import { Icon } from "../components/Icon";
@@ -25,7 +25,13 @@ function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
 export default function App() {
   const [ready, setReady] = useState(false);
   const [language, setLanguageState] = useState<Language>("ar");
-  const [completed, setCompleted] = useState<string[]>([]);
+  const [completed, setCompletedState] = useState<string[]>([]);
+  // Saves read the latest list, not the one captured when the handler was created.
+  const completedRef = useRef<string[]>([]);
+  const setCompleted = (next: string[]) => {
+    completedRef.current = next;
+    setCompletedState(next);
+  };
   const [screen, setScreen] = useState<Screen>("home");
   const [saveFailed, setSaveFailed] = useState(false);
   const [choiceNotSaved, setChoiceNotSaved] = useState(false);
@@ -68,11 +74,11 @@ export default function App() {
   const markStep = async (stepId: string, done: boolean) => {
     if (!journey) return;
     try {
-      setCompleted(await setStepDone(journey, completed, stepId, done));
+      setCompleted(await setStepDone(journey, completedRef.current, stepId, done));
       setSaveFailed(false);
     } catch {
       setSaveFailed(true);
-      setCompleted(withStep(completed, stepId, done));
+      setCompleted(withStep(completedRef.current, stepId, done));
     }
   };
 

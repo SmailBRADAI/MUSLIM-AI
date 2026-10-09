@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Icon } from "../components/Icon";
 import { ReviewBadge } from "../components/ReviewBadge";
 import { RulingTag } from "../components/RulingTag";
 import type { StepTexts } from "../data/content";
 import { completion, currentStep, orderedSteps } from "../data/progress";
 import { displayStatus } from "../data/types";
-import type { Journey } from "../data/types";
+import type { Journey, JourneyType } from "../data/types";
 import { useT } from "../i18n";
+import type { Strings } from "../i18n";
+
+const guideLabel = (t: Strings, type: JourneyType) => (type === "umrah" ? t.umrahGuide : t.journeys[type]);
 
 /** T020: one step at a time, driven by the journey content. */
 export function Guide({
@@ -30,26 +33,58 @@ export function Guide({
     return current ? steps.indexOf(current) : steps.length - 1;
   });
   const [details, setDetails] = useState(false);
+  // One action at a time: a double tap must not complete the step that slides in under the finger.
+  const [saving, setSaving] = useState(false);
+  const savingRef = useRef(false);
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const moved = useRef(false);
   const step = steps[index];
   const text = texts[step.id];
+
+  // After an action changes the step or removes the focused button, put focus on the step title
+  // so screen readers announce where the pilgrim is.
+  useEffect(() => {
+    if (!moved.current) return;
+    moved.current = false;
+    headingRef.current?.focus();
+  });
   const done = completed.includes(step.id);
   const next = steps[index + 1];
   const percent = Math.round(completion(journey, completed) * 100);
-  const otherSchools = step.rulingNote ? String(text[step.rulingNote] ?? "") : "";
+  const otherSchools = text && step.rulingNote ? String(text[step.rulingNote] ?? "") : "";
+  const titleOf = (id: string) => texts[id]?.title ?? id;
 
+  const run = async (action: () => Promise<void>) => {
+    if (savingRef.current) return;
+    savingRef.current = true;
+    setSaving(true);
+    try {
+      await action();
+    } finally {
+      savingRef.current = false;
+      setSaving(false);
+      moved.current = true;
+    }
+  };
   const goTo = (i: number) => {
     setIndex(i);
     setDetails(false);
+    moved.current = true;
   };
-  const markDone = async () => {
-    if (!done) await onStepDone(step.id, true);
-    if (next) goTo(index + 1);
-  };
+  const markDone = () =>
+    run(async () => {
+      if (!done) await onStepDone(step.id, true);
+      if (next) goTo(index + 1);
+    });
+  const undo = () => run(() => onStepDone(step.id, false));
+
+  // Content is validated in CI; a missing translation must still never crash the guide.
+  if (!text) return <GuideNotReady />;
 
   return (
     <main className="page guide-page">
       <div className="guide-heading">
-        <div><span className="eyebrow">{t.umrahGuide}</span><h1>{text.title}</h1></div>
+        <div><span className="eyebrow">{guideLabel(t, journey.type)}</span><h1 ref={headingRef} tabIndex={-1}>{text.title}</h1></div>
         <span className="step-pill">{index + 1} / {steps.length}</span>
       </div>
       <section className="progress-panel">
@@ -61,9 +96,9 @@ export function Guide({
             return (
               <li
                 key={s.id}
-                className={isDone ? "done" : i === index ? "current" : ""}
+                className={[isDone && "done", i === index && "current"].filter(Boolean).join(" ") || undefined}
                 aria-current={i === index ? "step" : undefined}
-                aria-label={`${texts[s.id].title}${isDone ? ` (${t.stepDone})` : ""}`}
+                aria-label={`${titleOf(s.id)}${isDone ? ` (${t.stepDone})` : ""}`}
               >
                 {isDone ? <Icon name="check" size={13} /> : i + 1}
               </li>
@@ -115,14 +150,14 @@ export function Guide({
         )}
       </div>
 
-      {next && <div className="next-note"><Icon name="sparkle" size={18} /><span>{t.nextStep}: {texts[next.id].title}</span></div>}
-      <button className={done ? "complete-button completed" : "complete-button"} onClick={markDone} disabled={done && !next}>
+      {next && <div className="next-note"><Icon name="sparkle" size={18} /><span>{t.nextStep}: {titleOf(next.id)}</span></div>}
+      <button className={done ? "complete-button completed" : "complete-button"} onClick={markDone} disabled={saving || (done && !next)}>
         <Icon name="check" />
         {done ? (next ? t.nextStep : t.stepDone) : t.complete}
         <Icon name="arrow" />
       </button>
-      {done && <button className="previous-button" onClick={() => onStepDone(step.id, false)}>{t.undo}</button>}
-      <button className="previous-button" onClick={() => goTo(index - 1)} disabled={index === 0}>{t.previous}</button>
+      {done && <button className="previous-button" onClick={undo} disabled={saving}>{t.undo}</button>}
+      <button className="previous-button" onClick={() => goTo(index - 1)} disabled={saving || index === 0}>{t.previous}</button>
       {saveFailed ? (
         <p className="save-note save-failed" role="alert"><Icon name="shield" size={16} />{t.saveFailed}</p>
       ) : (

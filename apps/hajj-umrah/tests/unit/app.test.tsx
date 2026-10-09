@@ -102,6 +102,19 @@ describe("App", () => {
     expect(screen.getByText("القرآن الكريم، سورة البقرة 2:158")).toBeInTheDocument();
   });
 
+  it("says progress was not saved when undo can't be written", async () => {
+    await db.saveProgress({ journeyId: "umrah", completedStepIds: ["umrah.ihram"], updatedAt: "2026-10-09T00:00:00Z" });
+    await db.setLanguage("en");
+    render(<App />);
+    await userEvent.click(await screen.findByRole("button", { name: /Umrah rituals/ }));
+    await userEvent.click(screen.getByRole("button", { name: "Previous step" }));
+    const save = vi.spyOn(db, "saveProgress").mockRejectedValue(new Error("QuotaExceededError"));
+    await userEvent.click(screen.getByRole("button", { name: /haven't finished/ }));
+    expect(await screen.findByRole("alert")).toHaveTextContent("could not be saved");
+    expect(screen.getByRole("button", { name: /Mark complete/ })).toBeInTheDocument();
+    save.mockRestore();
+  });
+
   it("says progress was not saved when the device write fails", async () => {
     const save = vi.spyOn(db, "saveProgress").mockRejectedValue(new Error("QuotaExceededError"));
     render(<App />);

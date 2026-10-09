@@ -111,7 +111,7 @@ interface StepText {
 ## Phases
 
 1. **Foundation**: split `App.tsx` into screens and components, move strings to i18n files, add IndexedDB storage, tests and CI.
-2. **P1 stories**: content model and validator, Umrah journey data (draft status), Guide screen driven by data, onboarding, download and "Ready offline".
+2. **P1 stories**: content model and validator, Umrah journey data (draft status), Guide screen driven by data, onboarding, download and "Ready offline". The guide's related-supplications link and audio (FR-003) appear only once sourced supplications (T034, T035) and the audio decision (T036) exist; until then no step shows them, rather than showing empty controls.
 3. **P2 stories**: Hajj journeys by day for each type, Supplications screen with audio.
 4. **P3 stories**: offline OpenStreetMap map, offline search.
 5. **Polish**: accessibility pass, performance and size budget, content review sign-off.
