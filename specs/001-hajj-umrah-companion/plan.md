@@ -1,4 +1,4 @@
-# Implementation Plan: Rafiq — Hajj & Umrah Companion
+# Implementation Plan: Rafiq al-Manasik (رفيق المناسك) — Hajj & Umrah Companion
 
 **Branch**: `001-hajj-umrah-companion` · **Spec**: [spec.md](./spec.md) · **Constitution**: [constitution.md](../../.specify/memory/constitution.md)
 
@@ -17,21 +17,21 @@ An installable, offline-first PWA in `apps/hajj-umrah`. Ritual content is struct
 | Local data | IndexedDB through `idb` (≈1 kB) for progress, settings and installed pack metadata; `navigator.storage.persist()` requested after download |
 | Fonts | Self-hosted via @fontsource: Noto Naskh Arabic, Noto Nastaliq Urdu, Manrope |
 | i18n | UI strings in `src/i18n/{ar,en,ur}.json`; content text lives in the packs |
-| Maps | Static offline map image or vector tiles per area (decided in research) |
+| Maps | OpenStreetMap: pre-rendered vector tiles for Makkah, Mina, Muzdalifah and Arafat bundled in a map pack, shown with MapLibre GL JS; ODbL attribution in the map view |
 | Testing | Vitest + Testing Library for units, Playwright for offline, RTL and accessibility (axe) checks |
-| Target | Mobile browsers (Chrome Android, Safari iOS 16+), portrait first |
+| Target | Mobile browsers (Chrome Android, Safari iOS 16+), portrait first; wrapped with Capacitor for the App Store and Google Play in a later phase |
 | Constraints | P1 pack < 15 MB without audio; no network calls during a ritual; no third-party analytics |
 
 ## Constitution check
 
 | Principle | How the plan meets it |
 |---|---|
-| I. Sourced content | Every content item has `meta` (source, status, reviewer, version). A build-time validator fails if an item lacks it; the UI renders the "reviewed" mark only when `status === "approved"`. |
+| I. Sourced content | Rulings follow Ibn Baz and Ibn Al-Uthaymeen; where they differ, `rulingViews` holds both. Every content item has `meta` (source, status, reviewer role holder, version). Approval is limited to the content reviewer role via `content/reviewers.json` and CODEOWNERS on `content/`. A build-time validator fails if an item lacks it; the UI renders the "reviewed" mark only when `status === "approved"`. |
 | II. Offline-first | App shell and fonts precached; packs stored in Cache Storage; progress in IndexedDB written before UI updates. |
 | III. Three languages | Logical CSS properties; `dir`/`lang` set on `<html>`; direction-meaningful diagrams set `direction: ltr`. Playwright snapshots for each language. |
 | IV. Real conditions | 44–48 px targets, text scaling, no gestures for essential actions, reduced motion respected. axe checks in CI. |
 | V. Privacy | No accounts, no trackers, all state on device. |
-| VI. Simplicity | Two dependencies added (`idb`, test tools only in dev). |
+| VI. Simplicity | Runtime dependencies added: `idb`, and MapLibre GL JS only in the lazily loaded map screen. |
 
 ## Project structure
 
@@ -44,6 +44,7 @@ specs/001-hajj-umrah-companion/
 └── contracts/content-pack.schema.json
 apps/hajj-umrah/
 ├── content/                  # source of truth for ritual content (reviewed via PR)
+│   ├── reviewers.json        # GitHub handles holding the content reviewer role
 │   ├── journeys/umrah.json
 │   ├── journeys/hajj-tamattu.json …
 │   ├── supplications.json
@@ -82,8 +83,13 @@ interface ContentMeta {
 interface Step {
   id: string;                // "umrah.tawaf"
   order: number;
-  ruling: Ruling;
-  rulingNote?: string;       // i18n key explaining recognized differences
+  ruling: Ruling;            // per the framework: Ibn Baz and Ibn Al-Uthaymeen
+  rulingViews?: {            // only when the two sheikhs differ
+    scholar: "ibn-baz" | "ibn-uthaymeen";
+    ruling: Ruling;
+    source: string;
+  }[];
+  rulingNote?: string;       // i18n key for other schools' positions, informational only
   supplicationIds: string[];
   audioId?: string;
   diagram?: "tawaf" | "sai";
@@ -97,11 +103,13 @@ interface Step {
 1. **Foundation**: split `App.tsx` into screens and components, move strings to i18n files, add IndexedDB storage, tests and CI.
 2. **P1 stories**: content model and validator, Umrah journey data (draft status), Guide screen driven by data, onboarding, download and "Ready offline".
 3. **P2 stories**: Hajj journeys by day for each type, Supplications screen with audio.
-4. **P3 stories**: offline map, offline search.
+4. **P3 stories**: offline OpenStreetMap map, offline search.
 5. **Polish**: accessibility pass, performance and size budget, content review sign-off.
+6. **App stores**: Capacitor wrapper for iOS and Android, store listings, native storage for packs.
 
 ## Risks
 
 - **Content review is the critical path.** Code can ship with draft content marked as pending, but nothing should be presented as authoritative until reviewed. The clarifications in the spec must be answered first.
 - **iOS storage eviction.** Safari can evict PWA storage; mitigate with `storage.persist()`, a visible re-download prompt, and keeping packs small.
 - **Nastaliq rendering.** Line height and clipping need per-screen checks in Urdu.
+- **App store wrapping.** Service workers behave differently in WKWebView; the pack loader goes through one interface (`src/data/packs.ts`) so a native file-system implementation can replace Cache Storage under Capacitor.

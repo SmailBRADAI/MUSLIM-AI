@@ -1,6 +1,6 @@
 {
-  "name": "Rafiq — Hajj & Umrah Companion",
-  "short_name": "Rafiq",
+  "name": "رفيق المناسك · Rafiq al-Manasik",
+  "short_name": "رفيق المناسك",
   "description": "Offline-first step-by-step guidance for Hajj and Umrah.",
   "start_url": "/",
   "display": "standalone",

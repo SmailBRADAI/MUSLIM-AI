@@ -51,7 +51,7 @@ button:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
   border-bottom: 1px solid var(--line);
 }
 
-.brand { display: flex; align-items: center; gap: 10px; color: var(--forest); font-size: 17px; font-weight: 800; letter-spacing: 1.5px; }
+.brand { display: flex; align-items: center; gap: 10px; color: var(--forest); font-size: 17px; font-weight: 800; letter-spacing: .5px; white-space: nowrap; }
 .brand-mark { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; color: var(--gold); background: var(--forest); }
 .language-switcher { direction: ltr; display: flex; gap: 2px; padding: 3px; background: var(--sage-pale); border-radius: 12px; }
 .language { border: 0; min-width: 44px; height: 44px; padding: 0 7px; border-radius: 9px; background: transparent; color: var(--muted); cursor: pointer; font-family: "Manrope", "Noto Naskh Arabic", sans-serif; font-weight: 700; }

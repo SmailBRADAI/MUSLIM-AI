@@ -8,4 +8,4 @@ This repository uses spec-driven development.
 - If the work needs something the spec does not cover, update the spec first.
 
 Apps:
-- `apps/hajj-umrah`: Rafiq, Hajj & Umrah companion (spec `specs/001-hajj-umrah-companion`).
+- `apps/hajj-umrah`: رفيق المناسك (Rafiq al-Manasik), Hajj & Umrah companion (spec `specs/001-hajj-umrah-companion`).

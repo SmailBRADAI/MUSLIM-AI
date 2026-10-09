@@ -1,4 +1,4 @@
-# Rafiq — Hajj & Umrah Companion
+# رفيق المناسك (Rafiq al-Manasik) — Hajj & Umrah Companion
 
 Offline-first PWA that guides pilgrims step by step through Umrah and Hajj, in Arabic, English and Urdu.
 Imported from the Figma Make file "Hajj Umrah Companion Design".

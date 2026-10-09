@@ -1,4 +1,4 @@
-# Tasks: Rafiq — Hajj & Umrah Companion
+# Tasks: Rafiq al-Manasik (رفيق المناسك) — Hajj & Umrah Companion
 
 **Input**: [spec.md](./spec.md), [plan.md](./plan.md), [contracts/](./contracts/)
 **Format**: `[ID] [P?] [Story] Description` — `[P]` can run in parallel (different files, no dependency). Paths are under `apps/hajj-umrah/` unless noted.
@@ -9,6 +9,8 @@
 - [x] T002 Precache the build and self-host fonts with vite-plugin-pwa (PR #1)
 - [ ] T003 [P] Add Vitest + Testing Library and a first smoke test in `tests/unit/`
 - [ ] T004 [P] Add Playwright with `tests/e2e/offline.spec.ts` (load, go offline, reload) and axe checks
+- [x] T042 Rename the app to رفيق المناسك / Rafiq al-Manasik / رفیق المناسک (FR-016)
+- [ ] T043 [P] Content reviewer role: `content/reviewers.json`, `.github/CODEOWNERS` requiring a role holder on `apps/hajj-umrah/content/`
 - [ ] T005 Add GitHub Actions CI at repo root `.github/workflows/hajj-umrah.yml`: typecheck, unit, build, e2e
 
 ## Phase 2: Foundation (blocks all stories)
@@ -17,9 +19,9 @@
 - [ ] T007 [P] Move UI strings to `src/i18n/{ar,en,ur}.json` with a typed `useT()` hook and language context
 - [ ] T008 [P] Add `src/data/db.ts` (IndexedDB via `idb`) for settings, progress and installed packs; migrate the two localStorage keys
 - [ ] T009 Add content types in `src/data/types.ts` matching `contracts/content-pack.schema.json`
-- [ ] T010 Add `scripts/validate-content.ts`: schema check, unique ids, every i18n key present in all 3 languages, `approved` requires reviewer and date; run in CI
+- [ ] T010 Add `scripts/validate-content.ts`: schema check, unique ids, every i18n key present in all 3 languages, `approved` requires reviewer and date, reviewer must be listed in `content/reviewers.json`; run in CI
 - [ ] T011 [P] `ReviewBadge` component: shows "reviewed" only for `approved`, otherwise "pending scholarly review"
-- [ ] T012 [P] `RulingTag` component for rukn / wajib / sunnah / mustahabb with optional note
+- [ ] T012 [P] `RulingTag` component for rukn / wajib / sunnah / mustahabb; shows both views when Ibn Baz and Ibn Al-Uthaymeen differ
 
 **Checkpoint**: app looks the same as PR #1, all state in IndexedDB, content can be validated.
 
@@ -32,7 +34,7 @@
 
 ## Phase 4: User story 1 — Follow the Umrah offline (P1) 🎯 MVP
 
-- [ ] T017 [US1] `content/journeys/umrah.json` with Ihram, Tawaf, two rak'ahs, Sa'i, halq/taqsir, all `status: "draft"` with sources listed
+- [ ] T017 [US1] `content/journeys/umrah.json` with Ihram, Tawaf, two rak'ahs, Sa'i, halq/taqsir, rulings per Ibn Baz and Ibn Al-Uthaymeen, all `status: "draft"` with sources listed
 - [ ] T018 [P] [US1] `content/i18n/{ar,en,ur}/umrah.json` texts for every step (title, instruction, details, common mistakes)
 - [ ] T019 [US1] `src/data/progress.ts`: complete, undo, current step; write to IndexedDB before updating UI
 - [ ] T020 [US1] Guide screen driven by journey data: step card, ruling tag, review badge, next step, details, related supplications link, audio slot
@@ -66,7 +68,7 @@
 
 ## Phase 8: User stories 6 and 7 — Map and search (P3)
 
-- [ ] T037 [US6] Offline landmarks map (after map data source is decided)
+- [ ] T037 [US6] Offline landmarks map from OpenStreetMap vector tiles with MapLibre GL JS, lazily loaded, with ODbL attribution
 - [ ] T038 [P] [US7] Offline search over installed pack text in the current language
 
 ## Phase 9: Polish and release
@@ -75,8 +77,14 @@
 - [ ] T040 Size budget check in CI (P1 pack < 15 MB without audio)
 - [ ] T041 Content review: reviewer approves each item; validator confirms 100% approved before release (SC-002)
 
+## Phase 10: App stores
+
+- [ ] T044 Wrap the PWA with Capacitor for iOS and Android; native file storage behind `src/data/packs.ts`
+- [ ] T045 Store listings, icons and privacy labels (no data collected)
+
 ## Dependencies
 
 - Phase 2 blocks all user stories. US2 and US1 can proceed in parallel after Phase 2; US3 depends on T017–T018 (content to pack).
 - US4 and US5 reuse the Guide screen from US1.
-- T041 depends on answers to the spec's clarifications (framework, reviewer, sources).
+- T041 needs at least one holder of the content reviewer role (T043).
+- T036 waits on the open audio clarification.

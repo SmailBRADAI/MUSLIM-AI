@@ -8,7 +8,7 @@
     "id": { "type": "string" },
     "type": { "enum": ["umrah", "hajj-tamattu", "hajj-qiran", "hajj-ifrad"] },
     "version": { "type": "string" },
-    "framework": { "type": "string", "description": "Declared scholarly framework used for ruling labels" },
+    "framework": { "const": "ibn-baz+ibn-uthaymeen", "description": "Rulings follow the fatwas of Ibn Baz and Ibn Al-Uthaymeen" },
     "stages": {
       "type": "array",
       "items": {
@@ -30,7 +30,7 @@
       "properties": {
         "source": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
         "status": { "enum": ["draft", "in-review", "approved"] },
-        "reviewer": { "type": "string" },
+        "reviewer": { "type": "string", "description": "GitHub handle of a content reviewer role holder listed in content/reviewers.json" },
         "reviewedAt": { "type": "string", "format": "date" },
         "version": { "type": "string" }
       },
@@ -44,7 +44,20 @@
         "id": { "type": "string", "pattern": "^[a-z0-9-]+(\\.[a-z0-9-]+)+$" },
         "order": { "type": "integer" },
         "ruling": { "enum": ["rukn", "wajib", "sunnah", "mustahabb"] },
-        "rulingNote": { "type": "string" },
+        "rulingViews": {
+          "type": "array",
+          "description": "Present only when Ibn Baz and Ibn Al-Uthaymeen differ",
+          "items": {
+            "type": "object",
+            "required": ["scholar", "ruling", "source"],
+            "properties": {
+              "scholar": { "enum": ["ibn-baz", "ibn-uthaymeen"] },
+              "ruling": { "enum": ["rukn", "wajib", "sunnah", "mustahabb"] },
+              "source": { "type": "string" }
+            }
+          }
+        },
+        "rulingNote": { "type": "string", "description": "Other schools' positions, informational only" },
         "supplicationIds": { "type": "array", "items": { "type": "string" } },
         "audioId": { "type": "string" },
         "diagram": { "enum": ["tawaf", "sai"] },

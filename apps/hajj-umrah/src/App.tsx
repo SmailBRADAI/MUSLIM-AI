@@ -26,7 +26,7 @@ type IconName =
 // supplications are NOT reviewed yet and must be replaced by sourced, scholar-approved content.
 const copy = {
   ar: {
-    appName: "رَفِيق",
+    appName: "رفيق المناسك",
     greeting: "السلام عليكم",
     title: "رفيقك في رحلةٍ مباركة",
     subtitle: "خطوات واضحة، وإرشادات موثوقة في كل مرحلة من مناسكك.",
@@ -69,7 +69,7 @@ const copy = {
     back: "العودة إلى الرئيسية",
   },
   en: {
-    appName: "RAFIQ",
+    appName: "Rafiq al-Manasik",
     greeting: "Assalamu alaikum",
     title: "Your companion for a blessed journey",
     subtitle: "Clear steps and trusted guidance throughout every stage of your rituals.",
@@ -112,7 +112,7 @@ const copy = {
     back: "Back to home",
   },
   ur: {
-    appName: "رَفِیق",
+    appName: "رفیق المناسک",
     greeting: "السلام علیکم",
     title: "آپ کے بابرکت سفر کا ساتھی",
     subtitle: "مناسک کے ہر مرحلے میں واضح اقدامات اور قابلِ اعتماد رہنمائی۔",

@@ -1,4 +1,4 @@
-# Feature Specification: Rafiq — Hajj & Umrah Companion
+# Feature Specification: Rafiq al-Manasik (رفيق المناسك) — Hajj & Umrah Companion
 
 **Feature branch**: `001-hajj-umrah-companion`
 **Created**: 2026-10-09
@@ -60,7 +60,7 @@ The pilgrim follows the Hajj rites organized by day (8 to 13 Dhu al-Hijjah) for 
 **Acceptance scenarios**:
 
 1. **Given** the pilgrim chose tamattu', **Then** the guide begins with the Umrah and continues with the Hajj days.
-2. **Given** a step whose ruling differs between schools, **Then** the step shows the label for the declared framework and an explanation of the recognized difference.
+2. **Given** a step where Ibn Baz and Ibn Al-Uthaymeen differ, **Then** the step shows both views with their sources; positions of other schools may appear as a note.
 
 ### User story 5 — Read and listen to supplications (Priority: P2)
 
@@ -86,7 +86,7 @@ The pilgrim searches steps and supplications in their language, offline.
 ### Edge cases
 
 - Storage is full or the download is interrupted: resume, and never leave a half-installed pack marked as ready.
-- The pilgrim's menstruation or illness prevents a step: the guide shows the reviewed guidance for that case instead of blocking progress. [NEEDS CLARIFICATION: which cases are in scope for v1]
+- The pilgrim's menstruation or illness prevents a step: the guide shows the reviewed guidance for that case instead of blocking progress (cases in scope still open, see Clarifications).
 - The pilgrim completes steps out of order: progress allows it and shows what remains.
 - The browser clears site storage: the app detects lost data and asks to re-download, and requests persistent storage where supported.
 - Text enlarged to 200%: no content is cut off and primary actions stay reachable.
@@ -107,6 +107,11 @@ The pilgrim searches steps and supplications in their language, offline.
 - **FR-010**: The app MUST NOT require an account and MUST NOT send personal or location data to third parties.
 - **FR-011**: Primary actions MUST have touch targets of at least 44×44 CSS px (48 recommended), and no essential action may require a gesture.
 - **FR-012**: Any AI assistant MUST be labelled online-only and MUST only return approved content. [Out of scope for v1]
+- **FR-013**: Ruling labels MUST follow the fatwas of Ibn Baz and Ibn Al-Uthaymeen, citing the fatwa or book for each step.
+- **FR-014**: Content MAY move to `approved` only by a holder of the content reviewer role; the app shows the reviewer role and review date, not personal data.
+- **FR-015**: Maps MUST use downloaded OpenStreetMap data and show its attribution.
+- **FR-016**: The app MUST be named "رفيق المناسك" in Arabic, "Rafiq al-Manasik" in English and "رفیق المناسک" in Urdu.
+- **FR-017**: The app MUST avoid web-only APIs without a native fallback, so it can be wrapped for the App Store and Google Play later.
 
 ### Key entities
 
@@ -126,10 +131,17 @@ The pilgrim searches steps and supplications in their language, offline.
 - **SC-004**: The full Umrah flow works offline on a fresh install after one online visit and one download.
 - **SC-005**: The P1 download without audio is under 15 MB.
 
-## Clarifications needed
+## Clarifications
 
-- [NEEDS CLARIFICATION: Which scholarly framework labels the rulings (one school, or majority view with differences noted)?]
-- [NEEDS CLARIFICATION: Who is the content reviewer, and what sources are authoritative (e.g. Nusuk guides, a named fatwa body)?]
-- [NEEDS CLARIFICATION: Source and licence for the map data and for audio recordings.]
-- [NEEDS CLARIFICATION: App name: "رفيق" (prototype) or "رفيق المناسك" (brief)?]
-- [NEEDS CLARIFICATION: Distribution: installable PWA only, or wrapped for app stores later?]
+### Session 2026-10-09 (answered by SmailBRADAI)
+
+- Q: Which scholarly framework labels the rulings? → A: The fatwas of Sheikh Abd al-Aziz Ibn Baz and Sheikh Muhammad Ibn Salih Al-Uthaymeen. Where the two differ, the step shows both views. Other schools' positions may be mentioned as notes but do not set the label.
+- Q: Who reviews the content? → A: A **content reviewer role**, not a named person. Anyone holding the role may approve content; the role holders are listed in the repository and enforced on review. Primary sources are the two sheikhs' published works and fatwas on Hajj and Umrah; practical journey information is checked against official Nusuk guidance.
+- Q: Map data source? → A: OpenStreetMap (ODbL licence, attribution "© OpenStreetMap contributors" shown in the app).
+- Q: App name? → A: **رفيق المناسك** (English: Rafiq al-Manasik, Urdu: رفیق المناسک).
+- Q: Distribution? → A: Installable PWA first; published to the app stores later, so the code must stay wrappable in a native shell.
+
+### Still open
+
+- [NEEDS CLARIFICATION: Source and licence for audio recordings (narrator, recitation of supplications).]
+- [NEEDS CLARIFICATION: Which menstruation and illness cases are in scope for v1.]

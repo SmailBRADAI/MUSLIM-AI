@@ -7,7 +7,7 @@ A spec, plan or pull request that conflicts with them must change, or the consti
 
 - Every ritual step, ruling label, Qur'anic quotation and supplication shipped to users carries a **source**, a **review status**, a **reviewer**, and a **content version**.
 - Only content with review status `approved` may be shown as authoritative. Anything else is visibly marked as pending review, or is not shown.
-- Rulings are labelled according to a **declared scholarly framework** (for example ركن / واجب / سنة). Recognized differences between schools are explained, never presented as universal agreement.
+- Rulings are labelled according to a **declared scholarly framework** (for example ركن / واجب / سنة). For the Hajj & Umrah app the framework is the fatwas of Sheikh Ibn Baz and Sheikh Ibn Al-Uthaymeen; where they differ, both views are shown. Recognized differences are explained, never presented as universal agreement.
 - Translations are reviewed like the original; an approved Arabic text does not make its English or Urdu translation approved.
 - AI features may help users **find and navigate approved content**. They must never generate Qur'anic text, supplications, hadith or rulings, and must say so to the user.
 
@@ -44,7 +44,7 @@ A spec, plan or pull request that conflicts with them must change, or the consti
 ## Governance
 
 - Specs live in `specs/NNN-feature/` as `spec.md` (what and why), `plan.md` (how) and `tasks.md` (ordered work). Code changes reference the task they implement.
-- Pull requests are checked against this constitution. Content changes (Principle I) need sign-off from the designated content reviewer in addition to code review.
+- Pull requests are checked against this constitution. Content changes (Principle I) need approval from a holder of the **content reviewer role** in addition to code review.
 - Amendments are made by pull request that updates this file and its version.
 
-**Version**: 1.0.0 · **Ratified**: 2026-10-09 · **Last amended**: 2026-10-09
+**Version**: 1.1.0 · **Ratified**: 2026-10-09 · **Last amended**: 2026-10-09 (declared framework, reviewer role)
