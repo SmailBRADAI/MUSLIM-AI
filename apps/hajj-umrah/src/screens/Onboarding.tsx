@@ -61,7 +61,7 @@ export function Onboarding({
         </>
       )}
 
-      {/* TODO(T031): add reviewed explanations of each Hajj type from the content pack. */}
+      {/* Only the type names until reviewed explanations of each type exist (spec edge cases); each guide explains its type in its first step. */}
       {step === "hajjType" && (
         <>
           <h1>{t.onboarding.hajjTypeTitle}</h1>

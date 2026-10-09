@@ -42,11 +42,16 @@ export interface Step {
   meta: ContentMeta;
 }
 
+/** A Hajj stage that is not a single day (T031). */
+export type StageKind = "umrah" | "arrival" | "farewell";
+
 export interface Stage {
   id: string;
   order: number;
   /** Dhu al-Hijjah day, Hajj only. */
   day?: number;
+  /** Hajj only, for a stage that is not one day: the Tamattu' Umrah, arrival in Makkah, or the farewell. */
+  kind?: StageKind;
   steps: Step[];
 }
 

@@ -105,3 +105,66 @@ describe("Step list (T023)", () => {
     expect(screen.getByRole("button", { name: "1. One (Done)" })).toBeInTheDocument();
   });
 });
+
+describe("Hajj day view (T032)", () => {
+  const hajj: Journey = {
+    id: "hajj-test",
+    type: "hajj-tamattu",
+    version: "0",
+    stages: [
+      { id: "h-umrah", order: 1, kind: "umrah", steps: [step("h.one", 1)] },
+      { id: "h-day9", order: 3, day: 9, steps: [step("h.three", 3)] },
+      { id: "h-day8", order: 2, day: 8, steps: [step("h.two", 2)] },
+    ],
+  };
+  const hajjTexts: StepTexts = { "h.one": text("Umrah ihram"), "h.two": text("Hajj ihram"), "h.three": text("Arafah") };
+  const renderHajj = (completed: string[]) =>
+    render(
+      <I18nProvider language="en">
+        <Guide journey={hajj} texts={hajjTexts} completed={completed} onStepDone={async () => undefined} saveFailed={false} />
+      </I18nProvider>,
+    );
+
+  it("groups the steps by day in order, numbering them across days, and names the open step's day", async () => {
+    renderHajj(["h.one"]);
+    // The day lists come in stage order, whatever the order in the file.
+    const dayLists = screen.getAllByRole("list").filter((l) => l.classList.contains("steps"));
+    expect(dayLists.map((l) => l.getAttribute("aria-labelledby"))).toEqual(["stage-h-umrah", "stage-h-day8", "stage-h-day9"]);
+    expect(screen.getByRole("list", { name: "Umrah" })).toContainElement(screen.getByRole("button", { name: "1. Umrah ihram (Done)" }));
+    expect(screen.getByRole("list", { name: "8 Dhu al-Hijjah" })).toContainElement(screen.getByRole("button", { name: "2. Hajj ihram" }));
+    expect(screen.getByRole("list", { name: "9 Dhu al-Hijjah" })).toContainElement(screen.getByRole("button", { name: "3. Arafah" }));
+    expect(screen.getByText("8 Dhu al-Hijjah · Day of Tarwiyah")).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole("button", { name: "3. Arafah" }));
+    expect(screen.getByText("9 Dhu al-Hijjah · Day of Arafah")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 1, name: "Arafah" })).toHaveFocus();
+    expect(screen.getByRole("heading", { level: 1, name: "Arafah" })).toHaveAccessibleDescription("9 Dhu al-Hijjah · Day of Arafah");
+  });
+
+  it("keeps a single step list without day names for the Umrah", () => {
+    renderGuide([], async () => undefined);
+    expect(screen.getByRole("list", { name: "Steps" })).toBeInTheDocument();
+    expect(screen.queryByText(/Dhu al-Hijjah/)).not.toBeInTheDocument();
+  });
+});
+
+describe("Ruling notes (T033)", () => {
+  it("shows other schools' positions in the details, after the step's own ruling", async () => {
+    const noted: Journey = { ...journey, stages: [{ id: "s", order: 1, steps: [step("t.one", 1, { rulingNote: "otherSchools" })] }] };
+    render(
+      <I18nProvider language="en">
+        <Guide
+          journey={noted}
+          texts={{ "t.one": { ...text("One"), otherSchools: "The Hanafi school holds otherwise." } }}
+          completed={[]}
+          onStepDone={async () => undefined}
+          saveFailed={false}
+        />
+      </I18nProvider>,
+    );
+    expect(screen.queryByText("The Hanafi school holds otherwise.")).not.toBeInTheDocument();
+    await userEvent.click(screen.getByRole("button", { name: /Details/ }));
+    expect(screen.getByRole("heading", { level: 3, name: "Other schools" })).toBeInTheDocument();
+    expect(screen.getByText("The Hanafi school holds otherwise.")).toBeInTheDocument();
+  });
+});

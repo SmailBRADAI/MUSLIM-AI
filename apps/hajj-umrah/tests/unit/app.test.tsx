@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import App from "../../src/app/App";
 import * as db from "../../src/data/db";
+import * as content from "../../src/data/content";
 import * as packs from "../../src/data/packs";
 import umrah from "../../content/journeys/umrah.json";
 import enUmrah from "../../content/i18n/en/umrah.json";
@@ -124,12 +125,53 @@ describe("App", () => {
     expect(screen.getByText("100%")).toBeInTheDocument();
   });
 
-  it("hides the progress card for a journey with no content yet", async () => {
+  it("hides the progress card and says so for a journey with no content", async () => {
     await db.setLanguage("en");
     await db.setJourney("hajj-ifrad");
+    const missing = vi.spyOn(content, "journeyContent").mockReturnValue(null);
     render(<App />);
     await screen.findByRole("navigation");
     expect(screen.queryByText(/Current step/)).not.toBeInTheDocument();
+    await userEvent.click(screen.getByRole("button", { name: /My guide/ }));
+    expect(screen.getByRole("status")).toHaveTextContent("not available yet");
+    expect(screen.queryByRole("button", { name: /Mark complete/ })).not.toBeInTheDocument();
+    missing.mockRestore();
+  });
+
+  it("shows the Hajj journey's current step on Home (T032)", async () => {
+    await db.setLanguage("en");
+    await db.setJourney("hajj-qiran");
+    await db.saveProgress({ journeyId: "hajj-qiran", completedStepIds: ["hajj-qiran.ihram"], updatedAt: "2026-10-09T00:00:00Z" });
+    render(<App />);
+    expect(await screen.findByText("Current step: Tawaf of arrival (Qudum)")).toBeInTheDocument();
+    // The chosen journey's card names the Hajj type and is marked current.
+    expect(screen.getByRole("button", { name: /Hajj rituals.*Hajj Qiran/ })).toHaveAttribute("aria-current", "true");
+  });
+
+  it("opens the chosen journey's guide from its Home card (T032)", async () => {
+    await db.setLanguage("en");
+    render(<App />);
+    await userEvent.click(await screen.findByRole("button", { name: /Umrah rituals/ }));
+    expect(screen.getByRole("heading", { level: 1, name: "Ihram" })).toBeInTheDocument();
+  });
+
+  it("asks the Hajj type from Home's Hajj card, then opens that Hajj guide by day (T032)", async () => {
+    await db.setLanguage("en");
+    render(<App />);
+    await userEvent.click(await screen.findByRole("button", { name: /Hajj rituals/ }));
+    expect(screen.getByRole("heading", { name: "Which type of Hajj?" })).toBeInTheDocument();
+    await userEvent.click(screen.getByRole("button", { name: /Hajj Ifrad/ }));
+    expect(await db.getJourney()).toBe("hajj-ifrad");
+    await userEvent.click(screen.getByRole("button", { name: /Hajj rituals/ }));
+    expect(screen.getByRole("heading", { level: 1, name: "Ihram for Hajj (Ifrad)" })).toBeInTheDocument();
+    // The open step's stage, above its title, and the same name over its group in the step list.
+    expect(screen.getAllByText("Arrival in Makkah")).toHaveLength(2);
+    expect(screen.getByRole("list", { name: "9 Dhu al-Hijjah" })).toBeInTheDocument();
+    // Back on Home, the Umrah card switches back to the Umrah guide.
+    await userEvent.click(screen.getByRole("button", { name: /Home/ }));
+    await userEvent.click(screen.getByRole("button", { name: /Umrah rituals/ }));
+    expect(await db.getJourney()).toBe("umrah");
+    expect(screen.getByRole("heading", { level: 1, name: "Ihram" })).toBeInTheDocument();
   });
 
   it("asks to download before travelling when no pack is installed (T028)", async () => {

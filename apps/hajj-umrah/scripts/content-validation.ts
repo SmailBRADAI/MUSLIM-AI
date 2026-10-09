@@ -42,8 +42,35 @@ export function validateContent(files: ContentFiles): string[] {
     const journey = data as Journey;
     unique(journeyIds, "journey", journey.id, file);
 
+    const hajj = journey.type !== "umrah";
+    if (hajj) {
+      // The Guide shows Hajj stages in `order`: the opening part (Tamattu' Umrah, or arrival for Qiran
+      // and Ifrad), then each day once and in date order, then the farewell.
+      const opening = journey.type === "hajj-tamattu" ? "umrah" : "arrival";
+      const rank = (s: Journey["stages"][number]) =>
+        s.kind === opening ? 0 : s.kind === "farewell" ? 100 : s.day ?? Number.NaN;
+      let previous = -1;
+      for (const stage of [...journey.stages].sort((a, b) => a.order - b.order)) {
+        const r = rank(stage);
+        if (stage.kind !== undefined && stage.kind !== opening && stage.kind !== "farewell") {
+          errors.push(`${file}: stage "${stage.id}" has kind "${stage.kind}", which ${journey.type} does not use`);
+        } else if (Number.isNaN(r)) {
+          continue; // no day and no kind: reported below
+        } else if (r <= previous) {
+          errors.push(`${file}: stage "${stage.id}" is out of place (opening part, days 8 to 13 once each in order, then farewell)`);
+        }
+        if (!Number.isNaN(r)) previous = Math.max(previous, r);
+      }
+    }
     for (const stage of journey.stages) {
       unique(stageIds, "stage", stage.id, file);
+      // The Guide groups Hajj steps by day (T032): every Hajj stage is one day or one named part, never both.
+      if (hajj && (stage.day === undefined) === (stage.kind === undefined)) {
+        errors.push(`${file}: stage "${stage.id}" needs exactly one of day or kind`);
+      }
+      if (!hajj && (stage.day !== undefined || stage.kind !== undefined)) {
+        errors.push(`${file}: stage "${stage.id}" has a Hajj day or kind in an Umrah journey`);
+      }
 
       for (const step of stage.steps) {
         unique(stepIds, "step", step.id, file);

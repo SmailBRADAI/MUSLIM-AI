@@ -2,6 +2,7 @@ import type { Screen } from "../app/screens";
 import { Icon } from "../components/Icon";
 import { formatSize } from "../components/OfflinePacks";
 import type { PackState } from "../data/packs";
+import type { JourneyType } from "../data/types";
 import { languageNames, useLanguage, useT } from "../i18n";
 import type { Language } from "../i18n";
 
@@ -30,14 +31,21 @@ export function Home({
   status,
   pack,
   updateAvailable,
+  journey,
+  onOpenJourney,
 }: {
   setScreen: (s: Screen) => void;
   status: JourneyStatus | null;
   pack: PackState;
   updateAvailable: boolean;
+  /** The chosen journey; its card is highlighted and opens the guide. */
+  journey: JourneyType | null;
+  /** Opens the guide for Umrah or for Hajj, switching journey first when needed. */
+  onOpenJourney: (kind: "umrah" | "hajj") => void;
 }) {
   const t = useT();
   const language = useLanguage();
+  const hajjChosen = journey !== null && journey !== "umrah";
   return (
     <main className="page home-page">
       <section className="hero">
@@ -76,16 +84,24 @@ export function Home({
           <span className="section-symbol"><Icon name="compass" /></span>
         </div>
 
-        <button className="journey-card primary" onClick={() => setScreen("guide")}>
+        {/* The chosen journey's card is the primary one; the other switches journey (Hajj asks the type first). */}
+        <button
+          className={hajjChosen ? "journey-card" : "journey-card primary"}
+          onClick={() => onOpenJourney("umrah")}
+          aria-current={journey === "umrah" ? "true" : undefined}
+        >
           <span className="journey-icon"><Icon name="kaaba" size={30} /></span>
           <span className="grow"><strong>{t.umrah}</strong><small>{t.umrahHint}</small></span>
-          <span className="round-arrow"><Icon name="arrow" size={19} /></span>
+          <span className={hajjChosen ? "subtle-arrow" : "round-arrow"}><Icon name="arrow" size={19} /></span>
         </button>
-        {/* TODO(T031): the Hajj flow is not built yet; this opens the Umrah prototype for now. */}
-        <button className="journey-card" onClick={() => setScreen("guide")}>
+        <button
+          className={hajjChosen ? "journey-card primary" : "journey-card"}
+          onClick={() => onOpenJourney("hajj")}
+          aria-current={hajjChosen ? "true" : undefined}
+        >
           <span className="journey-icon light"><Icon name="moon" size={28} /></span>
-          <span className="grow"><strong>{t.hajj}</strong><small>{t.hajjHint}</small></span>
-          <span className="subtle-arrow"><Icon name="arrow" size={19} /></span>
+          <span className="grow"><strong>{t.hajj}</strong><small>{hajjChosen ? t.journeys[journey] : t.hajjHint}</small></span>
+          <span className={hajjChosen ? "round-arrow" : "subtle-arrow"}><Icon name="arrow" size={19} /></span>
         </button>
       </section>
 
