@@ -1,16 +1,16 @@
 {
-  "id": "hajj-tamattu",
-  "type": "hajj-tamattu",
-  "version": "0.3.1",
+  "id": "hajj-qiran",
+  "type": "hajj-qiran",
+  "version": "0.3.0",
   "framework": "ibn-baz+ibn-uthaymeen",
   "stages": [
     {
-      "id": "hajj-tamattu-umrah",
+      "id": "hajj-qiran-arrival",
       "order": 1,
-      "kind": "umrah",
+      "kind": "arrival",
       "steps": [
         {
-          "id": "hajj-tamattu.umrah-ihram",
+          "id": "hajj-qiran.ihram",
           "order": 1,
           "ruling": "rukn",
           "supplicationIds": [],
@@ -18,36 +18,39 @@
           "meta": {
             "source": [
               "القرآن الكريم، سورة البقرة 2:196",
-              "القرآن الكريم، سورة البقرة 2:197",
               "صحيح البخاري ومسلم، حديث عائشة: «فمنا من أهلّ بعمرة، ومنا من أهلّ بحجة وعمرة، ومنا من أهلّ بالحج»",
+              "صحيح مسلم، كتاب الحج، حديث جابر في صفة حجة النبي ﷺ",
               "صحيح البخاري، كتاب بدء الوحي، حديث «إنما الأعمال بالنيات»",
               "ابن باز، التحقيق والإيضاح لكثير من مسائل الحج والعمرة والزيارة",
               "ابن عثيمين، مناسك الحج والعمرة والمشروع في الزيارة",
               "ابن عثيمين، الشرح الممتع على زاد المستقنع، كتاب المناسك"
             ],
             "status": "draft",
-            "version": "0.3.1"
+            "version": "0.3.0"
           }
         },
         {
-          "id": "hajj-tamattu.umrah-tawaf",
+          "id": "hajj-qiran.tawaf-qudum",
           "order": 2,
-          "ruling": "rukn",
+          "ruling": "sunnah",
+          "rulingNote": "otherSchools",
           "supplicationIds": [],
           "diagram": "tawaf",
           "place": "mataf",
           "meta": {
             "source": [
-              "القرآن الكريم، سورة الحج 22:29",
+              "صحيح مسلم، كتاب الحج، حديث جابر في صفة حجة النبي ﷺ",
+              "صحيح البخاري ومسلم، حديث ابن عمر في الرمل في الطواف الأول ثلاثة أشواط",
               "ابن باز، التحقيق والإيضاح لكثير من مسائل الحج والعمرة والزيارة",
-              "ابن عثيمين، مناسك الحج والعمرة والمشروع في الزيارة"
+              "ابن عثيمين، مناسك الحج والعمرة والمشروع في الزيارة",
+              "ابن قدامة، المغني، كتاب الحج"
             ],
             "status": "draft",
-            "version": "0.3.1"
+            "version": "0.3.0"
           }
         },
         {
-          "id": "hajj-tamattu.umrah-tawaf-prayer",
+          "id": "hajj-qiran.tawaf-prayer",
           "order": 3,
           "ruling": "sunnah",
           "supplicationIds": [],
@@ -60,11 +63,11 @@
               "ابن عثيمين، مناسك الحج والعمرة والمشروع في الزيارة"
             ],
             "status": "draft",
-            "version": "0.3.1"
+            "version": "0.3.0"
           }
         },
         {
-          "id": "hajj-tamattu.umrah-sai",
+          "id": "hajj-qiran.sai",
           "order": 4,
           "ruling": "rukn",
           "rulingNote": "otherSchools",
@@ -74,58 +77,25 @@
           "meta": {
             "source": [
               "القرآن الكريم، سورة البقرة 2:158",
-              "صحيح مسلم، كتاب الحج، حديث جابر في صفة حجة النبي ﷺ",
+              "صحيح مسلم، كتاب الحج، حديث جابر: «لم يطف النبي ﷺ ولا أصحابه بين الصفا والمروة إلا طوافاً واحداً»",
               "ابن باز، التحقيق والإيضاح لكثير من مسائل الحج والعمرة والزيارة",
               "ابن عثيمين، الشرح الممتع على زاد المستقنع، كتاب المناسك",
               "ابن قدامة، المغني، كتاب الحج"
             ],
             "status": "draft",
-            "version": "0.3.1"
-          }
-        },
-        {
-          "id": "hajj-tamattu.umrah-taqsir",
-          "order": 5,
-          "ruling": "wajib",
-          "supplicationIds": [],
-          "place": "makkah",
-          "meta": {
-            "source": [
-              "القرآن الكريم، سورة الفتح 48:27",
-              "صحيح البخاري، كتاب الحج، حديث جابر: «أحِلّوا من إحرامكم بطواف البيت وبين الصفا والمروة وقصّروا»",
-              "ابن باز، التحقيق والإيضاح لكثير من مسائل الحج والعمرة والزيارة",
-              "ابن عثيمين، مناسك الحج والعمرة والمشروع في الزيارة"
-            ],
-            "status": "draft",
-            "version": "0.3.1"
+            "version": "0.3.0"
           }
         }
       ]
     },
     {
-      "id": "hajj-tamattu-day8",
+      "id": "hajj-qiran-day8",
       "order": 2,
       "day": 8,
       "steps": [
         {
-          "id": "hajj-tamattu.ihram",
-          "order": 6,
-          "ruling": "rukn",
-          "supplicationIds": [],
-          "place": "makkah",
-          "meta": {
-            "source": [
-              "صحيح مسلم، كتاب الحج، حديث جابر في صفة حجة النبي ﷺ",
-              "ابن باز، التحقيق والإيضاح لكثير من مسائل الحج والعمرة والزيارة",
-              "ابن عثيمين، مناسك الحج والعمرة والمشروع في الزيارة"
-            ],
-            "status": "draft",
-            "version": "0.3.0"
-          }
-        },
-        {
-          "id": "hajj-tamattu.mina-tarwiyah",
-          "order": 7,
+          "id": "hajj-qiran.mina-tarwiyah",
+          "order": 5,
           "ruling": "sunnah",
           "supplicationIds": [],
           "place": "mina",
@@ -142,13 +112,13 @@
       ]
     },
     {
-      "id": "hajj-tamattu-day9",
+      "id": "hajj-qiran-day9",
       "order": 3,
       "day": 9,
       "steps": [
         {
-          "id": "hajj-tamattu.arafah",
-          "order": 8,
+          "id": "hajj-qiran.arafah",
+          "order": 6,
           "ruling": "rukn",
           "rulingNote": "otherSchools",
           "supplicationIds": [],
@@ -170,13 +140,13 @@
       ]
     },
     {
-      "id": "hajj-tamattu-day10",
+      "id": "hajj-qiran-day10",
       "order": 4,
       "day": 10,
       "steps": [
         {
-          "id": "hajj-tamattu.muzdalifah",
-          "order": 9,
+          "id": "hajj-qiran.muzdalifah",
+          "order": 7,
           "ruling": "wajib",
           "rulingNote": "otherSchools",
           "supplicationIds": [],
@@ -196,8 +166,8 @@
           }
         },
         {
-          "id": "hajj-tamattu.jamrat-aqabah",
-          "order": 10,
+          "id": "hajj-qiran.jamrat-aqabah",
+          "order": 8,
           "ruling": "wajib",
           "supplicationIds": [],
           "place": "jamarat",
@@ -213,8 +183,8 @@
           }
         },
         {
-          "id": "hajj-tamattu.hady",
-          "order": 11,
+          "id": "hajj-qiran.hady",
+          "order": 9,
           "ruling": "wajib",
           "supplicationIds": [],
           "place": "mina",
@@ -230,8 +200,8 @@
           }
         },
         {
-          "id": "hajj-tamattu.halq",
-          "order": 12,
+          "id": "hajj-qiran.halq",
+          "order": 10,
           "ruling": "wajib",
           "supplicationIds": [],
           "place": "mina",
@@ -249,8 +219,8 @@
           }
         },
         {
-          "id": "hajj-tamattu.tawaf-ifadah",
-          "order": 13,
+          "id": "hajj-qiran.tawaf-ifadah",
+          "order": 11,
           "ruling": "rukn",
           "supplicationIds": [],
           "diagram": "tawaf",
@@ -265,37 +235,17 @@
             "status": "draft",
             "version": "0.3.0"
           }
-        },
-        {
-          "id": "hajj-tamattu.sai",
-          "order": 14,
-          "ruling": "rukn",
-          "rulingNote": "otherSchools",
-          "supplicationIds": [],
-          "diagram": "sai",
-          "place": "masa",
-          "meta": {
-            "source": [
-              "القرآن الكريم، سورة البقرة 2:158",
-              "صحيح البخاري ومسلم، حديث عائشة: «ثم طافوا طوافاً آخر بعد أن رجعوا من منى لحجهم»",
-              "ابن باز، التحقيق والإيضاح لكثير من مسائل الحج والعمرة والزيارة",
-              "ابن عثيمين، الشرح الممتع على زاد المستقنع، كتاب المناسك",
-              "ابن قدامة، المغني، كتاب الحج"
-            ],
-            "status": "draft",
-            "version": "0.3.0"
-          }
         }
       ]
     },
     {
-      "id": "hajj-tamattu-day11",
+      "id": "hajj-qiran-day11",
       "order": 5,
       "day": 11,
       "steps": [
         {
-          "id": "hajj-tamattu.mina-nights",
-          "order": 15,
+          "id": "hajj-qiran.mina-nights",
+          "order": 12,
           "ruling": "wajib",
           "rulingNote": "otherSchools",
           "supplicationIds": [],
@@ -313,8 +263,8 @@
           }
         },
         {
-          "id": "hajj-tamattu.jamarat-11",
-          "order": 16,
+          "id": "hajj-qiran.jamarat-11",
+          "order": 13,
           "ruling": "wajib",
           "rulingNote": "otherSchools",
           "supplicationIds": [],
@@ -335,13 +285,13 @@
       ]
     },
     {
-      "id": "hajj-tamattu-day12",
+      "id": "hajj-qiran-day12",
       "order": 6,
       "day": 12,
       "steps": [
         {
-          "id": "hajj-tamattu.jamarat-12",
-          "order": 17,
+          "id": "hajj-qiran.jamarat-12",
+          "order": 14,
           "ruling": "wajib",
           "rulingNote": "otherSchools",
           "supplicationIds": [],
@@ -361,13 +311,13 @@
       ]
     },
     {
-      "id": "hajj-tamattu-day13",
+      "id": "hajj-qiran-day13",
       "order": 7,
       "day": 13,
       "steps": [
         {
-          "id": "hajj-tamattu.jamarat-13",
-          "order": 18,
+          "id": "hajj-qiran.jamarat-13",
+          "order": 15,
           "ruling": "wajib",
           "supplicationIds": [],
           "place": "jamarat",
@@ -385,13 +335,13 @@
       ]
     },
     {
-      "id": "hajj-tamattu-farewell",
+      "id": "hajj-qiran-farewell",
       "order": 8,
       "kind": "farewell",
       "steps": [
         {
-          "id": "hajj-tamattu.tawaf-wada",
-          "order": 19,
+          "id": "hajj-qiran.tawaf-wada",
+          "order": 16,
           "ruling": "wajib",
           "rulingNote": "otherSchools",
           "supplicationIds": [],

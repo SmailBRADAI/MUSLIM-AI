@@ -5,9 +5,7 @@
     "details": "Tamattu' means entering ihram for Umrah in the months of Hajj, leaving ihram after it, then entering ihram for Hajj in the same year; it requires a sacrifice (hady). Ihram is a pillar: the Umrah is not valid without it, and it must be made at the miqat. If you fear illness or another obstacle may stop you, make a condition when you form the intention. The Talbiyah is a sunnah; men say it aloud and women quietly, until the Umrah Tawaf begins.",
     "mistakes": "Passing the miqat without ihram, especially on a plane; thinking ihram is only the clothing, without the intention; uncovering the right shoulder from the start of ihram, when it is only for the Tawaf.",
     "review": {
-      "status": "approved",
-      "reviewer": "SmailBRADAI",
-      "reviewedAt": "2026-10-09"
+      "status": "draft"
     }
   },
   "hajj-tamattu.umrah-tawaf": {
@@ -17,9 +15,7 @@
     "mistakes": "Walking inside the Hijr (the semicircle by the Kaaba); pushing and hurting others to kiss the Black Stone; kissing the Yemeni Corner or wiping the Kaaba's walls; walking briskly in every round; reading a booklet with a set prayer for each round.",
     "diagramLabel": "Keep the Kaaba on your left and walk counter-clockwise; each round starts at the Black Stone.",
     "review": {
-      "status": "approved",
-      "reviewer": "SmailBRADAI",
-      "reviewedAt": "2026-10-09"
+      "status": "draft"
     }
   },
   "hajj-tamattu.umrah-tawaf-prayer": {
@@ -28,9 +24,7 @@
     "details": "These two rak'ahs are a sunnah. After Al-Fatihah, it is sunnah to recite Al-Kafirun in the first and Al-Ikhlas in the second. Then it is sunnah to drink Zamzam water, and to touch the Black Stone before going to the Mas'a if you easily can.",
     "mistakes": "Insisting on praying right behind the Station in a crowd and blocking people doing Tawaf; making the prayer long or sitting for a long time in the Tawaf area; keeping the shoulder uncovered in the prayer.",
     "review": {
-      "status": "approved",
-      "reviewer": "SmailBRADAI",
-      "reviewedAt": "2026-10-09"
+      "status": "draft"
     }
   },
   "hajj-tamattu.umrah-sai": {
@@ -41,9 +35,7 @@
     "mistakes": "Starting at Marwah; counting there and back as one round; hurrying along the whole Mas'a instead of only between the green markers; women hurrying between the markers.",
     "diagramLabel": "Safa to Marwah is one round, Marwah to Safa another. Between the two green markers men walk fast; women walk.",
     "review": {
-      "status": "approved",
-      "reviewer": "SmailBRADAI",
-      "reviewedAt": "2026-10-09"
+      "status": "draft"
     }
   },
   "hajj-tamattu.umrah-taqsir": {
@@ -52,9 +44,7 @@
     "details": "Shaving or shortening is obligatory (wajib) in the Umrah. For the Tamattu' pilgrim, shortening is better here when the Hajj is near, so that hair remains to be shaved on the Day of Sacrifice; the Prophet ﷺ told his companions who had performed Umrah to shorten their hair. Shortening must cover the whole head. Everything forbidden by ihram then becomes allowed until you enter ihram for Hajj.",
     "mistakes": "Cutting a few hairs from one side only; leaving ihram before shortening; a woman shaving her head.",
     "review": {
-      "status": "approved",
-      "reviewer": "SmailBRADAI",
-      "reviewedAt": "2026-10-09"
+      "status": "draft"
     }
   },
   "hajj-tamattu.ihram": {
