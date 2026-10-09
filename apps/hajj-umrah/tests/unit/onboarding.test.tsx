@@ -26,7 +26,7 @@ describe("Onboarding (US2)", () => {
     await userEvent.click(await screen.findByRole("button", { name: "English" }));
     await userEvent.click(screen.getByRole("button", { name: /Continue/ }));
     await userEvent.click(screen.getByRole("button", { name: /Umrah/ }));
-    expect(screen.getByRole("navigation")).toBeInTheDocument();
+    expect(await screen.findByRole("navigation")).toBeInTheDocument();
     expect(await db.getJourney()).toBe("umrah");
     expect(await db.getLanguage()).toBe("en");
   });

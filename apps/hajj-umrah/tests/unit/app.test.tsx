@@ -3,6 +3,11 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import App from "../../src/app/App";
 import * as db from "../../src/data/db";
+import * as packs from "../../src/data/packs";
+import umrah from "../../content/journeys/umrah.json";
+import enUmrah from "../../content/i18n/en/umrah.json";
+import type { Journey } from "../../src/data/types";
+import type { StepTexts } from "../../src/data/content";
 
 describe("App", () => {
   // These tests start after onboarding; tests/unit/onboarding.test.tsx covers first launch.
@@ -125,6 +130,39 @@ describe("App", () => {
     render(<App />);
     await screen.findByRole("navigation");
     expect(screen.queryByText(/Current step/)).not.toBeInTheDocument();
+  });
+
+  it("asks to download before travelling when no pack is installed (T028)", async () => {
+    await db.setLanguage("en");
+    render(<App />);
+    expect(await screen.findByText("Download your guide for offline use")).toBeInTheDocument();
+    expect(screen.queryByText("Your guide is ready offline")).not.toBeInTheDocument();
+  });
+
+  it("shows Ready offline with language, size and content date, and reads the guide from the pack (T028)", async () => {
+    await db.setLanguage("en");
+    const pack = { id: "en", language: "en", version: "v1", url: "u", sha256: "x", sizeBytes: 7200, updated: "2026-10-09", installedAt: "" } as const;
+    const texts = { ...enUmrah, "umrah.ihram": { ...enUmrah["umrah.ihram"], title: "Ihram (from pack)" } };
+    const load = vi.spyOn(packs, "loadPack").mockResolvedValue({
+      state: "ready",
+      pack,
+      content: { format: 1, language: "en", version: "v1", journeys: [umrah as Journey], texts: { umrah: texts as unknown as StepTexts } },
+    });
+    render(<App />);
+    expect(await screen.findByText("Your guide is ready offline")).toBeInTheDocument();
+    expect(screen.getByText("English · 7 kB · Updated Rabiʻ II 28, 1448 AH")).toBeInTheDocument();
+    await userEvent.click(screen.getByRole("button", { name: /Umrah rituals/ }));
+    expect(screen.getByRole("heading", { level: 1, name: "Ihram (from pack)" })).toBeInTheDocument();
+    load.mockRestore();
+  });
+
+  it("asks to download again when the pack's files were cleared (T028, T030)", async () => {
+    await db.setLanguage("en");
+    const pack = { id: "en", language: "en", version: "v1", url: "u", sha256: "x", sizeBytes: 7200, updated: "2026-10-09", installedAt: "" } as const;
+    const load = vi.spyOn(packs, "loadPack").mockResolvedValue({ state: "lost", pack });
+    render(<App />);
+    expect(await screen.findByText(/removed from this device/)).toBeInTheDocument();
+    load.mockRestore();
   });
 
   it("says progress was not saved when undo can't be written", async () => {

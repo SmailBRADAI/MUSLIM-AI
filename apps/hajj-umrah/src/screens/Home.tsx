@@ -1,6 +1,20 @@
 import type { Screen } from "../app/screens";
 import { Icon } from "../components/Icon";
-import { useT } from "../i18n";
+import { formatSize } from "../components/OfflinePacks";
+import type { PackState } from "../data/packs";
+import { languageNames, useLanguage, useT } from "../i18n";
+import type { Language } from "../i18n";
+
+/** The content date in the Hijri (Umm al-Qura) calendar, as pilgrims count days. */
+function formatContentDate(date: string, language: Language) {
+  try {
+    return new Intl.DateTimeFormat(`${language}-u-ca-islamic-umalqura`, { day: "numeric", month: "long", year: "numeric" }).format(
+      new Date(`${date}T12:00:00Z`),
+    );
+  } catch {
+    return date;
+  }
+}
 
 /** Where the pilgrim is in their journey; null while the journey has no content yet. */
 export interface JourneyStatus {
@@ -11,8 +25,9 @@ export interface JourneyStatus {
   percent: number;
 }
 
-export function Home({ setScreen, status }: { setScreen: (s: Screen) => void; status: JourneyStatus | null }) {
+export function Home({ setScreen, status, pack }: { setScreen: (s: Screen) => void; status: JourneyStatus | null; pack: PackState }) {
   const t = useT();
+  const language = useLanguage();
   return (
     <main className="page home-page">
       <section className="hero">
@@ -24,13 +39,24 @@ export function Home({ setScreen, status }: { setScreen: (s: Screen) => void; st
         <span className="hero-kaaba"><Icon name="kaaba" size={42} /></span>
       </section>
 
-      <button className="offline-card" onClick={() => setScreen("settings")}>
-        <span className="status-icon"><Icon name="shield" /></span>
-        <span className="grow">
-          <strong>{t.offline}</strong>
-          <small>{t.offlineMeta}</small>
-        </span>
-        <span className="offline-check"><Icon name="check" size={17} /></span>
+      {/* T028: "Ready offline" only when the pack for this language is installed and its file is present. */}
+      <button className={pack.state === "ready" ? "offline-card" : "offline-card pending"} onClick={() => setScreen("settings")}>
+        <span className="status-icon"><Icon name={pack.state === "ready" ? "shield" : "download"} /></span>
+        {pack.state === "ready" ? (
+          <span className="grow">
+            <strong>{t.offline}</strong>
+            <small>
+              {languageNames[pack.pack.language].name} · {formatSize(pack.pack.sizeBytes, language)} · {t.packs.updatedOn}{" "}
+              {formatContentDate(pack.pack.updated, language)}
+            </small>
+          </span>
+        ) : (
+          <span className="grow">
+            <strong>{t.packs.notDownloaded}</strong>
+            <small>{pack.state === "lost" ? t.packs.lost : t.packs.notDownloadedHint}</small>
+          </span>
+        )}
+        {pack.state === "ready" && <span className="offline-check"><Icon name="check" size={17} /></span>}
       </button>
 
       <section className="section-block">

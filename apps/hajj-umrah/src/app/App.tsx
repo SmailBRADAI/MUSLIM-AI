@@ -4,6 +4,8 @@ import { BottomNav } from "../components/BottomNav";
 import { Icon } from "../components/Icon";
 import * as db from "../data/db";
 import { journeyContent } from "../data/content";
+import { loadPack } from "../data/packs";
+import type { PackState } from "../data/packs";
 import { completion, currentStep, setStepDone, withStep } from "../data/progress";
 import type { JourneyType } from "../data/types";
 import { I18nProvider, isRtl, strings } from "../i18n";
@@ -35,6 +37,8 @@ export default function App() {
   const [screen, setScreen] = useState<Screen>("home");
   const [saveFailed, setSaveFailed] = useState(false);
   const [choiceNotSaved, setChoiceNotSaved] = useState(false);
+  const [pack, setPack] = useState<PackState>({ state: "none" });
+  const [packCheck, setPackCheck] = useState(0);
   const [journey, setJourneyState] = useState<JourneyType | null>(null);
   // Set while choosing a journey: first launch starts at "language", changing it from Settings at "journey".
   const [onboarding, setOnboarding] = useState<OnboardingStep | null>(null);
@@ -63,6 +67,17 @@ export default function App() {
       cancelled = true;
     };
   }, []);
+
+  // T028: the installed pack for the current language drives "Ready offline" and the guide's content.
+  useEffect(() => {
+    let cancelled = false;
+    loadPack(language)
+      .catch((): PackState => ({ state: "none" }))
+      .then((state) => !cancelled && setPack(state));
+    return () => {
+      cancelled = true;
+    };
+  }, [language, packCheck]);
 
   useEffect(() => {
     document.documentElement.dir = isRtl(language) ? "rtl" : "ltr";
@@ -109,11 +124,11 @@ export default function App() {
   };
 
   if (!ready) return null;
-  const content = journey ? journeyContent(journey) : null;
+  const content = journey ? journeyContent(journey, language, pack.state === "ready" ? pack.content : null) : null;
   const current = content ? currentStep(content.journey, completed) : null;
   const homeStatus = content && {
     done: !current,
-    currentTitle: current ? (content.texts[language][current.id]?.title ?? null) : null,
+    currentTitle: current ? (content.texts[current.id]?.title ?? null) : null,
     percent: Math.round(completion(content.journey, completed) * 100),
   };
 
@@ -140,9 +155,9 @@ export default function App() {
         {choiceNotSaved && (
           <p className="save-note save-failed" role="alert"><Icon name="shield" size={16} />{strings[language].choiceNotSaved}</p>
         )}
-        {screen === "home" && <Home setScreen={setScreen} status={homeStatus} />}
+        {screen === "home" && <Home setScreen={setScreen} status={homeStatus} pack={pack} />}
         {screen === "guide" && content && (
-          <Guide key={journey} journey={content.journey} texts={content.texts[language]} completed={completed} onStepDone={markStep} saveFailed={saveFailed} />
+          <Guide key={journey} journey={content.journey} texts={content.texts} completed={completed} onStepDone={markStep} saveFailed={saveFailed} />
         )}
         {screen === "guide" && !content && <GuideNotReady />}
         {screen === "settings" && journey && (
@@ -150,8 +165,7 @@ export default function App() {
             journey={journey}
             onLanguageChange={changeLanguage}
             onChangeJourney={() => setOnboarding("journey")}
-            // TODO(T028): refresh the "Ready offline" card from the installed pack.
-            onPackInstalled={() => undefined}
+            onPackInstalled={() => setPackCheck((n) => n + 1)}
           />
         )}
         {(screen === "prayers" || screen === "map") && <Placeholder screen={screen} setScreen={setScreen} />}

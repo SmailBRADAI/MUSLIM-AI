@@ -12,7 +12,6 @@ export function Placeholder({ screen, setScreen }: { screen: PlaceholderScreen; 
       <span className="placeholder-icon"><Icon name={icon} size={34} /></span>
       <h1>{title}</h1>
       <p>{t.notAvailable}</p>
-      <div className="download-summary"><Icon name="shield" /><span>{t.offlineMeta}</span><Icon name="check" /></div>
       <button className="complete-button" onClick={() => setScreen("home")}><Icon name="home" />{t.back}</button>
     </main>
   );
