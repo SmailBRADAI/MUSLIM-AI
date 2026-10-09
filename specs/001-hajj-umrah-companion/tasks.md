@@ -7,11 +7,11 @@
 
 - [x] T001 Import the Figma Make prototype into `apps/hajj-umrah` (PR #1)
 - [x] T002 Precache the build and self-host fonts with vite-plugin-pwa (PR #1)
-- [ ] T003 [P] Add Vitest + Testing Library and a first smoke test in `tests/unit/`
-- [ ] T004 [P] Add Playwright with `tests/e2e/offline.spec.ts` (load, go offline, reload) and axe checks
+- [x] T003 [P] Add Vitest + Testing Library and a first smoke test in `tests/unit/`
+- [x] T004 [P] Add Playwright with `tests/e2e/offline.spec.ts` (load, go offline, reload) and axe checks (found and fixed two palette contrast failures: `--muted` darkened, new `--gold-text`)
 - [x] T042 Rename the app to رفيق المناسك / Rafiq al-Manasik / رفیق المناسک (FR-016)
-- [ ] T043 [P] Content reviewer role: `content/reviewers.json`, `.github/CODEOWNERS` requiring a role holder on `apps/hajj-umrah/content/`
-- [ ] T005 Add GitHub Actions CI at repo root `.github/workflows/hajj-umrah.yml`: typecheck, unit, build, e2e
+- [x] T043 [P] Content reviewer role: `content/reviewers.json`, `.github/CODEOWNERS` requiring a role holder on `apps/hajj-umrah/content/`
+- [x] T005 Add GitHub Actions CI at repo root `.github/workflows/hajj-umrah.yml`: typecheck, unit, build, e2e
 
 ## Phase 2: Foundation (blocks all stories)
 
