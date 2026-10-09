@@ -260,3 +260,30 @@ small { color: var(--muted); font-size: 13px; line-height: 1.6; }
 .place-part.here[data-part="masa"] ~ .haram-hill { stroke: var(--forest-deep); }
 .place-pin path { fill: var(--gold-text); stroke: var(--surface); stroke-width: 1.5; }
 .place-pin circle { fill: var(--surface); }
+
+/* T048 Live mode: an opt-in card at the top of the Guide. The switch shows its state by the knob's
+   position and a check mark as well as colour; the location never leaves the device. */
+.live-card { margin: 18px 0 0; padding: 12px 14px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); }
+.live-card.on { border-color: #c9dccc; }
+.live-head { display: flex; align-items: center; gap: 12px; }
+.live-head .grow { min-width: 0; gap: 2px; }
+.live-head strong { font-size: 17px; line-height: 1.45; }
+.live-switch { position: relative; flex: 0 0 auto; width: 64px; min-height: 48px; padding: 0; border: 0; background: transparent; cursor: pointer; direction: ltr; }
+.live-switch::before { content: ""; position: absolute; inset: 9px 4px; border: 2px solid #7a857e; border-radius: 99px; background: var(--stone); }
+.live-knob { position: absolute; top: 13px; left: 9px; width: 22px; height: 22px; display: grid; place-items: center; border-radius: 50%; color: var(--action); background: var(--white); box-shadow: 0 1px 3px rgba(0,0,0,.3); transition: left .15s ease; }
+.live-switch[aria-checked="true"]::before { border-color: var(--forest-deep); background: var(--action); }
+.live-switch[aria-checked="true"] .live-knob { left: 33px; }
+.live-body { display: grid; gap: 10px; margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--line); }
+.live-body .place-visual { margin: 0; }
+.live-message { margin: 0; color: var(--ink); line-height: 1.7; }
+.live-message.live-error { color: #9a3412; font-weight: 700; }
+.live-note { display: flex; align-items: flex-start; gap: 6px; margin: 0; color: var(--gold-text); font-weight: 700; font-size: 14px; line-height: 1.7; }
+.live-note svg { flex: 0 0 auto; margin-top: 4px; }
+.live-suggestion { display: grid; gap: 6px; justify-items: start; padding: 12px 14px; border-radius: 14px; background: var(--sage-pale); }
+.live-suggestion strong { font-size: 18px; line-height: 1.5; }
+.live-open { margin: 0; color: var(--action); font-weight: 700; }
+.live-go { max-width: 100%; }
+[dir="rtl"] .live-go svg { transform: rotate(180deg); }
+.live-off { min-height: 48px; justify-self: start; padding: 0 16px; border: 1px solid var(--line); border-radius: 14px; color: var(--ink); background: var(--surface); font-weight: 700; cursor: pointer; }
+.live-attribution { font-size: 12px; }
+.language-ur .live-card { line-height: 2; }

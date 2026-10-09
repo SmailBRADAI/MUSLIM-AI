@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { SaiDiagram, TawafDiagram } from "../components/Diagrams";
 import { Icon } from "../components/Icon";
+import { LiveMode } from "../components/LiveMode";
 import { PlaceVisual } from "../components/PlaceVisual";
 import { ReviewBadge } from "../components/ReviewBadge";
 import { RulingTag } from "../components/RulingTag";
@@ -46,6 +47,8 @@ export function Guide({
   completed,
   onStepDone,
   saveFailed,
+  live = false,
+  onLiveChange,
 }: {
   journey: Journey;
   texts: StepTexts;
@@ -53,6 +56,9 @@ export function Guide({
   /** Saves on the device; the guide moves on once it resolves. */
   onStepDone: (stepId: string, done: boolean) => Promise<void>;
   saveFailed: boolean;
+  /** T048: Live mode, on for this session only; the card is shown when onLiveChange is given. */
+  live?: boolean;
+  onLiveChange?: (on: boolean) => void;
 }) {
   const t = useT();
   const steps = orderedSteps(journey);
@@ -140,6 +146,20 @@ export function Guide({
         </div>
         <span className="step-pill">{index + 1} / {steps.length}</span>
       </div>
+      {/* T048: suggests the step for where the pilgrim seems to be; the location is watched only while
+          this is on and the Guide is open, and never leaves the device. */}
+      {onLiveChange && (
+        <LiveMode
+          on={live}
+          onChange={onLiveChange}
+          journey={journey}
+          texts={texts}
+          completed={completed}
+          openStepId={step.id}
+          onGoToStep={(id) => goTo(steps.findIndex((s) => s.id === id))}
+          busy={saving}
+        />
+      )}
       <section className="progress-panel">
         <div className="progress-label"><span>{t.progress}</span><strong>{percent}%</strong></div>
         <div className="progress-track"><span style={{ width: `${percent}%` }} /></div>

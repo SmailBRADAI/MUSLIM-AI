@@ -84,6 +84,26 @@ The pilgrim opens an offline map of key landmarks (Masjid al-Haram gates, Safa a
 
 The pilgrim searches steps and supplications in their language, offline.
 
+### User story 8 — Live mode: suggest the step for where I am (Priority: P2)
+
+Requested by the project owner: "Based on the GPS location, I would like to have a live mode where it will detect the location and suggest the right step." At the Haram or the holy sites, a pilgrim who is unsure which step comes next turns on "Live mode" in the Guide. The app uses the phone's location, on the device only, to tell roughly where the pilgrim seems to be (for example the Mataf, the Mas'a, the Jamarat, Mina, Muzdalifah, Arafah or a miqat) and suggests the next step of their journey that is performed there. The pilgrim decides: the app never marks a step done and never rules on whether they are inside a boundary.
+
+**Why this priority**: It saves the tired pilgrim from working out where they are in the guide, but the guide works fully without it.
+
+**Independent test**: With the location simulated inside the Mataf, turn on Live mode on the Umrah guide: the card says "You seem to be in the Mataf", suggests Tawaf, and "Go to this step" opens it. With the location in Arafah on a Hajj guide, the card says "You seem to be near Arafah" with "Check the official boundary signs". Turn it off: location is no longer watched.
+
+**Acceptance scenarios**:
+
+1. **Given** the Guide is open, **Then** Live mode is off and the app has not asked for location. **When** the pilgrim turns it on, **Then** (and only then) the browser asks for location permission, and a short line says the location stays on the device and is never saved or sent.
+2. **Given** Live mode is on and the location is in the Mataf with good accuracy, **Then** the card says "You seem to be in the Mataf", shows the "you are here" visual for it, and suggests the first step of the journey not yet done that is performed there (Tawaf), with "Go to this step", which opens that step in the Guide. Nothing is marked done.
+3. **Given** a Hajj journey and today's date (Umm al-Qura calendar) is one of 8–13 Dhu al-Hijjah, **Then** among the matching steps not done, a step of today's day is suggested first.
+4. **Given** the location is near Arafah, Muzdalifah, Mina or a miqat, **Then** the card says the pilgrim *seems to be near* it and asks them to check the official boundary signs, in every language. It never states that the pilgrim is inside the boundary.
+5. **Given** the GPS accuracy is too poor to tell (worse than 50 m at Masjid al-Haram, 300 m elsewhere), **Then** the card says the location is uncertain instead of guessing.
+6. **Given** the location is outside Makkah and the holy sites, **Then** the card says Live mode works in Makkah and at the holy sites. **Given** no remaining step is performed at the detected place, **Then** the card says so.
+7. **Given** location permission is denied, location is unavailable, it times out, or the browser has no location support, **Then** the card says which, and offers to turn Live mode off.
+8. **Given** Live mode is on, **When** the pilgrim turns it off, leaves the Guide, or the app goes to the background, **Then** the location is no longer watched.
+9. **Given** a screen reader, **Then** a change of detected place is announced once it has settled for a few seconds (not on every GPS update), and focus is never moved by an update.
+
 ### Edge cases
 
 - Storage is full or the download is interrupted: resume, and never leave a half-installed pack marked as ready.
@@ -94,6 +114,8 @@ The pilgrim searches steps and supplications in their language, offline.
 - The device storage is too slow or unavailable at launch: the app opens the Umrah guide for the session instead of onboarding, so a returning pilgrim's saved journey is never overwritten; a choice that can't be saved is reported.
 - The pilgrim picks a journey whose content isn't written yet (Hajj, before US4): the guide says it is being prepared and reviewed, and never shows another journey's steps.
 - Explanations of each Hajj type are religious content (Principle I): onboarding shows only the type names until reviewed explanations exist (US4).
+- GPS inside Masjid al-Haram is often poor (roofs, crowds, tall buildings): Live mode says the location is uncertain rather than guessing between the Mataf and the Mas'a (US8).
+- The pilgrim stands near a boundary of Arafah, Muzdalifah, Mina or a miqat: place shapes are approximate, so the app says "seems to be near" and points to the official signs; whether the pilgrim is inside is never decided by the app (US8).
 
 ## Requirements
 
@@ -107,6 +129,10 @@ The pilgrim searches steps and supplications in their language, offline.
 - **FR-006**: The app MUST show "Ready offline" status with size, language and content version.
 - **FR-007**: Every content item MUST carry source, ruling (where applicable), review status, reviewer, and version; unapproved items MUST be marked as pending review. Each language's text has its own review status: a step is shown as reviewed in a language only when both the step and that language's text are approved.
 - **FR-019**: Each step MUST name the one place where it is performed, from a fixed list: miqat, mataf, maqam (Maqam Ibrahim, for the two rak'ahs after Tawaf), masa (between Safa and Marwah), makkah (elsewhere in Makkah, for example shaving or shortening after the Umrah), mina, jamarat, muzdalifah, arafah. The guide MUST show it as a "you are here" visual drawn in the app (no map tiles or network). The place is part of the step's reviewed content; the place names and caption are UI strings, since they name geography, not rulings.
+- **FR-020**: The Guide MUST offer an opt-in Live mode, off by default and not remembered between launches. Location permission MUST be requested only when the pilgrim turns it on. The location MUST be processed on the device only: never stored (IndexedDB or elsewhere), never sent, and the watch MUST stop when Live mode is turned off, the Guide is left, or the app is hidden. The Guide MUST say so in one short line.
+- **FR-021**: Place detection MUST work offline from place shapes bundled with the app (approximate shapes from OpenStreetMap, ODbL, shown with attribution and marked approximate until verified): Mataf, Maqam Ibrahim, Mas'a, Masjid al-Haram, Makkah, Mina, Jamarat, Muzdalifah, Arafah (including Namirah) and the miqats Dhul-Hulayfah (Abyar Ali), Al-Juhfah (and Rabigh), Qarn al-Manazil (As-Sayl al-Kabir), Yalamlam and Dhat Irq. The most specific matching place MUST win (Mataf, Mas'a or Jamarat before Masjid al-Haram, Makkah or Mina). If the reported accuracy is worse than 50 m at Masjid al-Haram or 300 m elsewhere, the app MUST say the location is uncertain.
+- **FR-022**: Live mode MUST only suggest: the first step not done, in journey order, whose place is at the detected place; for Hajj, steps of today's Dhu al-Hijjah day (Umm al-Qura calendar) first. It MUST NOT mark a step done. It MUST NOT assert that the pilgrim is inside Arafah, Muzdalifah, Mina or a miqat: it says the pilgrim seems to be near it and to check the official boundary signs, in Arabic, English and Urdu.
+- **FR-023**: Live mode MUST report permission denied, location unavailable, timeout and no browser support, each with a way to turn it off; announce settled place changes in a polite live region without moving focus; and keep 44 px targets and no sideways scroll at narrow widths.
 - **FR-018**: If progress cannot be saved on the device, the app MUST say so instead of claiming it was saved.
 - **FR-008**: Audio MUST be optional and downloaded separately.
 - **FR-009**: Content updates MUST be checked only when online and MUST NOT block use of the installed version.
@@ -129,6 +155,7 @@ The pilgrim searches steps and supplications in their language, offline.
 - **TextReview**: per-language review status, reviewer and date for a step's translated text.
 - **Progress**: journey id, completed step ids, current step, updated time (device only).
 - **ContentPack**: language, version, size, files, installed date.
+- **GeoRegion** (bundled, not content-reviewed rulings): id, kind (which place it names), place shown on the visual, places whose steps it matches, specificity level, accuracy zone, whether boundary wording applies, and an approximate shape (circle, corridor or polygon). The pilgrim's location is never an entity: it is not stored.
 
 ## Success criteria
 

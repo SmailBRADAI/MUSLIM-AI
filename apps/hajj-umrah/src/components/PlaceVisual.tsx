@@ -59,7 +59,8 @@ function Labels({ items }: { items: { key: string; text: string; columns: string
   );
 }
 
-export function PlaceVisual({ place }: { place: Place }) {
+/** `caption` replaces "I am in …", for Live mode, which only says where the pilgrim seems to be (T048). */
+export function PlaceVisual({ place, caption }: { place: Place; caption?: string }) {
   const t = useT();
   const stop = stopOf(place);
 
@@ -76,7 +77,7 @@ export function PlaceVisual({ place }: { place: Place }) {
 
   return (
     <figure className="place-visual" data-place={place}>
-      <figcaption>{t.places[place].here}</figcaption>
+      <figcaption>{caption ?? t.places[place].here}</figcaption>
       <div className="place-map" dir="ltr" role="img" aria-label={t.placeMapLabel.replace("{place}", t.places[place].name)}>
         <div className="place-route">
           {labels(true)}

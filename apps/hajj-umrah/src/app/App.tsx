@@ -43,6 +43,8 @@ export default function App() {
   const [journey, setJourneyState] = useState<JourneyType | null>(null);
   // Set while choosing a journey: first launch starts at "language", changing it from Settings at "journey".
   const [onboarding, setOnboarding] = useState<OnboardingStep | null>(null);
+  // T048: Live mode is off at each launch and never stored; the location is watched only in the Guide.
+  const [live, setLive] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -204,7 +206,7 @@ export default function App() {
           />
         )}
         {screen === "guide" && content && (
-          <Guide key={journey} journey={content.journey} texts={content.texts} completed={completed} onStepDone={markStep} saveFailed={saveFailed} />
+          <Guide key={journey} journey={content.journey} texts={content.texts} completed={completed} onStepDone={markStep} saveFailed={saveFailed} live={live} onLiveChange={setLive} />
         )}
         {screen === "guide" && !content && <GuideNotReady />}
         {screen === "settings" && journey && (
