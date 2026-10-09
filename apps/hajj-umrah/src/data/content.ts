@@ -1,10 +1,11 @@
-// Journey content bundled with the app shell (precached, so it works offline).
-// TODO(T025, T026): load from downloaded packs instead of bundling.
+// Journey content. The text is bundled with the app shell (precached) so the guide works before the
+// first download; once a pack is installed for the current language, the guide reads from it (plan: Packs).
 import umrah from "../../content/journeys/umrah.json";
 import arUmrah from "../../content/i18n/ar/umrah.json";
 import enUmrah from "../../content/i18n/en/umrah.json";
 import urUmrah from "../../content/i18n/ur/umrah.json";
 import type { Language } from "../i18n";
+import type { PackContent } from "./pack-format";
 import type { Journey, JourneyType, StepText } from "./types";
 
 /** Step text plus any ruling note keys the step names (see Step.rulingNote). */
@@ -18,7 +19,26 @@ const journeys: Partial<Record<JourneyType, { journey: Journey; texts: Record<La
   },
 };
 
-/** Content for a journey, or null while it hasn't been written (Hajj until T031). */
-export function journeyContent(type: JourneyType) {
-  return journeys[type] ?? null;
+/** Compares dotted numeric versions ("0.10.0" > "0.9.2"). */
+export function compareVersions(a: string, b: string) {
+  const pa = a.split(".").map(Number);
+  const pb = b.split(".").map(Number);
+  for (let i = 0; i < Math.max(pa.length, pb.length); i++) {
+    const diff = (pa[i] ?? 0) - (pb[i] ?? 0);
+    if (diff) return Math.sign(diff);
+  }
+  return 0;
+}
+
+/**
+ * Content for a journey in one language, or null while it hasn't been written (Hajj until T031).
+ * An installed pack is used only when it is newer than the copy bundled with this version of the app,
+ * so an old download never hides a correction or a withdrawn approval (constitution I).
+ */
+export function journeyContent(type: JourneyType, language: Language, pack?: PackContent | null) {
+  const bundled = journeys[type];
+  const fromPack = pack?.language === language ? pack.journeys.find((j) => j.type === type) : undefined;
+  const packIsNewer = fromPack && (!bundled || compareVersions(fromPack.version, bundled.journey.version) > 0);
+  if (fromPack && packIsNewer && pack?.texts[fromPack.id]) return { journey: fromPack, texts: pack.texts[fromPack.id] as StepTexts };
+  return bundled ? { journey: bundled.journey, texts: bundled.texts[language] } : null;
 }

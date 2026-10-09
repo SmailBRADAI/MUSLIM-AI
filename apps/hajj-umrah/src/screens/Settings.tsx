@@ -1,5 +1,5 @@
-import { Icon } from "../components/Icon";
 import { LanguageChoiceList } from "../components/LanguageChoiceList";
+import { OfflinePacks } from "../components/OfflinePacks";
 import type { JourneyType } from "../data/types";
 import { useT } from "../i18n";
 import type { Language } from "../i18n";
@@ -9,10 +9,12 @@ export function Settings({
   journey,
   onLanguageChange,
   onChangeJourney,
+  onPackInstalled,
 }: {
   journey: JourneyType;
   onLanguageChange: (language: Language) => void;
   onChangeJourney: () => void;
+  onPackInstalled: () => void;
 }) {
   const t = useT();
   return (
@@ -32,10 +34,9 @@ export function Settings({
         </button>
       </section>
 
-      {/* TODO(T027, T028): replace with the real download screen and offline status. */}
-      <section className="settings-group">
-        <h2>{t.offline}</h2>
-        <div className="download-summary"><Icon name="shield" /><span>{t.offlineMeta}</span><Icon name="check" /></div>
+      <section className="settings-group" id="offline">
+        <h2>{t.packs.title}</h2>
+        <OfflinePacks onInstalled={onPackInstalled} />
       </section>
     </main>
   );

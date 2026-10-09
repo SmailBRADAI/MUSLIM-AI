@@ -4,6 +4,8 @@ import { BottomNav } from "../components/BottomNav";
 import { Icon } from "../components/Icon";
 import * as db from "../data/db";
 import { journeyContent } from "../data/content";
+import { fetchManifest, loadPack } from "../data/packs";
+import type { PackState } from "../data/packs";
 import { completion, currentStep, setStepDone, withStep } from "../data/progress";
 import type { JourneyType } from "../data/types";
 import { I18nProvider, isRtl, strings } from "../i18n";
@@ -35,6 +37,9 @@ export default function App() {
   const [screen, setScreen] = useState<Screen>("home");
   const [saveFailed, setSaveFailed] = useState(false);
   const [choiceNotSaved, setChoiceNotSaved] = useState(false);
+  const [pack, setPack] = useState<PackState>({ state: "none" });
+  const [packCheck, setPackCheck] = useState(0);
+  const [updateAvailable, setUpdateAvailable] = useState(false);
   const [journey, setJourneyState] = useState<JourneyType | null>(null);
   // Set while choosing a journey: first launch starts at "language", changing it from Settings at "journey".
   const [onboarding, setOnboarding] = useState<OnboardingStep | null>(null);
@@ -63,6 +68,44 @@ export default function App() {
       cancelled = true;
     };
   }, []);
+
+  // T028: the installed pack for the current language drives "Ready offline" and the guide's content.
+  useEffect(() => {
+    let cancelled = false;
+    // Never show the previous language's pack while this one loads.
+    setPack({ state: "none" });
+    loadPack(language)
+      .catch((): PackState => ({ state: "none" }))
+      .then((state) => !cancelled && setPack(state));
+    return () => {
+      cancelled = true;
+    };
+  }, [language, packCheck]);
+
+  // T029: when online, look for a newer pack in the background. The installed version stays in use;
+  // the pilgrim updates from Settings when they choose (FR-009). Failures are ignored.
+  const installedVersion = pack.state === "ready" && pack.pack.language === language ? pack.pack.version : null;
+  useEffect(() => {
+    setUpdateAvailable(false);
+    if (!installedVersion) return;
+    let cancelled = false;
+    const check = () => {
+      if (!navigator.onLine) return;
+      fetchManifest()
+        .then((m) => {
+          const latest = m.packs.find((p) => p.language === language);
+          if (!cancelled && latest && latest.version !== installedVersion) setUpdateAvailable(true);
+        })
+        .catch(() => undefined);
+    };
+    check();
+    // Also check when the connection comes back.
+    window.addEventListener("online", check);
+    return () => {
+      cancelled = true;
+      window.removeEventListener("online", check);
+    };
+  }, [language, installedVersion]);
 
   useEffect(() => {
     document.documentElement.dir = isRtl(language) ? "rtl" : "ltr";
@@ -109,11 +152,11 @@ export default function App() {
   };
 
   if (!ready) return null;
-  const content = journey ? journeyContent(journey) : null;
+  const content = journey ? journeyContent(journey, language, pack.state === "ready" ? pack.content : null) : null;
   const current = content ? currentStep(content.journey, completed) : null;
   const homeStatus = content && {
     done: !current,
-    currentTitle: current ? (content.texts[language][current.id]?.title ?? null) : null,
+    currentTitle: current ? (content.texts[current.id]?.title ?? null) : null,
     percent: Math.round(completion(content.journey, completed) * 100),
   };
 
@@ -140,13 +183,18 @@ export default function App() {
         {choiceNotSaved && (
           <p className="save-note save-failed" role="alert"><Icon name="shield" size={16} />{strings[language].choiceNotSaved}</p>
         )}
-        {screen === "home" && <Home setScreen={setScreen} status={homeStatus} />}
+        {screen === "home" && <Home setScreen={setScreen} status={homeStatus} pack={pack} updateAvailable={updateAvailable} />}
         {screen === "guide" && content && (
-          <Guide key={journey} journey={content.journey} texts={content.texts[language]} completed={completed} onStepDone={markStep} saveFailed={saveFailed} />
+          <Guide key={journey} journey={content.journey} texts={content.texts} completed={completed} onStepDone={markStep} saveFailed={saveFailed} />
         )}
         {screen === "guide" && !content && <GuideNotReady />}
         {screen === "settings" && journey && (
-          <Settings journey={journey} onLanguageChange={changeLanguage} onChangeJourney={() => setOnboarding("journey")} />
+          <Settings
+            journey={journey}
+            onLanguageChange={changeLanguage}
+            onChangeJourney={() => setOnboarding("journey")}
+            onPackInstalled={() => setPackCheck((n) => n + 1)}
+          />
         )}
         {(screen === "prayers" || screen === "map") && <Placeholder screen={screen} setScreen={setScreen} />}
         <BottomNav screen={screen} setScreen={setScreen} />

@@ -8,12 +8,13 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build",
+    "build": "tsc --noEmit && node scripts/build-packs.ts && vite build",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:e2e": "playwright test",
-    "validate:content": "node scripts/validate-content.ts"
+    "validate:content": "node scripts/validate-content.ts",
+    "build:packs": "node scripts/build-packs.ts"
   },
   "dependencies": {
     "@fontsource/manrope": "^5.2.0",

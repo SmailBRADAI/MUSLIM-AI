@@ -4,7 +4,6 @@
   "title": "Your companion for a blessed journey",
   "subtitle": "Clear steps and trusted guidance throughout every stage of your rituals.",
   "offline": "Your guide is ready offline",
-  "offlineMeta": "English · Updated 14 Dhu al-Qi’dah",
   "journey": "Your journey starts here",
   "journeyHint": "Choose the pilgrimage you wish to perform",
   "umrah": "Umrah rituals",
@@ -28,7 +27,7 @@
   "previous": "Previous step",
   "reassurance": "Your progress is saved automatically on this device",
   "saveFailed": "Your progress could not be saved on this device. It stays visible until you close the app.",
-  "notAvailable": "This section is ready to use offline",
+  "notAvailable": "This section is being prepared and will be added later.",
   "back": "Back to home",
   "ruling": {
     "rukn": "Pillar",
@@ -82,5 +81,22 @@
   },
   "currentStep": "Current step",
   "allStepsDone": "All steps are done",
-  "stepList": "Steps"
+  "stepList": "Steps",
+  "packs": {
+    "download": "Download",
+    "update": "Update",
+    "retry": "Try again",
+    "downloading": "Downloading",
+    "cancel": "Cancel",
+    "installed": "On this device",
+    "updateAvailable": "Update available",
+    "lost": "The downloaded content was removed from this device. Download it again.",
+    "failed": "Download failed. Check your connection and try again.",
+    "offline": "You are offline. Connect to the internet to download.",
+    "audioNote": "Audio is not included yet.",
+    "title": "Offline content",
+    "notDownloaded": "Download your guide for offline use",
+    "notDownloadedHint": "Do this before you travel",
+    "updatedOn": "Updated"
+  }
 }
