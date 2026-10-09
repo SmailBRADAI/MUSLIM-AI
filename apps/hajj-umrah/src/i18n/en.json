@@ -54,5 +54,26 @@
   "a11y": {
     "language": "Language",
     "mainNav": "Main navigation"
-  }
+  },
+  "onboarding": {
+    "languageTitle": "Choose your language",
+    "journeyTitle": "Which pilgrimage are you performing?",
+    "hajjTypeTitle": "Which type of Hajj?",
+    "continue": "Continue",
+    "back": "Back"
+  },
+  "journeys": {
+    "umrah": "Umrah",
+    "hajj-tamattu": "Hajj Tamattu’",
+    "hajj-qiran": "Hajj Qiran",
+    "hajj-ifrad": "Hajj Ifrad"
+  },
+  "settingsScreen": {
+    "language": "Language",
+    "journey": "Your journey",
+    "change": "Change",
+    "progressKept": "Progress is kept for each journey on this device"
+  },
+  "guideNotReady": "The guide for this type of Hajj is being prepared and reviewed, and is not available yet.",
+  "choiceNotSaved": "Your choice could not be saved on this device; it applies until you close the app."
 }

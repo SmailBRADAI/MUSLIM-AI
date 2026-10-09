@@ -1,10 +1,15 @@
-import { describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import App from "../../src/app/App";
 import * as db from "../../src/data/db";
 
 describe("App", () => {
+  // These tests start after onboarding; tests/unit/onboarding.test.tsx covers first launch.
+  beforeEach(async () => {
+    await db.setJourney("umrah");
+  });
+
   it("starts in Arabic with a right-to-left layout", async () => {
     render(<App />);
     expect(await screen.findByText("رفيق المناسك")).toBeInTheDocument();
@@ -85,6 +90,9 @@ describe("App", () => {
     render(<App />);
     await vi.advanceTimersByTimeAsync(1600);
     expect(await screen.findByText("رفيق المناسك")).toBeInTheDocument();
+    // A returning pilgrim on a slow device must not be sent back through onboarding.
+    expect(screen.getByRole("navigation")).toBeInTheDocument();
+    expect(screen.queryByRole("heading", { name: "اختر لغتك" })).not.toBeInTheDocument();
     getLanguage.mockRestore();
     vi.useRealTimers();
   });

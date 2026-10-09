@@ -2,6 +2,8 @@ import { openDB } from "idb";
 import type { DBSchema, IDBPDatabase } from "idb";
 import { isLanguage } from "../i18n";
 import type { Language } from "../i18n";
+import { isJourneyType } from "./types";
+import type { JourneyType } from "./types";
 
 export interface Progress {
   journeyId: string;
@@ -65,6 +67,11 @@ export function getDb() {
 
         const language = readLegacy(LEGACY_LANGUAGE_KEY);
         if (isLanguage(language)) void tx.objectStore("settings").put(language, "language");
+        // The prototype only had the Umrah guide, so a prototype user with a saved language or
+        // progress was doing Umrah; don't send them back through onboarding.
+        if (isLanguage(language) || readLegacy(LEGACY_TAWAF_KEY) !== null) {
+          void tx.objectStore("settings").put("umrah", "journey");
+        }
         if (readLegacy(LEGACY_TAWAF_KEY) === "true") {
           void tx.objectStore("progress").put({
             journeyId: "umrah",
@@ -96,6 +103,16 @@ export async function getLanguage(): Promise<Language | null> {
 
 export async function setLanguage(language: Language) {
   await (await getDb()).put("settings", language, "language");
+}
+
+/** The pilgrim's chosen journey; null until onboarding is finished. */
+export async function getJourney(): Promise<JourneyType | null> {
+  const value = await (await getDb()).get("settings", "journey");
+  return isJourneyType(value) ? value : null;
+}
+
+export async function setJourney(journey: JourneyType) {
+  await (await getDb()).put("settings", journey, "journey");
 }
 
 export async function getProgress(journeyId: string): Promise<Progress> {

@@ -27,10 +27,10 @@
 
 ## Phase 3: User story 2 — Language and journey on first launch (P1)
 
-- [ ] T013 [US2] Onboarding screen: language choice, then Umrah or Hajj, then Hajj type
-- [ ] T014 [US2] Persist choices in IndexedDB; route to Home when onboarding is done
-- [ ] T015 [US2] Settings screen: change language and journey without losing progress
-- [ ] T016 [P] [US2] e2e: onboarding in each language checks `dir`, `lang` and selected guide
+- [x] T013 [US2] Onboarding screen: language choice, then Umrah or Hajj, then Hajj type
+- [x] T014 [US2] Persist choices in IndexedDB; route to Home when onboarding is done; prototype users are kept on Umrah; slow storage never forces onboarding
+- [x] T015 [US2] Settings screen: change language and journey without losing progress (progress is stored per journey); a failed save is reported
+- [x] T016 [P] [US2] e2e: onboarding in each language checks `dir`, `lang` and selected guide (Umrah guide, or "being prepared" for Hajj until T031)
 
 ## Phase 4: User story 1 — Follow the Umrah offline (P1) 🎯 MVP
 

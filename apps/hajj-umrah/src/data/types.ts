@@ -1,6 +1,12 @@
 // Mirrors specs/001-hajj-umrah-companion/contracts/content-pack.schema.json.
 
-export type JourneyType = "umrah" | "hajj-tamattu" | "hajj-qiran" | "hajj-ifrad";
+export const JOURNEY_TYPES = ["umrah", "hajj-tamattu", "hajj-qiran", "hajj-ifrad"] as const;
+export type JourneyType = (typeof JOURNEY_TYPES)[number];
+export const HAJJ_TYPES = ["hajj-tamattu", "hajj-qiran", "hajj-ifrad"] as const satisfies readonly JourneyType[];
+
+export function isJourneyType(value: unknown): value is JourneyType {
+  return typeof value === "string" && (JOURNEY_TYPES as readonly string[]).includes(value);
+}
 export type ReviewStatus = "draft" | "in-review" | "approved";
 export type Ruling = "rukn" | "wajib" | "sunnah" | "mustahabb";
 export type Scholar = "ibn-baz" | "ibn-uthaymeen";

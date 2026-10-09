@@ -54,5 +54,26 @@
   "a11y": {
     "language": "اللغة",
     "mainNav": "التنقل الرئيسي"
-  }
+  },
+  "onboarding": {
+    "languageTitle": "اختر لغتك",
+    "journeyTitle": "ما النسك الذي تؤديه؟",
+    "hajjTypeTitle": "ما نوع حجك؟",
+    "continue": "متابعة",
+    "back": "رجوع"
+  },
+  "journeys": {
+    "umrah": "العمرة",
+    "hajj-tamattu": "حج التمتع",
+    "hajj-qiran": "حج القِران",
+    "hajj-ifrad": "حج الإفراد"
+  },
+  "settingsScreen": {
+    "language": "اللغة",
+    "journey": "رحلتك",
+    "change": "تغيير",
+    "progressKept": "يبقى تقدّمك محفوظاً لكل رحلة على هذا الجهاز"
+  },
+  "guideNotReady": "دليل هذا النوع من الحج قيد الإعداد والمراجعة العلمية، ولم يُضف بعد.",
+  "choiceNotSaved": "تعذّر حفظ اختيارك على هذا الجهاز؛ سيبقى فعّالاً حتى تغلق التطبيق."
 }
