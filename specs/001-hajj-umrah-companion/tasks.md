@@ -80,6 +80,10 @@
 
 - [x] T048 [US8] Live mode (FR-020–FR-023): opt-in toggle in the Guide, location watched on the device only while on and visible; bundled approximate geodata (`src/data/places-geo.ts`, OpenStreetMap, pending verification) and offline geofence matching with accuracy limits and most-specific match (`src/data/geofence.ts`); step suggestion by journey order and, for Hajj, today's Dhu al-Hijjah day (`src/data/live.ts`); live card with "seems to be in/near", boundary-sign note, "Go to this step" and the place visual; error states; ar/en/ur strings; unit tests (geofence, accuracy, suggestion, UI with mocked geolocation) and e2e with simulated location and axe
 
+## Phase 8c: User story 9 — Swipe and lock-screen card (P2)
+
+- [ ] T051 [US9] Swipe between steps (FR-024) and the opt-in lock-screen card (FR-025, via notification and a small service-worker script) with the optional screen wake lock (FR-026); ar/en/ur strings; unit tests (swipe logic, notification content and sync, wake lock) and e2e (swipe in ar and en, notification with granted and denied permission, axe, no sideways scroll)
+
 ## Phase 9: Polish and release
 
 - [ ] T039 Accessibility pass: 200% text, screen readers in all 3 languages, contrast audit of the palette
@@ -97,4 +101,5 @@
 - US4 and US5 reuse the Guide screen from US1.
 - US8 (T048) reuses the Guide, the step places and `PlaceVisual` (T047); its geodata is verified before release with T037's OpenStreetMap data.
 - T041 needs at least one holder of the content reviewer role (T043).
+- US9 (T051) reuses the Guide; a true lock-screen widget or Live Activity waits on the Capacitor wrapper (T044).
 - T036 waits on the open audio clarification.
