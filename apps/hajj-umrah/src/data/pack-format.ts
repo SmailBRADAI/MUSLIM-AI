@@ -20,6 +20,8 @@ export interface PackManifestEntry {
   bytes: number;
   /** Of the file body, checked after download before the pack is marked installed. */
   sha256: string;
+  /** ISO date of the last change to the content, shown as "updated" (FR-006). */
+  updated: string;
   journeys: { id: string; version: string }[];
 }
 

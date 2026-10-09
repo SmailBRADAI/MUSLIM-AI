@@ -118,6 +118,14 @@ interface StepText {
 5. **Polish**: accessibility pass, performance and size budget, content review sign-off.
 6. **App stores**: Capacitor wrapper for iOS and Android, store listings, native storage for packs.
 
+### Packs (T025, T026)
+
+- `npm run build` writes one pack per language to `public/packs/{lang}/{version}/content.json` and `public/packs/manifest.json` (version = content hash, size, SHA-256, last content change date from git).
+- `src/data/packs.ts` downloads a pack, checks its size and SHA-256, stores it, and only then records it as installed in IndexedDB. A pack whose stored file has disappeared (cleared site data) is reported as lost, so the app can ask to download again.
+- Storage goes through a small `PackStore` interface: Cache Storage on the web, native files under Capacitor later.
+- "Resume": text packs are a few KB, so an interrupted download is retried from the start (up to 3 attempts) and is never marked installed. Byte-range resume is added with audio packs (T036), where files are large.
+- The text content also stays bundled in the app, so the guide works before the first download; once a pack is installed for the current language, the guide reads from it.
+
 ## Risks
 
 - **Content review is the critical path.** Code can ship with draft content marked as pending, but nothing should be presented as authoritative until reviewed. The clarifications in the spec must be answered first.

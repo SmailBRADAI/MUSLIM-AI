@@ -11,7 +11,7 @@ export interface BuiltPack {
   body: string;
 }
 
-export function buildPacks(files: ContentFiles): { manifest: PackManifest; packs: BuiltPack[] } {
+export function buildPacks(files: ContentFiles, updated: string): { manifest: PackManifest; packs: BuiltPack[] } {
   const journeys = Object.entries(files.journeys)
     .sort(([a], [b]) => a.localeCompare(b))
     .map(([file, journey]) => ({ file, journey: journey as Journey }));
@@ -39,6 +39,7 @@ export function buildPacks(files: ContentFiles): { manifest: PackManifest; packs
       url: path,
       bytes: Buffer.byteLength(body),
       sha256: sha256(body),
+      updated,
       journeys: journeys.map(({ journey }) => ({ id: journey.id, version: journey.version })),
     });
   }

@@ -11,11 +11,16 @@ export interface Progress {
   updatedAt: string;
 }
 
+/** A pack recorded only after its file was downloaded, verified and stored (T026). Keyed by language. */
 export interface InstalledPack {
-  id: string;
+  id: Language;
   language: Language;
   version: string;
+  url: string;
+  sha256: string;
   sizeBytes: number;
+  /** Date of the content's last change (from the manifest). */
+  updated: string;
   installedAt: string;
 }
 
@@ -122,4 +127,12 @@ export async function getProgress(journeyId: string): Promise<Progress> {
 
 export async function saveProgress(progress: Progress) {
   await (await getDb()).put("progress", progress);
+}
+
+export async function getInstalledPack(language: Language): Promise<InstalledPack | null> {
+  return (await (await getDb()).get("packs", language)) ?? null;
+}
+
+export async function saveInstalledPack(pack: InstalledPack) {
+  await (await getDb()).put("packs", pack);
 }
