@@ -12,7 +12,6 @@
   "hajj": "Hajj rituals",
   "hajjHint": "Hajj stages organized by day",
   "continue": "Continue my journey",
-  "current": "Current step: Tawaf",
   "explore": "Helpful tools",
   "duas": "Supplications",
   "duasHint": "Selected and verified prayers",
@@ -81,5 +80,7 @@
     "sai": "Sa'i: Safa to Marwah is one round, back is another; the green area is between the two markers",
     "safa": "Safa",
     "marwah": "Marwah"
-  }
+  },
+  "currentStep": "Current step",
+  "allStepsDone": "All steps are done"
 }

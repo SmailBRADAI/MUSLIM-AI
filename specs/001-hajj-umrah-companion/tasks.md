@@ -39,7 +39,7 @@
 - [x] T019 [US1] `src/data/progress.ts`: complete, undo, current step; write to IndexedDB before updating UI
 - [x] T020 [US1] Guide screen driven by journey data: step card, ruling tag, review badge, next step, details, common mistakes, other schools, sources (supplications link and audio wait for T035, T036)
 - [x] T021 [P] [US1] `TawafDiagram` and `SaiDiagram` components with fixed direction in all languages
-- [ ] T022 [US1] Home "Continue my journey" shows real current step and progress
+- [x] T022 [US1] Home "Continue my journey" shows real current step and progress
 - [ ] T023 [US1] Previous step and step list navigation; out-of-order completion allowed
 - [ ] T024 [P] [US1] Unit tests for progress logic; e2e: full Umrah offline in each language
 
