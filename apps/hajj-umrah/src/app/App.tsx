@@ -3,6 +3,7 @@ import { AppHeader } from "../components/AppHeader";
 import { BottomNav } from "../components/BottomNav";
 import { Icon } from "../components/Icon";
 import * as db from "../data/db";
+import { setStepDone, withStep } from "../data/progress";
 import type { JourneyType } from "../data/types";
 import { I18nProvider, isRtl, strings } from "../i18n";
 import type { Language } from "../i18n";
@@ -13,7 +14,7 @@ import { Placeholder } from "../screens/Placeholder";
 import { Settings } from "../screens/Settings";
 import type { OnboardingStep, Screen } from "./screens";
 
-// Only the Umrah guide exists until T031; its Tawaf step is the one tracked step for now (T019 replaces this).
+// Only the Umrah guide exists until T031; its Tawaf step is the one tracked step for now (T020 replaces this).
 const TAWAF_STEP_ID = "umrah.tawaf";
 // Some WebKit versions never settle indexedDB.open; never leave the pilgrim on a blank screen.
 const STARTUP_TIMEOUT_MS = 1500;
@@ -67,16 +68,13 @@ export default function App() {
   // the step still moves on for this session but the guide says progress was not saved (FR-018).
   const setTawafComplete = async (value: boolean) => {
     if (journey !== "umrah") return;
-    const next = value
-      ? [...new Set([...completed, TAWAF_STEP_ID])]
-      : completed.filter((id) => id !== TAWAF_STEP_ID);
     try {
-      await db.saveProgress({ journeyId: journey, completedStepIds: next, updatedAt: new Date().toISOString() });
+      setCompleted(await setStepDone(journey, completed, TAWAF_STEP_ID, value));
       setSaveFailed(false);
     } catch {
       setSaveFailed(true);
+      setCompleted(withStep(completed, TAWAF_STEP_ID, value));
     }
-    setCompleted(next);
   };
 
   // Each journey keeps its own progress, so switching back restores it.

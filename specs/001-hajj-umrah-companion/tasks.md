@@ -36,7 +36,7 @@
 
 - [x] T017 [US1] `content/journeys/umrah.json` with Ihram, Tawaf, two rak'ahs, Sa'i, halq/taqsir, rulings per Ibn Baz and Ibn Al-Uthaymeen, all `status: "draft"` with sources listed
 - [x] T018 [P] [US1] `content/i18n/{ar,en,ur}/umrah.json` texts for every step (title, instruction, details, common mistakes)
-- [ ] T019 [US1] `src/data/progress.ts`: complete, undo, current step; write to IndexedDB before updating UI
+- [x] T019 [US1] `src/data/progress.ts`: complete, undo, current step; write to IndexedDB before updating UI
 - [ ] T020 [US1] Guide screen driven by journey data: step card, ruling tag, review badge, next step, details, related supplications link, audio slot
 - [ ] T021 [P] [US1] `TawafDiagram` and `SaiDiagram` components with fixed direction in all languages
 - [ ] T022 [US1] Home "Continue my journey" shows real current step and progress
