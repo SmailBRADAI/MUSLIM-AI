@@ -22,7 +22,9 @@
       "ihram-dress.woman": "Woman: any of her ordinary clothes, without niqab or gloves; she covers her face and hands with something else."
     },
     "review": {
-      "status": "draft"
+      "status": "approved",
+      "reviewer": "SmailBRADAI",
+      "reviewedAt": "2026-10-09"
     }
   },
   "umrah.ihram-rules": {
@@ -61,7 +63,9 @@
       "ihram-rules.ok.fawasiq": "Killing the five fawasiq"
     },
     "review": {
-      "status": "draft"
+      "status": "approved",
+      "reviewer": "SmailBRADAI",
+      "reviewedAt": "2026-10-09"
     }
   },
   "umrah.tawaf": {
@@ -75,7 +79,9 @@
       "tawaf.valid": "From outside the Hijr: the Tawaf is valid"
     },
     "review": {
-      "status": "draft"
+      "status": "approved",
+      "reviewer": "SmailBRADAI",
+      "reviewedAt": "2026-10-09"
     }
   },
   "umrah.tawaf-prayer": {
@@ -84,7 +90,9 @@
     "details": "These two rak'ahs are a sunnah. After Al-Fatihah, it is sunnah to recite Al-Kafirun in the first and Al-Ikhlas in the second. Then it is sunnah to drink Zamzam water, and to touch the Black Stone before going to the Mas'a if you easily can. After the Tawaf a man puts his rida back over both shoulders with its two ends on his chest, before he prays the two rak'ahs of Tawaf.",
     "mistakes": "Insisting on praying right behind the Station in a crowd and blocking people doing Tawaf; making the prayer long or sitting for a long time in the Tawaf area; keeping the shoulder uncovered in the prayer.",
     "review": {
-      "status": "draft"
+      "status": "approved",
+      "reviewer": "SmailBRADAI",
+      "reviewedAt": "2026-10-09"
     }
   },
   "umrah.sai": {
@@ -99,7 +107,9 @@
       "sai.womenWalk": "A woman walks the whole Sa'i"
     },
     "review": {
-      "status": "draft"
+      "status": "approved",
+      "reviewer": "SmailBRADAI",
+      "reviewedAt": "2026-10-09"
     }
   },
   "umrah.halq": {
@@ -108,7 +118,9 @@
     "details": "Shaving or shortening is obligatory (wajib) in the Umrah. Shortening must cover the whole head, not part of it. Once done, your Umrah is complete and everything forbidden by ihram becomes allowed again. Shaving is better for a man; if he shortens and leaves shaving for the Hajj, that is good too. If he arrives in Makkah close to the time of Hajj, shortening is better for him so that he can shave the rest of his head in the Hajj, because when the Prophet ﷺ and his companions arrived in Makkah on the fourth of Dhu al-Hijjah, he commanded those who had not brought a sacrificial animal to come out of ihram and shorten. Shortening part of the head is not enough, just as shaving part of it is not enough. A woman is prescribed only shortening: she takes from each braid about the length of a fingertip or less, the 'anmulah' being the tip of the finger, and takes nothing more.",
     "mistakes": "Cutting a few hairs from one side only; leaving ihram before shaving or shortening; a woman shaving her head.; a woman taking more than a fingertip from each braid; being content with shaving part of the head.",
     "review": {
-      "status": "draft"
+      "status": "approved",
+      "reviewer": "SmailBRADAI",
+      "reviewedAt": "2026-10-09"
     }
   }
 }
