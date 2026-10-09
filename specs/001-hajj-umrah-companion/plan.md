@@ -96,6 +96,16 @@ interface Step {
   meta: ContentMeta;
   // title, instruction, details, mistakes come from i18n/{lang} by step id
 }
+
+// content/i18n/{lang}/{journey}.json, keyed by step id. Each translation is reviewed on its own
+// (constitution I); the app shows "reviewed" only when step meta AND this text are approved.
+interface StepText {
+  title: string;
+  instruction: string;
+  details: string;
+  mistakes: string;
+  review: { status: ReviewStatus; reviewer?: string; reviewedAt?: string };
+}
 ```
 
 ## Phases

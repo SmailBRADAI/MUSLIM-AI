@@ -101,7 +101,8 @@ The pilgrim searches steps and supplications in their language, offline.
 - **FR-004**: The pilgrim MUST be able to mark a step complete, go back, and see completed and remaining steps, with progress saved locally at once.
 - **FR-005**: All P1 content MUST work offline after download, including fonts and app code.
 - **FR-006**: The app MUST show "Ready offline" status with size, language and content version.
-- **FR-007**: Every content item MUST carry source, ruling (where applicable), review status, reviewer, and version; unapproved items MUST be marked as pending review.
+- **FR-007**: Every content item MUST carry source, ruling (where applicable), review status, reviewer, and version; unapproved items MUST be marked as pending review. Each language's text has its own review status: a step is shown as reviewed in a language only when both the step and that language's text are approved.
+- **FR-018**: If progress cannot be saved on the device, the app MUST say so instead of claiming it was saved.
 - **FR-008**: Audio MUST be optional and downloaded separately.
 - **FR-009**: Content updates MUST be checked only when online and MUST NOT block use of the installed version.
 - **FR-010**: The app MUST NOT require an account and MUST NOT send personal or location data to third parties.
@@ -120,6 +121,7 @@ The pilgrim searches steps and supplications in their language, offline.
 - **Step**: id, order, title, instruction, details, common mistakes, ruling, related supplication ids, audio id, diagram, per-language text.
 - **Supplication**: Arabic text, transliteration, translations, source, grading, specific-to-step or general.
 - **ContentMeta**: source reference, review status (draft, in-review, approved), reviewer, reviewed date, version.
+- **TextReview**: per-language review status, reviewer and date for a step's translated text.
 - **Progress**: journey id, completed step ids, current step, updated time (device only).
 - **ContentPack**: language, version, size, files, installed date.
 
