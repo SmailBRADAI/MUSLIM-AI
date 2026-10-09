@@ -1,0 +1,14 @@
+<svg width="480" height="320" viewBox="0 0 480 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="480" height="320" fill="#EDF3EC"/>
+<rect y="260" width="480" height="60" fill="#EDE8DE"/>
+<circle cx="240" cy="72" r="32" fill="#D8C7A9"/>
+<path d="M180 108H300L310 138L298 258H182L170 138L180 108Z" fill="white" stroke="#DBE7DC" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M180 100H260L280 140L220 170L160 140L180 100Z" fill="white" stroke="#DBE7DC" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="176" y="168" width="128" height="92" rx="6" fill="white"/>
+<rect x="176" y="168" width="128" height="8" rx="3" fill="#B9893E"/>
+<path d="M240 176V258" stroke="#DBE7DC" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<ellipse cx="215" cy="257" rx="19" ry="7" fill="#D8C7A9"/><ellipse cx="265" cy="257" rx="19" ry="7" fill="#D8C7A9"/>
+<rect x="372" y="120" width="12" height="140" rx="3" fill="#123F32"/>
+<path d="M380 62L410 92L380 122L350 92L380 62Z" fill="#B9893E"/>
+<path d="M70 200H126" stroke="#1C6A52" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><path d="M118 188L136 200L118 212V188Z" fill="#1C6A52"/>
+</svg>
