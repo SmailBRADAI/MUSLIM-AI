@@ -170,3 +170,4 @@ small { color: var(--muted); font-size: 13px; line-height: 1.6; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
 }
+.save-note.save-failed { color: #9a3412; font-weight: 700; }

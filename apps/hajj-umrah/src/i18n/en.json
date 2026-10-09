@@ -1,0 +1,58 @@
+{
+  "appName": "Rafiq al-Manasik",
+  "greeting": "Assalamu alaikum",
+  "title": "Your companion for a blessed journey",
+  "subtitle": "Clear steps and trusted guidance throughout every stage of your rituals.",
+  "offline": "Your guide is ready offline",
+  "offlineMeta": "English · Updated 14 Dhu al-Qi’dah",
+  "journey": "Your journey starts here",
+  "journeyHint": "Choose the pilgrimage you wish to perform",
+  "umrah": "Umrah rituals",
+  "umrahHint": "From Ihram through completion",
+  "hajj": "Hajj rituals",
+  "hajjHint": "Hajj stages organized by day",
+  "continue": "Continue my journey",
+  "current": "Current step: Tawaf",
+  "explore": "Helpful tools",
+  "duas": "Supplications",
+  "duasHint": "Selected and verified prayers",
+  "map": "Essential map",
+  "mapHint": "Key landmarks available offline",
+  "home": "Home",
+  "guide": "My guide",
+  "settings": "Settings",
+  "umrahGuide": "Umrah guide",
+  "tawaf": "Tawaf around the Kaaba",
+  "progress": "Guide progress",
+  "instructionTitle": "What should I do?",
+  "instruction": "Begin in line with the Black Stone, keeping the Kaaba to your left. Complete seven calm circuits and remember Allah as you are able.",
+  "audio": "Listen to the explanation",
+  "audioTime": "2 minutes",
+  "relatedDuas": "Related supplications",
+  "details": "Details and common mistakes",
+  "complete": "Mark complete — Continue",
+  "previous": "Previous step",
+  "next": "Next: Two rak’ahs after Tawaf",
+  "reassurance": "Your progress is saved automatically on this device",
+  "saveFailed": "Your progress could not be saved on this device. It stays visible until you close the app.",
+  "notAvailable": "This section is ready to use offline",
+  "back": "Back to home",
+  "ruling": {
+    "rukn": "Pillar",
+    "wajib": "Obligatory",
+    "sunnah": "Sunnah",
+    "mustahabb": "Recommended"
+  },
+  "review": {
+    "approved": "Reviewed content",
+    "pending": "Pending scholarly review"
+  },
+  "scholar": {
+    "ibn-baz": "Ibn Baz",
+    "ibn-uthaymeen": "Ibn Al-Uthaymeen"
+  },
+  "a11y": {
+    "language": "Language",
+    "mainNav": "Main navigation"
+  }
+}

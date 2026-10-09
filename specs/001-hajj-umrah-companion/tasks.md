@@ -15,13 +15,13 @@
 
 ## Phase 2: Foundation (blocks all stories)
 
-- [ ] T006 Split `src/App.tsx` into `src/app/`, `src/screens/` and `src/components/` with no visual change
-- [ ] T007 [P] Move UI strings to `src/i18n/{ar,en,ur}.json` with a typed `useT()` hook and language context
-- [ ] T008 [P] Add `src/data/db.ts` (IndexedDB via `idb`) for settings, progress and installed packs; migrate the two localStorage keys
-- [ ] T009 Add content types in `src/data/types.ts` matching `contracts/content-pack.schema.json`
-- [ ] T010 Add `scripts/validate-content.ts`: schema check, unique ids, every i18n key present in all 3 languages, `approved` requires reviewer and date, reviewer must be listed in `content/reviewers.json`; run in CI
-- [ ] T011 [P] `ReviewBadge` component: shows "reviewed" only for `approved`, otherwise "pending scholarly review"
-- [ ] T012 [P] `RulingTag` component for rukn / wajib / sunnah / mustahabb; shows both views when Ibn Baz and Ibn Al-Uthaymeen differ
+- [x] T006 Split `src/App.tsx` into `src/app/`, `src/screens/` and `src/components/` with no visual change
+- [x] T007 [P] Move UI strings to `src/i18n/{ar,en,ur}.json` with a typed `useT()` hook and language context
+- [x] T008 [P] Add `src/data/db.ts` (IndexedDB via `idb`) for settings, progress and installed packs; migrate the two localStorage keys
+- [x] T009 Add content types in `src/data/types.ts` matching `contracts/content-pack.schema.json`
+- [x] T010 Add `scripts/validate-content.ts`: schema check, unique journey/stage/step ids, per-language review status, every i18n key present in all 3 languages, `approved` requires reviewer and date, reviewer must be listed in `content/reviewers.json`; run in CI
+- [x] T011 [P] `ReviewBadge` component: shows "reviewed" only for `approved`, otherwise "pending scholarly review"
+- [x] T012 [P] `RulingTag` component for rukn / wajib / sunnah / mustahabb; shows both views when Ibn Baz and Ibn Al-Uthaymeen differ
 
 **Checkpoint**: app looks the same as PR #1, all state in IndexedDB, content can be validated.
 

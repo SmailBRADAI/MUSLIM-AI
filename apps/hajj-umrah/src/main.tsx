@@ -13,7 +13,7 @@ import "@fontsource/noto-naskh-arabic/700.css";
 import "@fontsource/noto-nastaliq-urdu/400.css";
 import "@fontsource/noto-nastaliq-urdu/500.css";
 import "@fontsource/noto-nastaliq-urdu/600.css";
-import App from "./App";
+import App from "./app/App";
 import "./index.css";
 
 registerSW({ immediate: true });
