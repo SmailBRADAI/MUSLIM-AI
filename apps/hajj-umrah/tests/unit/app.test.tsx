@@ -156,6 +156,42 @@ describe("App", () => {
     load.mockRestore();
   });
 
+  it("offers a newer pack when online without blocking the installed one (T029)", async () => {
+    await db.setLanguage("en");
+    const pack = { id: "en", language: "en", version: "v1", url: "u", sha256: "x", sizeBytes: 7200, updated: "2026-10-09", installedAt: "" } as const;
+    const load = vi.spyOn(packs, "loadPack").mockResolvedValue({
+      state: "ready",
+      pack,
+      content: { format: 1, language: "en", version: "v1", journeys: [umrah as Journey], texts: { umrah: enUmrah as unknown as StepTexts } },
+    });
+    const latest = { ...pack, url: "packs/en/v2/content.json", version: "v2", bytes: 7300, journeys: [] };
+    const manifest = vi.spyOn(packs, "fetchManifest").mockResolvedValue({ format: 1, packs: [latest] });
+    render(<App />);
+    expect(await screen.findByText("Update available")).toBeInTheDocument();
+    // The installed version keeps working.
+    expect(screen.getByText("Your guide is ready offline")).toBeInTheDocument();
+    load.mockRestore();
+    manifest.mockRestore();
+  });
+
+  it("does not check for updates while offline (T029)", async () => {
+    await db.setLanguage("en");
+    const pack = { id: "en", language: "en", version: "v1", url: "u", sha256: "x", sizeBytes: 7200, updated: "2026-10-09", installedAt: "" } as const;
+    const load = vi.spyOn(packs, "loadPack").mockResolvedValue({
+      state: "ready",
+      pack,
+      content: { format: 1, language: "en", version: "v1", journeys: [umrah as Journey], texts: { umrah: enUmrah as unknown as StepTexts } },
+    });
+    const online = vi.spyOn(navigator, "onLine", "get").mockReturnValue(false);
+    const manifest = vi.spyOn(packs, "fetchManifest");
+    render(<App />);
+    await screen.findByText("Your guide is ready offline");
+    expect(manifest).not.toHaveBeenCalled();
+    load.mockRestore();
+    online.mockRestore();
+    manifest.mockRestore();
+  });
+
   it("asks to download again when the pack's files were cleared (T028, T030)", async () => {
     await db.setLanguage("en");
     const pack = { id: "en", language: "en", version: "v1", url: "u", sha256: "x", sizeBytes: 7200, updated: "2026-10-09", installedAt: "" } as const;

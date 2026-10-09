@@ -25,7 +25,17 @@ export interface JourneyStatus {
   percent: number;
 }
 
-export function Home({ setScreen, status, pack }: { setScreen: (s: Screen) => void; status: JourneyStatus | null; pack: PackState }) {
+export function Home({
+  setScreen,
+  status,
+  pack,
+  updateAvailable,
+}: {
+  setScreen: (s: Screen) => void;
+  status: JourneyStatus | null;
+  pack: PackState;
+  updateAvailable: boolean;
+}) {
   const t = useT();
   const language = useLanguage();
   return (
@@ -49,6 +59,7 @@ export function Home({ setScreen, status, pack }: { setScreen: (s: Screen) => vo
               {languageNames[pack.pack.language].name} · {formatSize(pack.pack.sizeBytes, language)} · {t.packs.updatedOn}{" "}
               {formatContentDate(pack.pack.updated, language)}
             </small>
+            {updateAvailable && <small className="update-note">{t.packs.updateAvailable}</small>}
           </span>
         ) : (
           <span className="grow">

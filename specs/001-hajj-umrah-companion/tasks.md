@@ -51,7 +51,7 @@
 - [x] T026 [US3] `src/data/packs.ts`: download to Cache Storage with resume, verify, then mark installed; request `navigator.storage.persist()`
 - [x] T027 [US3] Download screen (the "Offline content" section of Settings): per-pack size, audio off by default, progress, cancel, errors
 - [x] T028 [US3] "Ready offline" card on Home from installed pack metadata (language, size, version date)
-- [ ] T029 [US3] Online-only update check that never blocks the installed version
+- [x] T029 [US3] Online-only update check that never blocks the installed version
 - [ ] T030 [P] [US3] e2e: interrupted download is not marked ready; cleared storage prompts re-download
 
 ## Phase 6: User story 4 — Hajj by day (P2)

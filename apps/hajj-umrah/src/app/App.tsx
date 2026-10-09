@@ -4,7 +4,7 @@ import { BottomNav } from "../components/BottomNav";
 import { Icon } from "../components/Icon";
 import * as db from "../data/db";
 import { journeyContent } from "../data/content";
-import { loadPack } from "../data/packs";
+import { fetchManifest, loadPack } from "../data/packs";
 import type { PackState } from "../data/packs";
 import { completion, currentStep, setStepDone, withStep } from "../data/progress";
 import type { JourneyType } from "../data/types";
@@ -39,6 +39,7 @@ export default function App() {
   const [choiceNotSaved, setChoiceNotSaved] = useState(false);
   const [pack, setPack] = useState<PackState>({ state: "none" });
   const [packCheck, setPackCheck] = useState(0);
+  const [updateAvailable, setUpdateAvailable] = useState(false);
   const [journey, setJourneyState] = useState<JourneyType | null>(null);
   // Set while choosing a journey: first launch starts at "language", changing it from Settings at "journey".
   const [onboarding, setOnboarding] = useState<OnboardingStep | null>(null);
@@ -78,6 +79,24 @@ export default function App() {
       cancelled = true;
     };
   }, [language, packCheck]);
+
+  // T029: when online, look for a newer pack in the background. The installed version stays in use;
+  // the pilgrim updates from Settings when they choose (FR-009). Failures are ignored.
+  const installedVersion = pack.state === "ready" ? pack.pack.version : null;
+  useEffect(() => {
+    setUpdateAvailable(false);
+    if (!installedVersion || !navigator.onLine) return;
+    let cancelled = false;
+    fetchManifest()
+      .then((m) => {
+        const latest = m.packs.find((p) => p.language === language);
+        if (!cancelled && latest && latest.version !== installedVersion) setUpdateAvailable(true);
+      })
+      .catch(() => undefined);
+    return () => {
+      cancelled = true;
+    };
+  }, [language, installedVersion]);
 
   useEffect(() => {
     document.documentElement.dir = isRtl(language) ? "rtl" : "ltr";
@@ -155,7 +174,7 @@ export default function App() {
         {choiceNotSaved && (
           <p className="save-note save-failed" role="alert"><Icon name="shield" size={16} />{strings[language].choiceNotSaved}</p>
         )}
-        {screen === "home" && <Home setScreen={setScreen} status={homeStatus} pack={pack} />}
+        {screen === "home" && <Home setScreen={setScreen} status={homeStatus} pack={pack} updateAvailable={updateAvailable} />}
         {screen === "guide" && content && (
           <Guide key={journey} journey={content.journey} texts={content.texts} completed={completed} onStepDone={markStep} saveFailed={saveFailed} />
         )}
