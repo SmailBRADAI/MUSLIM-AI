@@ -82,5 +82,6 @@
     "marwah": "Marwah"
   },
   "currentStep": "Current step",
-  "allStepsDone": "All steps are done"
+  "allStepsDone": "All steps are done",
+  "stepList": "Steps"
 }
