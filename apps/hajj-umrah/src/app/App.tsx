@@ -142,6 +142,16 @@ export default function App() {
     setScreen("home");
   };
 
+  // Home's journey cards: the chosen journey opens its guide; Umrah switches straight away, and Hajj
+  // asks the type first (T032).
+  const openJourney = async (kind: "umrah" | "hajj") => {
+    const isHajj = journey !== null && journey !== "umrah";
+    if ((kind === "umrah" && journey === "umrah") || (kind === "hajj" && isHajj)) return setScreen("guide");
+    if (kind === "hajj") return setOnboarding("hajjType");
+    await chooseJourney("umrah");
+    setScreen("guide");
+  };
+
   const changeLanguage = async (next: Language) => {
     setLanguageState(next);
     try {
@@ -183,7 +193,16 @@ export default function App() {
         {choiceNotSaved && (
           <p className="save-note save-failed" role="alert"><Icon name="shield" size={16} />{strings[language].choiceNotSaved}</p>
         )}
-        {screen === "home" && <Home setScreen={setScreen} status={homeStatus} pack={pack} updateAvailable={updateAvailable} />}
+        {screen === "home" && (
+          <Home
+            setScreen={setScreen}
+            status={homeStatus}
+            pack={pack}
+            updateAvailable={updateAvailable}
+            journey={journey}
+            onOpenJourney={openJourney}
+          />
+        )}
         {screen === "guide" && content && (
           <Guide key={journey} journey={content.journey} texts={content.texts} completed={completed} onStepDone={markStep} saveFailed={saveFailed} />
         )}

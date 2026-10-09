@@ -6,11 +6,37 @@ import { RulingTag } from "../components/RulingTag";
 import type { StepTexts } from "../data/content";
 import { completion, currentStep, orderedSteps } from "../data/progress";
 import { displayStatus } from "../data/types";
-import type { Journey, JourneyType } from "../data/types";
+import type { Journey, JourneyType, Stage, Step } from "../data/types";
 import { useT } from "../i18n";
 import type { Strings } from "../i18n";
 
 const guideLabel = (t: Strings, type: JourneyType) => (type === "umrah" ? t.umrahGuide : t.journeys[type]);
+
+type Day = keyof Strings["days"];
+const isDay = (t: Strings, day: number | undefined): day is number => day !== undefined && String(day) in t.days;
+
+/** T032: a Hajj stage's short name for the step list ("9 Dhu al-Hijjah", "Umrah"); null for Umrah stages. */
+function stageShortName(t: Strings, stage: Stage) {
+  if (isDay(t, stage.day)) return t.days[String(stage.day) as Day].date;
+  return stage.kind ? t.stages[stage.kind] : null;
+}
+
+/** The open step's stage, in full ("9 Dhu al-Hijjah · Day of Arafah"); null for Umrah stages. */
+function stageFullName(t: Strings, stage: Stage | undefined) {
+  if (!stage) return null;
+  if (isDay(t, stage.day)) {
+    const day = t.days[String(stage.day) as Day];
+    return `${day.date} · ${day.name}`;
+  }
+  return stageShortName(t, stage);
+}
+
+/** Stages in order, each with its steps; used for the day view of Hajj journeys. */
+function stageGroups(journey: Journey) {
+  return [...journey.stages]
+    .sort((a, b) => a.order - b.order)
+    .map((stage) => ({ stage, steps: [...stage.steps].sort((a, b) => a.order - b.order) }));
+}
 
 /** T020: one step at a time, driven by the journey content. */
 export function Guide({
@@ -54,6 +80,10 @@ export function Guide({
   const percent = Math.round(completion(journey, completed) * 100);
   const otherSchools = text && step.rulingNote ? String(text[step.rulingNote] ?? "") : "";
   const titleOf = (id: string) => texts[id]?.title ?? id;
+  // T032: Hajj journeys are shown by day (stages carry a day or a named part); the Umrah keeps one list.
+  const groups = stageGroups(journey);
+  const byDay = groups.some(({ stage }) => stageShortName(t, stage));
+  const stageNow = byDay ? stageFullName(t, groups.find((g) => g.steps.includes(step))?.stage) : null;
 
   const run = async (action: () => Promise<void>) => {
     if (savingRef.current) return;
@@ -79,36 +109,56 @@ export function Guide({
     });
   const undo = () => run(() => onStepDone(step.id, false));
 
+  function stepButton(s: Step, i: number) {
+    const isDone = completed.includes(s.id);
+    return (
+      <li key={s.id} className={[isDone && "done", i === index && "current"].filter(Boolean).join(" ") || undefined}>
+        <button
+          onClick={() => goTo(i)}
+          disabled={saving}
+          aria-current={i === index ? "step" : undefined}
+          aria-label={`${i + 1}. ${titleOf(s.id)}${isDone ? ` (${t.stepDone})` : ""}`}
+        >
+          <span className="step-dot">{isDone ? <Icon name="check" size={13} /> : i + 1}</span>
+        </button>
+      </li>
+    );
+  }
+
   // Content is validated in CI; a missing translation must still never crash the guide.
   if (!text) return <GuideNotReady />;
 
   return (
     <main className="page guide-page">
       <div className="guide-heading">
-        <div><span className="eyebrow">{guideLabel(t, journey.type)}</span><h1 ref={headingRef} tabIndex={-1}>{text.title}</h1></div>
+        <div>
+          <span className="eyebrow">{guideLabel(t, journey.type)}</span>
+          {stageNow && <p className="stage-now">{stageNow}</p>}
+          <h1 ref={headingRef} tabIndex={-1}>{text.title}</h1>
+        </div>
         <span className="step-pill">{index + 1} / {steps.length}</span>
       </div>
       <section className="progress-panel">
         <div className="progress-label"><span>{t.progress}</span><strong>{percent}%</strong></div>
         <div className="progress-track"><span style={{ width: `${percent}%` }} /></div>
         {/* T023: any step can be opened from here, and steps may be done in any order. */}
-        <ol className="steps" aria-label={t.stepList}>
-          {steps.map((s, i) => {
-            const isDone = completed.includes(s.id);
-            return (
-              <li key={s.id} className={[isDone && "done", i === index && "current"].filter(Boolean).join(" ") || undefined}>
-                <button
-                  onClick={() => goTo(i)}
-                  disabled={saving}
-                  aria-current={i === index ? "step" : undefined}
-                  aria-label={`${i + 1}. ${titleOf(s.id)}${isDone ? ` (${t.stepDone})` : ""}`}
-                >
-                  <span className="step-dot">{isDone ? <Icon name="check" size={13} /> : i + 1}</span>
-                </button>
+        {byDay ? (
+          // T032: the same step buttons, grouped under each day or part of the Hajj.
+          <ol className="stage-groups" aria-label={t.stepList}>
+            {groups.map(({ stage, steps: stageSteps }) => (
+              <li key={stage.id} className={stageSteps.includes(step) ? "stage-group current" : "stage-group"}>
+                <span className="stage-name" id={`stage-${stage.id}`}>{stageShortName(t, stage)}</span>
+                <ol className="steps" aria-labelledby={`stage-${stage.id}`}>
+                  {stageSteps.map((s) => stepButton(s, steps.indexOf(s)))}
+                </ol>
               </li>
-            );
-          })}
-        </ol>
+            ))}
+          </ol>
+        ) : (
+          <ol className="steps" aria-label={t.stepList}>
+            {steps.map((s, i) => stepButton(s, i))}
+          </ol>
+        )}
       </section>
 
       <section className="instruction-card">
@@ -164,7 +214,7 @@ export function Guide({
   );
 }
 
-/** Shown for Hajj journeys until their reviewed content exists (T031). */
+/** Shown when a journey has no content in this language, rather than another journey's steps. */
 export function GuideNotReady() {
   const t = useT();
   return (

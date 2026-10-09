@@ -126,6 +126,13 @@ small { color: var(--muted); font-size: 13px; line-height: 1.6; }
 .steps li.current .step-dot { color: var(--action); border: 2px solid var(--action); box-shadow: 0 0 0 3px var(--sage); }
 .steps li.done.current .step-dot { color: var(--white); background: var(--action); }
 .guide-heading h1:focus { outline: none; }
+/* T032: Hajj day view. The open step's day, and the step list grouped by day or part. */
+.stage-now { margin: 4px 0 0; color: var(--action); font-size: 14px; font-weight: 700; }
+.stage-groups { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: 0; padding: 0; list-style: none; }
+.stage-group { display: flex; flex-direction: column; min-width: 0; }
+.stage-name { padding-inline-start: 8px; color: var(--muted); font-size: 12px; font-weight: 500; }
+.stage-group.current .stage-name { color: var(--ink); font-weight: 700; }
+.stage-groups .steps { justify-content: flex-start; margin: 0; }
 
 .instruction-card { position: relative; padding: 20px; overflow: hidden; border-radius: 24px; color: var(--white); background: linear-gradient(145deg, var(--forest), var(--forest-deep)); box-shadow: var(--shadow); }
 .instruction-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; }

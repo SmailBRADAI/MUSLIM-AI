@@ -80,9 +80,11 @@ describe("Settings (T015)", () => {
     await userEvent.click(screen.getByRole("button", { name: /Hajj Tamattu/ }));
     expect(await db.getJourney()).toBe("hajj-tamattu");
     expect((await db.getProgress("umrah")).completedStepIds).toEqual(["umrah.tawaf"]);
-    // The Hajj guide isn't written yet: say so instead of showing Umrah steps.
+    // The Tamattu' guide opens on its own first step, the Umrah of Tamattu', with its own progress.
     await userEvent.click(screen.getByRole("button", { name: /My guide/ }));
-    expect(screen.getByText(/not available yet/)).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 1, name: "Ihram for Umrah (Tamattu')" })).toBeInTheDocument();
+    expect(screen.getByText("1 / 19")).toBeInTheDocument();
+    expect(screen.getByText("0%")).toBeInTheDocument();
 
     // Switching back restores the Umrah progress.
     await userEvent.click(screen.getByRole("button", { name: /Settings/ }));

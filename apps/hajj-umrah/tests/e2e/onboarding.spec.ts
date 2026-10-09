@@ -3,12 +3,12 @@ import { expect, test } from "@playwright/test";
 import { CONTINUE, onboard } from "./helpers";
 
 const languages = [
-  { button: "العربية", lang: "ar", dir: "rtl", hajj: /^مناسك الحج/, tamattu: /حج التمتع/, guide: "دليلي" },
-  { button: "English", lang: "en", dir: "ltr", hajj: /^Hajj rituals/, tamattu: /Hajj Tamattu/, guide: "My guide" },
-  { button: "اردو", lang: "ur", dir: "rtl", hajj: /^مناسکِ حج/, tamattu: /حجِ تمتع/, guide: "میری رہنمائی" },
+  { button: "العربية", lang: "ar", dir: "rtl", hajj: /^مناسك الحج/, tamattu: /حج التمتع/, guide: "دليلي", umrahStage: "العمرة" },
+  { button: "English", lang: "en", dir: "ltr", hajj: /^Hajj rituals/, tamattu: /Hajj Tamattu/, guide: "My guide", umrahStage: "Umrah" },
+  { button: "اردو", lang: "ur", dir: "rtl", hajj: /^مناسکِ حج/, tamattu: /حجِ تمتع/, guide: "میری رہنمائی", umrahStage: "عمرہ" },
 ] as const;
 
-for (const { button, lang, dir, hajj, tamattu, guide } of languages) {
+for (const { button, lang, dir, hajj, tamattu, guide, umrahStage } of languages) {
   test(`onboarding in ${button}: direction, Hajj type, remembered after reload`, async ({ page }) => {
     await page.goto("/");
     await page.getByRole("button", { name: button, exact: true }).click();
@@ -27,10 +27,10 @@ for (const { button, lang, dir, hajj, tamattu, guide } of languages) {
     await expect(page.locator("html")).toHaveAttribute("dir", dir);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 
-    // The selected Hajj guide isn't written yet, so the guide says so rather than showing Umrah steps.
+    // The selected Hajj guide opens by day, starting with the Umrah of Tamattu'.
     await page.getByRole("navigation").getByRole("button", { name: guide }).click();
-    await expect(page.getByRole("status")).toBeVisible();
-    await expect(page.locator(".instruction-card")).toHaveCount(0);
+    await expect(page.locator(".instruction-card")).toBeVisible();
+    await expect(page.locator(".stage-group.current .stage-name")).toHaveText(umrahStage);
   });
 
   test(`Umrah chosen in ${button} opens the Umrah guide`, async ({ page }) => {
