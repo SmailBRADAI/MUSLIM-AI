@@ -1,7 +1,7 @@
 {
   "id": "umrah",
   "type": "umrah",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "framework": "ibn-baz+ibn-uthaymeen",
   "stages": [
     {
@@ -13,6 +13,7 @@
           "order": 1,
           "ruling": "rukn",
           "supplicationIds": [],
+          "place": "miqat",
           "meta": {
             "source": [
               "ابن باز، التحقيق والإيضاح لكثير من مسائل الحج والعمرة والزيارة",
@@ -21,7 +22,7 @@
               "صحيح البخاري، كتاب بدء الوحي، حديث «إنما الأعمال بالنيات»"
             ],
             "status": "draft",
-            "version": "0.1.0"
+            "version": "0.2.0"
           }
         }
       ]
@@ -36,6 +37,7 @@
           "ruling": "rukn",
           "supplicationIds": [],
           "diagram": "tawaf",
+          "place": "mataf",
           "meta": {
             "source": [
               "القرآن الكريم، سورة الحج 22:29",
@@ -43,7 +45,7 @@
               "ابن عثيمين، مناسك الحج والعمرة والمشروع في الزيارة"
             ],
             "status": "draft",
-            "version": "0.1.0"
+            "version": "0.2.0"
           }
         },
         {
@@ -51,6 +53,7 @@
           "order": 3,
           "ruling": "sunnah",
           "supplicationIds": [],
+          "place": "maqam",
           "meta": {
             "source": [
               "القرآن الكريم، سورة البقرة 2:125",
@@ -59,7 +62,7 @@
               "ابن عثيمين، مناسك الحج والعمرة والمشروع في الزيارة"
             ],
             "status": "draft",
-            "version": "0.1.0"
+            "version": "0.2.0"
           }
         },
         {
@@ -69,6 +72,7 @@
           "rulingNote": "otherSchools",
           "supplicationIds": [],
           "diagram": "sai",
+          "place": "masa",
           "meta": {
             "source": [
               "القرآن الكريم، سورة البقرة 2:158",
@@ -77,7 +81,7 @@
               "ابن عثيمين، الشرح الممتع على زاد المستقنع، كتاب المناسك"
             ],
             "status": "draft",
-            "version": "0.1.0"
+            "version": "0.2.0"
           }
         }
       ]
@@ -91,6 +95,7 @@
           "order": 5,
           "ruling": "wajib",
           "supplicationIds": [],
+          "place": "makkah",
           "meta": {
             "source": [
               "القرآن الكريم، سورة الفتح 48:27",
@@ -99,7 +104,7 @@
               "ابن عثيمين، مناسك الحج والعمرة والمشروع في الزيارة"
             ],
             "status": "draft",
-            "version": "0.1.0"
+            "version": "0.2.0"
           }
         }
       ]

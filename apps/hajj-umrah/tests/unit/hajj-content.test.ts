@@ -99,3 +99,28 @@ describe("Ruling notes (T033)", () => {
     for (const id of HAJJ) expect(orderedSteps(journey(id)).filter((s) => s.rulingViews)).toEqual([]);
   });
 });
+
+describe("Step places (T047)", () => {
+  const places = (id: string) => orderedSteps(journey(id)).map((s) => s.place);
+
+  it("follows the Umrah from the miqat through the Haram", () => {
+    expect(places("umrah")).toEqual(["miqat", "mataf", "maqam", "masa", "makkah"]);
+  });
+
+  it("puts each Hajj step where it is performed", () => {
+    for (const id of HAJJ) {
+      for (const step of orderedSteps(journey(id))) {
+        const name = step.id.split(".")[1];
+        if (/tawaf-prayer$/.test(name)) expect(step.place, step.id).toBe("maqam");
+        else if (/tawaf/.test(name)) expect(step.place, step.id).toBe("mataf");
+        else if (/sai$/.test(name)) expect(step.place, step.id).toBe("masa");
+        else if (/^jam/.test(name)) expect(step.place, step.id).toBe("jamarat");
+        else if (/^mina-|^hady$|^halq$/.test(name)) expect(step.place, step.id).toBe("mina");
+        else if (name === "arafah" || name === "muzdalifah") expect(step.place, step.id).toBe(name);
+      }
+    }
+    // The Tamattu' pilgrim enters ihram for Hajj where they stay in Makkah, not at the miqat.
+    expect(orderedSteps(journey("hajj-tamattu")).find((s) => s.id === "hajj-tamattu.ihram")?.place).toBe("makkah");
+    expect(orderedSteps(journey("hajj-qiran"))[0].place).toBe("miqat");
+  });
+});

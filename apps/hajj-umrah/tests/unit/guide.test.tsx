@@ -10,6 +10,7 @@ const step = (id: string, order: number, extra: Partial<Step> = {}): Step => ({
   id,
   order,
   ruling: "wajib",
+  place: "mataf",
   supplicationIds: [],
   meta: { source: ["مصدر"], status: "draft", version: "0" },
   ...extra,
@@ -46,6 +47,13 @@ function renderGuide(completed: string[], onStepDone: (id: string, done: boolean
 }
 
 describe("Guide (T020)", () => {
+  it("shows where the open step is performed above the step (T047)", () => {
+    renderGuide([], vi.fn());
+    const figure = screen.getByText("I am in the Mataf").closest("figure");
+    expect(figure).toHaveClass("place-visual");
+    expect(figure?.compareDocumentPosition(screen.getByRole("heading", { level: 2 })) ?? 0).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+  });
+
   it("moves on only after the step is saved, and ignores a second tap while saving", async () => {
     let finish!: () => void;
     const onStepDone = vi.fn(() => new Promise<void>((resolve) => (finish = resolve)));

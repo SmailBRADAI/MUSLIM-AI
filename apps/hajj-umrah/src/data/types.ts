@@ -11,6 +11,14 @@ export type ReviewStatus = "draft" | "in-review" | "approved";
 export type Ruling = "rukn" | "wajib" | "sunnah" | "mustahabb";
 export type Scholar = "ibn-baz" | "ibn-uthaymeen";
 
+/** Where a step is performed (T047, FR-019). The Guide shows it as a "you are here" visual. */
+export const PLACES = ["miqat", "mataf", "maqam", "masa", "makkah", "mina", "jamarat", "muzdalifah", "arafah"] as const;
+export type Place = (typeof PLACES)[number];
+
+export function isPlace(value: unknown): value is Place {
+  return typeof value === "string" && (PLACES as readonly string[]).includes(value);
+}
+
 export interface ContentMeta {
   source: string[];
   status: ReviewStatus;
@@ -39,6 +47,8 @@ export interface Step {
   supplicationIds: string[];
   audioId?: string;
   diagram?: "tawaf" | "sai";
+  /** Where the step is performed: maqam is behind Maqam Ibrahim, masa is between Safa and Marwah, makkah is elsewhere in Makkah. */
+  place: Place;
   meta: ContentMeta;
 }
 

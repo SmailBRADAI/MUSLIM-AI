@@ -42,6 +42,7 @@
 - [x] T022 [US1] Home "Continue my journey" shows real current step and progress
 - [x] T023 [US1] Previous step and step list navigation; out-of-order completion allowed
 - [x] T024 [P] [US1] Unit tests for progress logic; e2e: full Umrah offline in each language
+- [x] T047 [US1] Step place (FR-019): required `place` on every step of every journey (schema, types, validation, versions bumped), and a "you are here" `PlaceVisual` at the top of each Guide step with the place highlighted and captioned in ar/en/ur; unit and e2e tests (including axe)
 
 **Checkpoint**: MVP — the spec's SC-001 and SC-004 pass with draft content.
 

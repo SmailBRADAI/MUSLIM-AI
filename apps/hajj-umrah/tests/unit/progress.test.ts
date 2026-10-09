@@ -8,6 +8,7 @@ const step = (id: string, order: number): Step => ({
   id,
   order,
   ruling: "sunnah",
+  place: "mina",
   supplicationIds: [],
   meta: { source: ["test"], status: "draft", version: "0" },
 });

@@ -231,3 +231,32 @@ small { color: var(--muted); font-size: 13px; line-height: 1.6; }
 .pack-progress .text-link { min-height: 44px; padding: 0 8px; border: 0; background: transparent; cursor: pointer; }
 .pack-note { margin: 10px 0 0; color: var(--muted); font-size: 13px; }
 .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* T047 "you are here": the step's place on a schematic of the pilgrimage places. Drawn left-to-right
+   in every language; the place is filled, pinned and named in bold underlined text, not by colour alone. */
+.place-visual { margin: 0 0 16px; padding: 12px 14px 10px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); }
+.place-visual figcaption { margin-bottom: 6px; color: var(--forest); font-size: 16px; font-weight: 800; line-height: 1.6; }
+.place-map { direction: ltr; container-type: inline-size; }
+.place-map svg { display: block; width: 100%; height: auto; }
+.place-haram { margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--line); }
+.place-labels { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); align-items: end; color: var(--muted); font-size: 12px; line-height: 1.5; }
+.place-labels + svg + .place-labels { align-items: start; }
+.place-label { padding: 0 2px; text-align: center; overflow-wrap: anywhere; }
+.place-label.here { color: var(--ink); font-weight: 800; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.language-ur .place-labels { line-height: 2; }
+/* Narrow screens and large text: names no longer fit under their stops, so only the step's place is
+   named, across the row; its stop is still marked by the pin and the fill. */
+@container (max-width: 299px) {
+  .place-label:not(.here) { display: none; }
+  .place-label.here { grid-column: 1 / -1 !important; }
+}
+.place-road { stroke: var(--line); stroke-width: 4; stroke-linecap: round; }
+/* Outlines at 3:1 or more on the surface and the pale fill (WCAG 1.4.11): the stops are how the places are told apart. */
+.place-stop, .place-part { fill: var(--sage-pale); stroke: #7a857e; stroke-width: 1.5; }
+.place-stop.here, .place-part.here { fill: var(--action); stroke: var(--forest-deep); stroke-width: 2; }
+.haram-outline { fill: none; stroke: var(--line); stroke-width: 2; stroke-dasharray: 5 4; }
+.haram-kaaba { fill: var(--ink); }
+.haram-hill { fill: var(--surface); stroke: #7a857e; stroke-width: 1.5; }
+.place-part.here[data-part="masa"] ~ .haram-hill { stroke: var(--forest-deep); }
+.place-pin path { fill: var(--gold-text); stroke: var(--surface); stroke-width: 1.5; }
+.place-pin circle { fill: var(--surface); }

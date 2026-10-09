@@ -1,7 +1,7 @@
 {
   "id": "hajj-tamattu",
   "type": "hajj-tamattu",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "framework": "ibn-baz+ibn-uthaymeen",
   "stages": [
     {
@@ -14,6 +14,7 @@
           "order": 1,
           "ruling": "rukn",
           "supplicationIds": [],
+          "place": "miqat",
           "meta": {
             "source": [
               "القرآن الكريم، سورة البقرة 2:196",
@@ -25,7 +26,7 @@
               "ابن عثيمين، الشرح الممتع على زاد المستقنع، كتاب المناسك"
             ],
             "status": "draft",
-            "version": "0.1.0"
+            "version": "0.3.0"
           }
         },
         {
@@ -34,6 +35,7 @@
           "ruling": "rukn",
           "supplicationIds": [],
           "diagram": "tawaf",
+          "place": "mataf",
           "meta": {
             "source": [
               "القرآن الكريم، سورة الحج 22:29",
@@ -41,7 +43,7 @@
               "ابن عثيمين، مناسك الحج والعمرة والمشروع في الزيارة"
             ],
             "status": "draft",
-            "version": "0.1.0"
+            "version": "0.3.0"
           }
         },
         {
@@ -49,6 +51,7 @@
           "order": 3,
           "ruling": "sunnah",
           "supplicationIds": [],
+          "place": "maqam",
           "meta": {
             "source": [
               "القرآن الكريم، سورة البقرة 2:125",
@@ -57,7 +60,7 @@
               "ابن عثيمين، مناسك الحج والعمرة والمشروع في الزيارة"
             ],
             "status": "draft",
-            "version": "0.1.0"
+            "version": "0.3.0"
           }
         },
         {
@@ -67,6 +70,7 @@
           "rulingNote": "otherSchools",
           "supplicationIds": [],
           "diagram": "sai",
+          "place": "masa",
           "meta": {
             "source": [
               "القرآن الكريم، سورة البقرة 2:158",
@@ -76,7 +80,7 @@
               "ابن قدامة، المغني، كتاب الحج"
             ],
             "status": "draft",
-            "version": "0.2.0"
+            "version": "0.3.0"
           }
         },
         {
@@ -84,6 +88,7 @@
           "order": 5,
           "ruling": "wajib",
           "supplicationIds": [],
+          "place": "makkah",
           "meta": {
             "source": [
               "القرآن الكريم، سورة الفتح 48:27",
@@ -92,7 +97,7 @@
               "ابن عثيمين، مناسك الحج والعمرة والمشروع في الزيارة"
             ],
             "status": "draft",
-            "version": "0.1.0"
+            "version": "0.3.0"
           }
         }
       ]
@@ -107,6 +112,7 @@
           "order": 6,
           "ruling": "rukn",
           "supplicationIds": [],
+          "place": "makkah",
           "meta": {
             "source": [
               "صحيح مسلم، كتاب الحج، حديث جابر في صفة حجة النبي ﷺ",
@@ -114,7 +120,7 @@
               "ابن عثيمين، مناسك الحج والعمرة والمشروع في الزيارة"
             ],
             "status": "draft",
-            "version": "0.1.0"
+            "version": "0.3.0"
           }
         },
         {
@@ -122,6 +128,7 @@
           "order": 7,
           "ruling": "sunnah",
           "supplicationIds": [],
+          "place": "mina",
           "meta": {
             "source": [
               "صحيح مسلم، كتاب الحج، حديث جابر في صفة حجة النبي ﷺ",
@@ -129,7 +136,7 @@
               "ابن عثيمين، مناسك الحج والعمرة والمشروع في الزيارة"
             ],
             "status": "draft",
-            "version": "0.1.0"
+            "version": "0.3.0"
           }
         }
       ]
@@ -145,6 +152,7 @@
           "ruling": "rukn",
           "rulingNote": "otherSchools",
           "supplicationIds": [],
+          "place": "arafah",
           "meta": {
             "source": [
               "القرآن الكريم، سورة البقرة 2:198-199",
@@ -156,7 +164,7 @@
               "ابن قدامة، المغني، كتاب الحج"
             ],
             "status": "draft",
-            "version": "0.2.0"
+            "version": "0.3.0"
           }
         }
       ]
@@ -172,6 +180,7 @@
           "ruling": "wajib",
           "rulingNote": "otherSchools",
           "supplicationIds": [],
+          "place": "muzdalifah",
           "meta": {
             "source": [
               "القرآن الكريم، سورة البقرة 2:198",
@@ -183,7 +192,7 @@
               "ابن قدامة، المغني، كتاب الحج"
             ],
             "status": "draft",
-            "version": "0.2.0"
+            "version": "0.3.0"
           }
         },
         {
@@ -191,6 +200,7 @@
           "order": 10,
           "ruling": "wajib",
           "supplicationIds": [],
+          "place": "jamarat",
           "meta": {
             "source": [
               "صحيح مسلم، كتاب الحج، حديث جابر في صفة حجة النبي ﷺ",
@@ -199,7 +209,7 @@
               "ابن عثيمين، مناسك الحج والعمرة والمشروع في الزيارة"
             ],
             "status": "draft",
-            "version": "0.1.0"
+            "version": "0.3.0"
           }
         },
         {
@@ -207,6 +217,7 @@
           "order": 11,
           "ruling": "wajib",
           "supplicationIds": [],
+          "place": "mina",
           "meta": {
             "source": [
               "القرآن الكريم، سورة البقرة 2:196",
@@ -215,7 +226,7 @@
               "ابن عثيمين، الشرح الممتع على زاد المستقنع، كتاب المناسك"
             ],
             "status": "draft",
-            "version": "0.1.0"
+            "version": "0.3.0"
           }
         },
         {
@@ -223,6 +234,7 @@
           "order": 12,
           "ruling": "wajib",
           "supplicationIds": [],
+          "place": "mina",
           "meta": {
             "source": [
               "القرآن الكريم، سورة الفتح 48:27",
@@ -233,7 +245,7 @@
               "ابن عثيمين، مناسك الحج والعمرة والمشروع في الزيارة"
             ],
             "status": "draft",
-            "version": "0.1.0"
+            "version": "0.3.0"
           }
         },
         {
@@ -242,6 +254,7 @@
           "ruling": "rukn",
           "supplicationIds": [],
           "diagram": "tawaf",
+          "place": "mataf",
           "meta": {
             "source": [
               "القرآن الكريم، سورة الحج 22:29",
@@ -250,7 +263,7 @@
               "ابن عثيمين، مناسك الحج والعمرة والمشروع في الزيارة"
             ],
             "status": "draft",
-            "version": "0.1.0"
+            "version": "0.3.0"
           }
         },
         {
@@ -260,6 +273,7 @@
           "rulingNote": "otherSchools",
           "supplicationIds": [],
           "diagram": "sai",
+          "place": "masa",
           "meta": {
             "source": [
               "القرآن الكريم، سورة البقرة 2:158",
@@ -269,7 +283,7 @@
               "ابن قدامة، المغني، كتاب الحج"
             ],
             "status": "draft",
-            "version": "0.2.0"
+            "version": "0.3.0"
           }
         }
       ]
@@ -285,6 +299,7 @@
           "ruling": "wajib",
           "rulingNote": "otherSchools",
           "supplicationIds": [],
+          "place": "mina",
           "meta": {
             "source": [
               "القرآن الكريم، سورة البقرة 2:203",
@@ -294,7 +309,7 @@
               "ابن قدامة، المغني، كتاب الحج"
             ],
             "status": "draft",
-            "version": "0.2.0"
+            "version": "0.3.0"
           }
         },
         {
@@ -303,6 +318,7 @@
           "ruling": "wajib",
           "rulingNote": "otherSchools",
           "supplicationIds": [],
+          "place": "jamarat",
           "meta": {
             "source": [
               "القرآن الكريم، سورة البقرة 2:203",
@@ -313,7 +329,7 @@
               "ابن قدامة، المغني، كتاب الحج"
             ],
             "status": "draft",
-            "version": "0.2.0"
+            "version": "0.3.0"
           }
         }
       ]
@@ -329,6 +345,7 @@
           "ruling": "wajib",
           "rulingNote": "otherSchools",
           "supplicationIds": [],
+          "place": "jamarat",
           "meta": {
             "source": [
               "القرآن الكريم، سورة البقرة 2:203",
@@ -338,7 +355,7 @@
               "ابن قدامة، المغني، كتاب الحج"
             ],
             "status": "draft",
-            "version": "0.2.0"
+            "version": "0.3.0"
           }
         }
       ]
@@ -353,6 +370,7 @@
           "order": 18,
           "ruling": "wajib",
           "supplicationIds": [],
+          "place": "jamarat",
           "meta": {
             "source": [
               "القرآن الكريم، سورة البقرة 2:203",
@@ -361,7 +379,7 @@
               "ابن عثيمين، مناسك الحج والعمرة والمشروع في الزيارة"
             ],
             "status": "draft",
-            "version": "0.1.0"
+            "version": "0.3.0"
           }
         }
       ]
@@ -378,6 +396,7 @@
           "rulingNote": "otherSchools",
           "supplicationIds": [],
           "diagram": "tawaf",
+          "place": "mataf",
           "meta": {
             "source": [
               "صحيح البخاري ومسلم، حديث ابن عباس: «أُمر الناس أن يكون آخر عهدهم بالبيت، إلا أنه خُفّف عن الحائض»",
@@ -386,7 +405,7 @@
               "ابن قدامة، المغني، كتاب الحج"
             ],
             "status": "draft",
-            "version": "0.2.0"
+            "version": "0.3.0"
           }
         }
       ]

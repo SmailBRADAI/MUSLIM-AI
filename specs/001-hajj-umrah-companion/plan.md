@@ -71,6 +71,7 @@ See `contracts/content-pack.schema.json`. In short:
 ```ts
 type ReviewStatus = "draft" | "in-review" | "approved";
 type Ruling = "rukn" | "wajib" | "sunnah" | "mustahabb";
+type Place = "miqat" | "mataf" | "maqam" | "masa" | "makkah" | "mina" | "jamarat" | "muzdalifah" | "arafah";
 
 interface ContentMeta {
   source: string[];          // e.g. "Sahih Muslim 1218", "Nusuk Umrah guide 2026"
@@ -93,6 +94,7 @@ interface Step {
   supplicationIds: string[];
   audioId?: string;
   diagram?: "tawaf" | "sai";
+  place: Place;              // where the step is performed (T047)
   meta: ContentMeta;
   // title, instruction, details, mistakes come from i18n/{lang} by step id
 }
@@ -141,6 +143,14 @@ interface StepText {
 - Tamattu' begins with its own Umrah stage (`kind: "umrah"`), whose texts reuse the Umrah guide's wording where it applies, with the Tamattu' intention and shortening (rather than shaving) before the Hajj. Qiran and Ifrad begin with arrival in Makkah (`kind: "arrival"`): ihram, Tawaf al-Qudum and the optional early Sa'i. All three end with the Farewell Tawaf (`kind: "farewell"`).
 - The Guide shows the stage of the open step (day number and name, or the part's name) and groups the step list by stage. Stage names are UI strings (`src/i18n`), not content, since they only name the day.
 - Ruling labels follow Ibn Baz and Ibn Al-Uthaymeen. Where the two differ on a detail rather than the label, the step's details state both views; `rulingViews` is used only when their labels differ. Other schools' positions go in the step's `otherSchools` note (`rulingNote`), shown under "Other schools" in the details.
+
+### Step place visual (T047)
+
+- Every step has a required `place` from a fixed enum (schema, `src/data/types.ts`, checked by `npm run validate:content`). It is step content, so adding or changing it bumps the step's and the journey's version (content/README.md) and goes through content review.
+- Assignment: Ihram from the miqat is `miqat`; the Tamattu' pilgrim's Hajj Ihram on the 8th, taken where they stay in Makkah, is `makkah`; every Tawaf is `mataf`; the two rak'ahs after Tawaf are `maqam` (behind Maqam Ibrahim where possible); Sa'i is `masa`; shaving or shortening after the Umrah is `makkah`; on the 10th, the sacrifice and shaving are `mina` (where the Prophet ﷺ did them); the stoning is `jamarat`; the days and nights in Mina, Arafah and Muzdalifah are their own places.
+- `PlaceVisual` (`src/components/PlaceVisual.tsx`) is a compact `<figure>` at the top of the step, above the instruction card, with no network or map tiles: an inline SVG route of the places in the order a pilgrim meets them (Miqat, Makkah, Jamarat, Mina, Muzdalifah, Arafah), and, for a place inside Masjid al-Haram (Mataf, Maqam, Mas'a), an inset of the Kaaba, the Mataf, Maqam Ibrahim and the Mas'a with Safa and Marwah. The step's place is filled and carries a pin and a bold, underlined name; the others are muted, so colour is not the only signal.
+- Geography does not mirror with text direction: the drawing is `dir="ltr"` in every language, like the Tawaf and Sa'i diagrams; the names are HTML text under the drawing (they scale with text size and wrap instead of scrolling sideways). The graphic is `role="img"` with an `aria-label` naming the highlighted place; the visible caption ("أنا في المطاف" / "I am in the Mataf" / "میں مطاف میں ہوں") is the `figcaption`.
+- Place names and captions are UI strings in `src/i18n/{ar,en,ur}.json` (`places.<place>.name`, `.here`), with one caption per place so each language can use its own preposition. The schematic shows order and grouping, not distances or exact positions; the offline map (T037) is where real positions belong.
 
 ### Test site
 
