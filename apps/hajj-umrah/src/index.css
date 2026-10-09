@@ -251,11 +251,12 @@ small { color: var(--muted); font-size: 13px; line-height: 1.6; }
   .place-label.here { grid-column: 1 / -1 !important; }
 }
 .place-road { stroke: var(--line); stroke-width: 4; stroke-linecap: round; }
-.place-stop, .place-part { fill: var(--sage-pale); stroke: #8f9a93; stroke-width: 1.5; }
+/* Outlines at 3:1 or more on the surface and the pale fill (WCAG 1.4.11): the stops are how the places are told apart. */
+.place-stop, .place-part { fill: var(--sage-pale); stroke: #7a857e; stroke-width: 1.5; }
 .place-stop.here, .place-part.here { fill: var(--action); stroke: var(--forest-deep); stroke-width: 2; }
 .haram-outline { fill: none; stroke: var(--line); stroke-width: 2; stroke-dasharray: 5 4; }
 .haram-kaaba { fill: var(--ink); }
-.haram-hill { fill: var(--surface); stroke: #8f9a93; stroke-width: 1.5; }
+.haram-hill { fill: var(--surface); stroke: #7a857e; stroke-width: 1.5; }
 .place-part.here[data-part="masa"] ~ .haram-hill { stroke: var(--forest-deep); }
 .place-pin path { fill: var(--gold-text); stroke: var(--surface); stroke-width: 1.5; }
 .place-pin circle { fill: var(--surface); }
