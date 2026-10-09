@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AppHeader } from "../components/AppHeader";
 import { BottomNav } from "../components/BottomNav";
 import { Icon } from "../components/Icon";
 import * as db from "../data/db";
+import { journeyContent } from "../data/content";
+import { setStepDone, withStep } from "../data/progress";
 import type { JourneyType } from "../data/types";
 import { I18nProvider, isRtl, strings } from "../i18n";
 import type { Language } from "../i18n";
@@ -13,8 +15,6 @@ import { Placeholder } from "../screens/Placeholder";
 import { Settings } from "../screens/Settings";
 import type { OnboardingStep, Screen } from "./screens";
 
-// Only the Umrah guide exists until T031; its Tawaf step is the one tracked step for now (T019 replaces this).
-const TAWAF_STEP_ID = "umrah.tawaf";
 // Some WebKit versions never settle indexedDB.open; never leave the pilgrim on a blank screen.
 const STARTUP_TIMEOUT_MS = 1500;
 
@@ -25,7 +25,13 @@ function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
 export default function App() {
   const [ready, setReady] = useState(false);
   const [language, setLanguageState] = useState<Language>("ar");
-  const [completed, setCompleted] = useState<string[]>([]);
+  const [completed, setCompletedState] = useState<string[]>([]);
+  // Saves read the latest list, not the one captured when the handler was created.
+  const completedRef = useRef<string[]>([]);
+  const setCompleted = (next: string[]) => {
+    completedRef.current = next;
+    setCompletedState(next);
+  };
   const [screen, setScreen] = useState<Screen>("home");
   const [saveFailed, setSaveFailed] = useState(false);
   const [choiceNotSaved, setChoiceNotSaved] = useState(false);
@@ -65,18 +71,15 @@ export default function App() {
 
   // Constitution II: progress is written to the device before the UI moves on. If the write fails,
   // the step still moves on for this session but the guide says progress was not saved (FR-018).
-  const setTawafComplete = async (value: boolean) => {
-    if (journey !== "umrah") return;
-    const next = value
-      ? [...new Set([...completed, TAWAF_STEP_ID])]
-      : completed.filter((id) => id !== TAWAF_STEP_ID);
+  const markStep = async (stepId: string, done: boolean) => {
+    if (!journey) return;
     try {
-      await db.saveProgress({ journeyId: journey, completedStepIds: next, updatedAt: new Date().toISOString() });
+      setCompleted(await setStepDone(journey, completedRef.current, stepId, done));
       setSaveFailed(false);
     } catch {
       setSaveFailed(true);
+      setCompleted(withStep(completedRef.current, stepId, done));
     }
-    setCompleted(next);
   };
 
   // Each journey keeps its own progress, so switching back restores it.
@@ -106,6 +109,7 @@ export default function App() {
   };
 
   if (!ready) return null;
+  const content = journey ? journeyContent(journey) : null;
 
   if (onboarding) {
     return (
@@ -131,10 +135,10 @@ export default function App() {
           <p className="save-note save-failed" role="alert"><Icon name="shield" size={16} />{strings[language].choiceNotSaved}</p>
         )}
         {screen === "home" && <Home setScreen={setScreen} />}
-        {screen === "guide" && journey === "umrah" && (
-          <Guide complete={completed.includes(TAWAF_STEP_ID)} setComplete={setTawafComplete} saveFailed={saveFailed} />
+        {screen === "guide" && content && (
+          <Guide key={journey} journey={content.journey} texts={content.texts[language]} completed={completed} onStepDone={markStep} saveFailed={saveFailed} />
         )}
-        {screen === "guide" && journey !== "umrah" && <GuideNotReady />}
+        {screen === "guide" && !content && <GuideNotReady />}
         {screen === "settings" && journey && (
           <Settings journey={journey} onLanguageChange={changeLanguage} onChangeJourney={() => setOnboarding("journey")} />
         )}

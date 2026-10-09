@@ -32,7 +32,7 @@ describe("App", () => {
     expect(document.documentElement.dir).toBe("rtl");
   });
 
-  it("marks the Tawaf step as a pillar pending scholarly review, never as reviewed", async () => {
+  it("marks draft content as pending scholarly review, never as reviewed", async () => {
     render(<App />);
     await userEvent.click(await screen.findByRole("button", { name: "English" }));
     await userEvent.click(screen.getByRole("button", { name: /Umrah rituals/ }));
@@ -42,6 +42,7 @@ describe("App", () => {
   });
 
   it("shows the Tawaf arrow counter-clockwise in every language", async () => {
+    await db.saveProgress({ journeyId: "umrah", completedStepIds: ["umrah.ihram"], updatedAt: "2026-10-09T00:00:00Z" });
     render(<App />);
     for (const name of ["العربية", "English", "اردو"]) {
       await userEvent.click(await screen.findByRole("button", { name }));
@@ -50,26 +51,68 @@ describe("App", () => {
     }
   });
 
-  it("saves step completion on the device before moving on, and lets the pilgrim go back", async () => {
+  it("opens on the first step not done and walks through the content", async () => {
+    render(<App />);
+    await userEvent.click(await screen.findByRole("button", { name: "English" }));
+    await userEvent.click(screen.getByRole("button", { name: /Umrah rituals/ }));
+    expect(screen.getByRole("heading", { level: 1, name: "Ihram" })).toBeInTheDocument();
+    expect(screen.getByText("1 / 5")).toBeInTheDocument();
+    expect(screen.getByText("Next: Tawaf")).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole("button", { name: /Mark complete/ }));
+    expect(await screen.findByRole("heading", { level: 1, name: "Tawaf" })).toBeInTheDocument();
+    expect(screen.getByText("2 / 5")).toBeInTheDocument();
+    expect(screen.getByText("20%")).toBeInTheDocument();
+    expect((await db.getProgress("umrah")).completedStepIds).toEqual(["umrah.ihram"]);
+  });
+
+  it("goes back without un-marking, and undoes only on request", async () => {
     render(<App />);
     await userEvent.click(await screen.findByRole("button", { name: "English" }));
     await userEvent.click(screen.getByRole("button", { name: /Umrah rituals/ }));
     await userEvent.click(screen.getByRole("button", { name: /Mark complete/ }));
-    expect(await screen.findByText("3 / 5")).toBeInTheDocument();
-    expect((await db.getProgress("umrah")).completedStepIds).toEqual(["umrah.tawaf"]);
+    await userEvent.click(await screen.findByRole("button", { name: "Previous step" }));
+    expect(screen.getByRole("heading", { level: 1, name: "Ihram" })).toBeInTheDocument();
+    expect((await db.getProgress("umrah")).completedStepIds).toEqual(["umrah.ihram"]);
+
+    // Tapping Next on a done step moves on and never un-marks it.
+    await userEvent.click(screen.getByRole("button", { name: /^Next/ }));
+    expect(screen.getByRole("heading", { level: 1, name: "Tawaf" })).toBeInTheDocument();
+    expect((await db.getProgress("umrah")).completedStepIds).toEqual(["umrah.ihram"]);
+
     await userEvent.click(screen.getByRole("button", { name: "Previous step" }));
-    expect(await screen.findByText("2 / 5")).toBeInTheDocument();
+    await userEvent.click(screen.getByRole("button", { name: /haven't finished/ }));
+    expect(await screen.findByRole("button", { name: /Mark complete/ })).toBeInTheDocument();
     expect((await db.getProgress("umrah")).completedStepIds).toEqual([]);
   });
 
-  it("never un-marks a completed step when the pilgrim taps Next", async () => {
+  it("shows details, common mistakes, other schools and sources from the content", async () => {
+    await db.saveProgress({
+      journeyId: "umrah",
+      completedStepIds: ["umrah.ihram", "umrah.tawaf", "umrah.tawaf-prayer"],
+      updatedAt: "2026-10-09T00:00:00Z",
+    });
+    await db.setLanguage("en");
     render(<App />);
-    await userEvent.click(await screen.findByRole("button", { name: "English" }));
-    await userEvent.click(screen.getByRole("button", { name: /Umrah rituals/ }));
-    await userEvent.click(screen.getByRole("button", { name: /Mark complete/ }));
-    await userEvent.click(await screen.findByRole("button", { name: /Next: Two rak/ }));
-    expect(screen.getByText("3 / 5")).toBeInTheDocument();
-    expect((await db.getProgress("umrah")).completedStepIds).toEqual(["umrah.tawaf"]);
+    await userEvent.click(await screen.findByRole("button", { name: /Umrah rituals/ }));
+    expect(screen.getByRole("heading", { level: 1, name: /Sa'i/ })).toBeInTheDocument();
+    await userEvent.click(screen.getByRole("button", { name: /Details and common mistakes/ }));
+    expect(screen.getByRole("heading", { name: "Common mistakes" })).toBeInTheDocument();
+    expect(screen.getByText(/Hanafi school/)).toBeInTheDocument();
+    expect(screen.getByText("القرآن الكريم، سورة البقرة 2:158")).toBeInTheDocument();
+  });
+
+  it("says progress was not saved when undo can't be written", async () => {
+    await db.saveProgress({ journeyId: "umrah", completedStepIds: ["umrah.ihram"], updatedAt: "2026-10-09T00:00:00Z" });
+    await db.setLanguage("en");
+    render(<App />);
+    await userEvent.click(await screen.findByRole("button", { name: /Umrah rituals/ }));
+    await userEvent.click(screen.getByRole("button", { name: "Previous step" }));
+    const save = vi.spyOn(db, "saveProgress").mockRejectedValue(new Error("QuotaExceededError"));
+    await userEvent.click(screen.getByRole("button", { name: /haven't finished/ }));
+    expect(await screen.findByRole("alert")).toHaveTextContent("could not be saved");
+    expect(screen.getByRole("button", { name: /Mark complete/ })).toBeInTheDocument();
+    save.mockRestore();
   });
 
   it("says progress was not saved when the device write fails", async () => {

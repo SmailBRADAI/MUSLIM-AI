@@ -19,7 +19,7 @@ test("works in airplane mode after one online visit, fonts included", async ({ p
 
   await page.getByRole("button", { name: "English", exact: true }).click();
   await page.getByRole("button", { name: /Umrah rituals/ }).click();
-  await expect(page.getByRole("heading", { name: "Tawaf around the Kaaba" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: "Ihram" })).toBeVisible();
 });
 
 test("progress survives a reload offline", async ({ page, context }) => {
@@ -29,9 +29,9 @@ test("progress survives a reload offline", async ({ page, context }) => {
 
   await page.getByRole("button", { name: /Umrah rituals/ }).click();
   await page.getByRole("button", { name: /Mark complete/ }).click();
-  // The IndexedDB write finishes before the UI moves to step 3, so wait for it before reloading.
-  await expect(page.getByText("3 / 5")).toBeVisible();
+  // The IndexedDB write finishes before the UI moves to step 2, so wait for it before reloading.
+  await expect(page.getByText("2 / 5")).toBeVisible();
   await page.reload();
   await page.getByRole("button", { name: /My guide/ }).click();
-  await expect(page.getByText("3 / 5")).toBeVisible();
+  await expect(page.getByText("2 / 5")).toBeVisible();
 });
