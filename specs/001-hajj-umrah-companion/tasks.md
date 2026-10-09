@@ -89,6 +89,7 @@
 
 - [ ] T039 Accessibility pass: 200% text, screen readers in all 3 languages, contrast audit of the palette
 - [ ] T040 Size budget check in CI (P1 pack < 15 MB without audio)
+- [ ] T052 Content review helper CLI `npm run review` (FR-028): list, show, approve and unapprove with dry run, reviewer check, version bump and validation; unit tests; README "Reviewing" section
 - [ ] T041 Content review: reviewer approves each item; validator confirms 100% approved before release (SC-002)
 
 ## Phase 10: App stores

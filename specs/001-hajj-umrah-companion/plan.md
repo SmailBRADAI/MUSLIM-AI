@@ -182,6 +182,14 @@ interface StepText {
 - **Wake lock** (`useWakeLock` in `src/components/LockCard.tsx`). `navigator.wakeLock.request("screen")` while the switch is on; the sentinel is released on switch off and unmount, and requested again on `visibilitychange` to visible (the browser releases it when the page hides). Off by default, held only in Guide state (not remembered). Errors (battery saver, permission policy) show a message, and the switch turns off.
 - **Strings.** All UI text is in `src/i18n/{ar,en,ur}.json` (`swipe`, `lockCard`, `wakeLock`).
 
+### Content review helper (T052)
+
+- `scripts/review.ts` (CLI) over `scripts/review-lib.ts` (pure functions on parsed content, so tests do not spawn processes). `npm run review -- <command>`; `--content-dir <path>` points at a copy of `content/` (tests); the default is the real folder.
+- Commands: `list` (per step, each language's status, source count, and a total such as "approved 0 / 150 texts" toward SC-002), `show <stepId>` (text, sources, ruling views and the matching lines of `content/sources/*.md`), `approve`, `unapprove`.
+- `approve` is a dry run unless `--write` is given and needs an explicit `--reviewer` that is listed in `reviewers.json`; there is no default reviewer. Per language it sets the text review to approved with reviewer and date; the step `meta` becomes approved only when all three languages of that step are approved, and goes back to `draft` on `unapprove`. Any change bumps the journey patch version, and the changed steps' `meta.version` takes the new version.
+- Files are rewritten with `JSON.stringify(_, null, 2)` plus a final newline, which reproduces the current files byte for byte, so only the intended fields change. After writing, `validateContent` runs; on failure the original files are restored and the command exits non-zero.
+- Editing an approved text must be preceded by `unapprove` (documented in `content/README.md`); no automatic detection.
+
 ### Test site
 
 - `main` is published to GitHub Pages (`.github/workflows/hajj-umrah-pages.yml`) at `https://<owner>.github.io/MUSLIM-AI/`, so the app can be installed on a phone over https and tested offline. The site is public but unlisted; it is a test site, not a release (store release is Phase 6).
