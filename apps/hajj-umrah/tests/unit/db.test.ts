@@ -11,6 +11,15 @@ describe("db", () => {
     expect(localStorage.getItem("rafiq-tawaf-complete")).toBeNull();
   });
 
+  it("keeps prototype users on the Umrah journey so they skip onboarding", async () => {
+    localStorage.setItem("rafiq-tawaf-complete", "false");
+    expect(await db.getJourney()).toBe("umrah");
+  });
+
+  it("leaves the journey empty on a fresh install", async () => {
+    expect(await db.getJourney()).toBeNull();
+  });
+
   it("ignores an invalid legacy language", async () => {
     localStorage.setItem("rafiq-language", "fr");
     expect(await db.getLanguage()).toBeNull();

@@ -1,15 +1,19 @@
 import { useEffect, useState } from "react";
 import { AppHeader } from "../components/AppHeader";
 import { BottomNav } from "../components/BottomNav";
+import { Icon } from "../components/Icon";
 import * as db from "../data/db";
-import { I18nProvider, isRtl } from "../i18n";
+import type { JourneyType } from "../data/types";
+import { I18nProvider, isRtl, strings } from "../i18n";
 import type { Language } from "../i18n";
-import { Guide } from "../screens/Guide";
+import { Guide, GuideNotReady } from "../screens/Guide";
 import { Home } from "../screens/Home";
+import { Onboarding } from "../screens/Onboarding";
 import { Placeholder } from "../screens/Placeholder";
-import type { Screen } from "./screens";
+import { Settings } from "../screens/Settings";
+import type { OnboardingStep, Screen } from "./screens";
 
-const JOURNEY_ID = "umrah";
+// Only the Umrah guide exists until T031; its Tawaf step is the one tracked step for now (T019 replaces this).
 const TAWAF_STEP_ID = "umrah.tawaf";
 // Some WebKit versions never settle indexedDB.open; never leave the pilgrim on a blank screen.
 const STARTUP_TIMEOUT_MS = 1500;
@@ -24,17 +28,30 @@ export default function App() {
   const [completed, setCompleted] = useState<string[]>([]);
   const [screen, setScreen] = useState<Screen>("home");
   const [saveFailed, setSaveFailed] = useState(false);
+  const [choiceNotSaved, setChoiceNotSaved] = useState(false);
+  const [journey, setJourneyState] = useState<JourneyType | null>(null);
+  // Set while choosing a journey: first launch starts at "language", changing it from Settings at "journey".
+  const [onboarding, setOnboarding] = useState<OnboardingStep | null>(null);
 
   useEffect(() => {
     let cancelled = false;
-    withTimeout(Promise.all([db.getLanguage(), db.getProgress(JOURNEY_ID)]), STARTUP_TIMEOUT_MS)
-      .then(([storedLanguage, progress]) => {
+    const load = async () => {
+      const [storedLanguage, storedJourney] = await Promise.all([db.getLanguage(), db.getJourney()]);
+      const progress = storedJourney ? await db.getProgress(storedJourney) : null;
+      return { storedLanguage, storedJourney, progress };
+    };
+    withTimeout(load(), STARTUP_TIMEOUT_MS)
+      .then(({ storedLanguage, storedJourney, progress }) => {
         if (cancelled) return;
         if (storedLanguage) setLanguageState(storedLanguage);
-        setCompleted(progress.completedStepIds);
+        setJourneyState(storedJourney);
+        // Only a confirmed empty store means first launch.
+        if (!storedJourney) setOnboarding("language");
+        setCompleted(progress?.completedStepIds ?? []);
       })
-      // IndexedDB unavailable or too slow: start with defaults; the app still works for this session.
-      .catch(() => undefined)
+      // IndexedDB unavailable or too slow: we can't tell a new pilgrim from a returning one, so don't
+      // run onboarding (it would overwrite a saved journey). Open the Umrah guide for this session.
+      .catch(() => !cancelled && setJourneyState("umrah"))
       .finally(() => !cancelled && setReady(true));
     return () => {
       cancelled = true;
@@ -46,19 +63,15 @@ export default function App() {
     document.documentElement.lang = language;
   }, [language]);
 
-  const changeLanguage = (next: Language) => {
-    setLanguageState(next);
-    db.setLanguage(next).catch(() => undefined);
-  };
-
   // Constitution II: progress is written to the device before the UI moves on. If the write fails,
   // the step still moves on for this session but the guide says progress was not saved (FR-018).
   const setTawafComplete = async (value: boolean) => {
+    if (journey !== "umrah") return;
     const next = value
       ? [...new Set([...completed, TAWAF_STEP_ID])]
       : completed.filter((id) => id !== TAWAF_STEP_ID);
     try {
-      await db.saveProgress({ journeyId: JOURNEY_ID, completedStepIds: next, updatedAt: new Date().toISOString() });
+      await db.saveProgress({ journeyId: journey, completedStepIds: next, updatedAt: new Date().toISOString() });
       setSaveFailed(false);
     } catch {
       setSaveFailed(true);
@@ -66,15 +79,66 @@ export default function App() {
     setCompleted(next);
   };
 
+  // Each journey keeps its own progress, so switching back restores it.
+  const chooseJourney = async (next: JourneyType) => {
+    let progress: string[] = [];
+    try {
+      await db.setJourney(next);
+      progress = (await db.getProgress(next)).completedStepIds;
+      setChoiceNotSaved(false);
+    } catch {
+      setChoiceNotSaved(true);
+    }
+    setJourneyState(next);
+    setCompleted(progress);
+    setSaveFailed(false);
+    setOnboarding(null);
+    setScreen("home");
+  };
+
+  const changeLanguage = async (next: Language) => {
+    setLanguageState(next);
+    try {
+      await db.setLanguage(next);
+    } catch {
+      setChoiceNotSaved(true);
+    }
+  };
+
   if (!ready) return null;
+
+  if (onboarding) {
+    return (
+      <I18nProvider language={language}>
+        <div className={`app-shell onboarding-shell language-${language}`}>
+          <Onboarding
+            initialStep={onboarding}
+            onLanguageChange={changeLanguage}
+            onDone={chooseJourney}
+            // A pilgrim changing journey from Settings can go back to Settings.
+            onCancel={journey ? () => setOnboarding(null) : undefined}
+          />
+        </div>
+      </I18nProvider>
+    );
+  }
 
   return (
     <I18nProvider language={language}>
       <div className={`app-shell language-${language}`}>
         <AppHeader onLanguageChange={changeLanguage} />
+        {choiceNotSaved && (
+          <p className="save-note save-failed" role="alert"><Icon name="shield" size={16} />{strings[language].choiceNotSaved}</p>
+        )}
         {screen === "home" && <Home setScreen={setScreen} />}
-        {screen === "guide" && <Guide complete={completed.includes(TAWAF_STEP_ID)} setComplete={setTawafComplete} saveFailed={saveFailed} />}
-        {screen !== "home" && screen !== "guide" && <Placeholder screen={screen} setScreen={setScreen} />}
+        {screen === "guide" && journey === "umrah" && (
+          <Guide complete={completed.includes(TAWAF_STEP_ID)} setComplete={setTawafComplete} saveFailed={saveFailed} />
+        )}
+        {screen === "guide" && journey !== "umrah" && <GuideNotReady />}
+        {screen === "settings" && journey && (
+          <Settings journey={journey} onLanguageChange={changeLanguage} onChangeJourney={() => setOnboarding("journey")} />
+        )}
+        {(screen === "prayers" || screen === "map") && <Placeholder screen={screen} setScreen={setScreen} />}
         <BottomNav screen={screen} setScreen={setScreen} />
       </div>
     </I18nProvider>

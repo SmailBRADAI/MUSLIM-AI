@@ -90,6 +90,9 @@ The pilgrim searches steps and supplications in their language, offline.
 - The pilgrim completes steps out of order: progress allows it and shows what remains.
 - The browser clears site storage: the app detects lost data and asks to re-download, and requests persistent storage where supported.
 - Text enlarged to 200%: no content is cut off and primary actions stay reachable.
+- The device storage is too slow or unavailable at launch: the app opens the Umrah guide for the session instead of onboarding, so a returning pilgrim's saved journey is never overwritten; a choice that can't be saved is reported.
+- The pilgrim picks a journey whose content isn't written yet (Hajj, before US4): the guide says it is being prepared and reviewed, and never shows another journey's steps.
+- Explanations of each Hajj type are religious content (Principle I): onboarding shows only the type names until reviewed explanations exist (US4).
 
 ## Requirements
 

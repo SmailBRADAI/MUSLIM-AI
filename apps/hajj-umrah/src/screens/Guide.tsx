@@ -90,3 +90,14 @@ export function Guide({
     </main>
   );
 }
+
+/** Shown for Hajj journeys until their reviewed content exists (T031). */
+export function GuideNotReady() {
+  const t = useT();
+  return (
+    <main className="page guide-page">
+      <h1>{t.guide}</h1>
+      <p className="save-note" role="status"><Icon name="shield" size={16} />{t.guideNotReady}</p>
+    </main>
+  );
+}

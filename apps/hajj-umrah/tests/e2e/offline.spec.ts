@@ -1,7 +1,8 @@
 import { expect, test } from "@playwright/test";
+import { onboard } from "./helpers";
 
 test("works in airplane mode after one online visit, fonts included", async ({ page, context }) => {
-  await page.goto("/");
+  await onboard(page, "العربية");
   // Wait until the service worker is active, which happens only after precaching finished.
   await page.evaluate(() => navigator.serviceWorker.ready);
 
@@ -22,11 +23,10 @@ test("works in airplane mode after one online visit, fonts included", async ({ p
 });
 
 test("progress survives a reload offline", async ({ page, context }) => {
-  await page.goto("/");
+  await onboard(page, "English");
   await page.evaluate(() => navigator.serviceWorker.ready);
   await context.setOffline(true);
 
-  await page.getByRole("button", { name: "English", exact: true }).click();
   await page.getByRole("button", { name: /Umrah rituals/ }).click();
   await page.getByRole("button", { name: /Mark complete/ }).click();
   // The IndexedDB write finishes before the UI moves to step 3, so wait for it before reloading.
