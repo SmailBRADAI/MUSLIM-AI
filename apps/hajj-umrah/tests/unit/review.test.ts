@@ -20,7 +20,7 @@ const snapshot = () => ["journeys/umrah.json", "i18n/ar/umrah.json", "i18n/en/um
 
 beforeEach(() => {
   dir = mkdtempSync(join(tmpdir(), "review-"));
-  cpSync(join(appDir, "content"), dir, { recursive: true });
+  cpSync(join(appDir, "tests/fixtures/content"), dir, { recursive: true });
   writeFileSync(join(dir, "reviewers.json"), JSON.stringify({ role: "content-reviewer", description: "test", reviewers: ["alice"] }, null, 2) + "\n");
 });
 afterEach(() => rmSync(dir, { recursive: true, force: true }));
@@ -82,7 +82,7 @@ describe("review helper", () => {
   it("keeps formatting: only the intended lines differ", () => {
     cli("approve", STEP, "--lang", "en", "--reviewer", "alice", "--date", "2026-10-01", "--write");
     const after = readFileSync(join(dir, "i18n/en/umrah.json"), "utf8");
-    const before = readFileSync(join(appDir, "content/i18n/en/umrah.json"), "utf8");
+    const before = readFileSync(join(appDir, "tests/fixtures/content/i18n/en/umrah.json"), "utf8");
     expect(after.split("\n").length - before.split("\n").length).toBe(2);
     expect(after.endsWith("}\n")).toBe(true);
   });

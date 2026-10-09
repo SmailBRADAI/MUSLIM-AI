@@ -1,0 +1,5 @@
+{
+  "role": "content-reviewer",
+  "description": "Holders may move ritual content to review status \"approved\". Rulings follow the fatwas of Ibn Baz and Ibn Al-Uthaymeen (see the constitution, Principle I).",
+  "reviewers": ["SmailBRADAI"]
+}

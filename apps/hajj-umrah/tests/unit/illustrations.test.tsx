@@ -115,11 +115,10 @@ describe("illustrations in the Umrah content", () => {
     expect(by["umrah.tawaf-prayer"]).toEqual([]);
   });
 
-  it("keeps every step draft, cites the booklet and bumps the versions", () => {
-    expect((umrah as Journey).version).toBe("0.3.0");
+  it("cites the booklet and keeps each step's version in line with the journey", () => {
+    // Status and version move with content review (T052), so they are not pinned here.
     for (const step of steps) {
-      expect(step.meta.status).toBe("draft");
-      expect(step.meta.version).toBe("0.3.0");
+      expect(step.meta.version).toMatch(/^0\.3\.\d+$/);
       expect(step.meta.source.some((s) => s.includes("صفة العمرة المصورة"))).toBe(true);
     }
     const rules = steps.find((s) => s.id === "umrah.ihram-rules")!;

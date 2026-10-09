@@ -1,0 +1,9 @@
+# Ritual content
+
+Source of truth for ritual steps, rulings and supplications (spec `specs/001-hajj-umrah-companion`).
+
+- Every item follows `specs/001-hajj-umrah-companion/contracts/content-pack.schema.json`.
+- Only a GitHub user listed in `reviewers.json` (the content reviewer role) may set `status` to `approved`. `.github/CODEOWNERS` requires their review on this folder.
+- To add a reviewer: add their GitHub handle to `reviewers.json` and to the `apps/hajj-umrah/content/` line in `.github/CODEOWNERS`, in the same pull request.
+- Any change to a journey or its texts, including a review status change, bumps that journey's `version`. The app prefers its bundled copy over an installed pack unless the pack's version is newer.
+- `sources/` holds notes on secondary sources that were read to enrich the content (for example the booklet «صفة العمرة المصورة»): what each says, what the content already covers, and the differences left for the content reviewer. They are not shown in the app.
