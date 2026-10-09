@@ -5,11 +5,12 @@ import { LANGUAGES } from "./content-validation.ts";
 import type { ContentFiles } from "./content-validation.ts";
 
 export const appDir = join(import.meta.dirname, "..");
-const contentDir = join(appDir, "content");
+export const defaultContentDir = join(appDir, "content");
 const readJson = (path: string) => JSON.parse(readFileSync(path, "utf8"));
 const jsonFiles = (dir: string) => (existsSync(dir) ? readdirSync(dir).filter((f) => f.endsWith(".json")).sort() : []);
 
-export function readContent(): ContentFiles {
+/** Reads the real content, or a copy of the content folder (the review helper tests use one). */
+export function readContent(contentDir: string = defaultContentDir): ContentFiles {
   const journeysDir = join(contentDir, "journeys");
   return {
     schema: readJson(join(appDir, "../../specs/001-hajj-umrah-companion/contracts/content-pack.schema.json")),
