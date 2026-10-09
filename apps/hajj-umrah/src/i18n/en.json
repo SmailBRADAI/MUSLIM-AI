@@ -82,5 +82,19 @@
   },
   "currentStep": "Current step",
   "allStepsDone": "All steps are done",
-  "stepList": "Steps"
+  "stepList": "Steps",
+  "packs": {
+    "download": "Download",
+    "update": "Update",
+    "retry": "Try again",
+    "downloading": "Downloading",
+    "cancel": "Cancel",
+    "installed": "On this device",
+    "updateAvailable": "Update available",
+    "lost": "The downloaded content was removed from this device. Download it again.",
+    "failed": "Download failed. Check your connection and try again.",
+    "offline": "You are offline. Connect to the internet to download.",
+    "audioNote": "Audio is not included yet.",
+    "title": "Offline content"
+  }
 }

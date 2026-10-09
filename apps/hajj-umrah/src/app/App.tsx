@@ -146,7 +146,13 @@ export default function App() {
         )}
         {screen === "guide" && !content && <GuideNotReady />}
         {screen === "settings" && journey && (
-          <Settings journey={journey} onLanguageChange={changeLanguage} onChangeJourney={() => setOnboarding("journey")} />
+          <Settings
+            journey={journey}
+            onLanguageChange={changeLanguage}
+            onChangeJourney={() => setOnboarding("journey")}
+            // TODO(T028): refresh the "Ready offline" card from the installed pack.
+            onPackInstalled={() => undefined}
+          />
         )}
         {(screen === "prayers" || screen === "map") && <Placeholder screen={screen} setScreen={setScreen} />}
         <BottomNav screen={screen} setScreen={setScreen} />
