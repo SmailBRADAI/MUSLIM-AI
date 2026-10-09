@@ -138,6 +138,7 @@ describe("Hajj day view (T032)", () => {
     await userEvent.click(screen.getByRole("button", { name: "3. Arafah" }));
     expect(screen.getByText("9 Dhu al-Hijjah · Day of Arafah")).toBeInTheDocument();
     expect(screen.getByRole("heading", { level: 1, name: "Arafah" })).toHaveFocus();
+    expect(screen.getByRole("heading", { level: 1, name: "Arafah" })).toHaveAccessibleDescription("9 Dhu al-Hijjah · Day of Arafah");
   });
 
   it("keeps a single step list without day names for the Umrah", () => {

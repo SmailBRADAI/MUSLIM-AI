@@ -129,6 +129,31 @@ describe("validateContent", () => {
     expect(check()).toContain('umrah.json: stage "umrah.main" has a Hajj day or kind in an Umrah journey');
   });
 
+  it("requires Hajj stages in order: opening part, each day once, then farewell (T032 review)", () => {
+    const base = files();
+    const journey = structuredClone(base.journeys["umrah.json"]) as {
+      type: string;
+      stages: { id: string; order: number; day?: number; kind?: string; steps: unknown[] }[];
+    };
+    journey.type = "hajj-qiran";
+    const main = journey.stages[0];
+    journey.stages = [
+      { ...main, id: "s1", order: 1, kind: "arrival" },
+      { id: "s2", order: 2, day: 10, steps: [] },
+      { id: "s3", order: 3, day: 9, steps: [] },
+      { id: "s4", order: 4, kind: "farewell", steps: [] },
+    ];
+    const check = () => validateContent({ ...base, journeys: { "umrah.json": journey } });
+    expect(check()).toContain('umrah.json: stage "s3" is out of place (opening part, days 8 to 13 once each in order, then farewell)');
+    journey.stages[2].day = 11;
+    expect(check()).toEqual([]);
+    journey.stages[2].day = 10;
+    expect(check()).toContain('umrah.json: stage "s3" is out of place (opening part, days 8 to 13 once each in order, then farewell)');
+    journey.stages[2].day = 11;
+    journey.stages[0].kind = "umrah";
+    expect(check()).toContain('umrah.json: stage "s1" has kind "umrah", which hajj-qiran does not use');
+  });
+
   it("rejects duplicate step ids across journey files", () => {
     const base = files();
     const errors = validateContent({

@@ -133,8 +133,9 @@ export function Guide({
       <div className="guide-heading">
         <div>
           <span className="eyebrow">{guideLabel(t, journey.type)}</span>
-          {stageNow && <p className="stage-now">{stageNow}</p>}
-          <h1 ref={headingRef} tabIndex={-1}>{text.title}</h1>
+          {stageNow && <p className="stage-now" id="stage-now">{stageNow}</p>}
+          {/* Focus moves to the title after each action; the day is read with it, since it may have changed. */}
+          <h1 ref={headingRef} tabIndex={-1} aria-describedby={stageNow ? "stage-now" : undefined}>{text.title}</h1>
         </div>
         <span className="step-pill">{index + 1} / {steps.length}</span>
       </div>
