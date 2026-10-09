@@ -3,6 +3,7 @@ import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { validateContent } from "../../scripts/content-validation";
 import type { ContentFiles } from "../../scripts/content-validation";
+import { requiredDiagramItems } from "../../src/data/diagrams";
 import { PLACES } from "../../src/data/types";
 
 const schema = JSON.parse(
@@ -47,6 +48,33 @@ function files(stepMeta: object = {}, overrides: Partial<ContentFiles> = {}): Co
 describe("validateContent", () => {
   it("accepts a sourced draft step with text in all three languages", () => {
     expect(validateContent(files())).toEqual([]);
+  });
+
+  it("requires every reviewed label of the miqat, dress and rules illustrations in each language (T049)", () => {
+    const withDiagrams = files();
+    const journey = withDiagrams.journeys["umrah.json"] as { stages: { steps: { diagram?: string | string[] }[] }[] };
+    journey.stages[0].steps[0].diagram = ["miqat", "ihram-dress"];
+    const bare = { "umrah.json": { "umrah.tawaf": { ...text, diagramLabel: "Miqats" } } };
+    const errors = validateContent({ ...withDiagrams, texts: { ar: bare, en: bare, ur: bare } });
+    expect(errors).toContain('umrah.json: "umrah.tawaf" is missing ar diagram label "miqat.1.name"');
+    expect(errors).toContain('umrah.json: "umrah.tawaf" is missing en diagram label "miqat.5.for"');
+    expect(errors).toContain('umrah.json: "umrah.tawaf" is missing ur diagram label "ihram-dress.caption"');
+    expect(errors).toContain('umrah.json: "umrah.tawaf" is missing ar diagram label "ihram-dress.woman"');
+
+    const full = Object.fromEntries(requiredDiagramItems(["miqat", "ihram-dress"]).map((k) => [k, "x"]));
+    const complete = { "umrah.json": { "umrah.tawaf": { ...text, diagramLabel: "Miqats", diagramItems: full } } };
+    expect(validateContent({ ...withDiagrams, texts: { ar: complete, en: complete, ur: complete } })).toEqual([]);
+    // The ihram-rules illustration is its own list, and a second illustration needs its own caption.
+    expect(requiredDiagramItems(["ihram-rules"])).toContain("ihram-rules.ok.fawasiq");
+    expect(requiredDiagramItems(["ihram-rules"])).not.toContain("ihram-rules.caption");
+    expect(requiredDiagramItems(["tawaf", "sai"])).toEqual(["sai.caption"]);
+  });
+
+  it("rejects an unknown illustration", () => {
+    const f = files();
+    const journey = f.journeys["umrah.json"] as { stages: { steps: { diagram?: unknown }[] }[] };
+    journey.stages[0].steps[0].diagram = ["miqat", "mosque"];
+    expect(validateContent(f).join()).toMatch(/diagram/);
   });
 
   it("requires a reviewed caption for a step with a diagram", () => {

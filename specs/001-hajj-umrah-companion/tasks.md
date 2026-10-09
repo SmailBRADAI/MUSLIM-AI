@@ -43,7 +43,7 @@
 - [x] T023 [US1] Previous step and step list navigation; out-of-order completion allowed
 - [x] T024 [P] [US1] Unit tests for progress logic; e2e: full Umrah offline in each language
 - [x] T047 [US1] Step place (FR-019): required `place` on every step of every journey (schema, types, validation, versions bumped), and a "you are here" `PlaceVisual` at the top of each Guide step with the place highlighted and captioned in ar/en/ur; unit and e2e tests (including axe)
-- [ ] T049 [US1] Enrich the Umrah from the booklet «صفة العمرة المصورة» (FR-024): extraction notes in `content/sources/`, missing points added in ar/en/ur with sources (draft), new step `umrah.ihram-rules`, differences left for the content reviewer; original SVG illustrations (miqat map, ihram dress, Tawaf route with the Hijr, Sa'i with the green markers, ihram prohibitions and permitted things) with reviewed labels (`diagramItems`); unit and e2e tests with axe
+- [x] T049 [US1] Enrich the Umrah from the booklet «صفة العمرة المصورة» (FR-024): extraction notes in `content/sources/`, missing points added in ar/en/ur with sources (draft), new step `umrah.ihram-rules`, differences left for the content reviewer; original SVG illustrations (miqat map, ihram dress, Tawaf route with the Hijr, Sa'i with the green markers, ihram prohibitions and permitted things) with reviewed labels (`diagramItems`); unit and e2e tests with axe
 
 **Checkpoint**: MVP — the spec's SC-001 and SC-004 pass with draft content.
 

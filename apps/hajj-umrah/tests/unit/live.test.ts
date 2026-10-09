@@ -39,7 +39,9 @@ describe("suggestStep, Umrah", () => {
 
   it("suggests Ihram near a miqat and nothing once it is done", () => {
     expect(suggestStep(umrah, [], region("yalamlam"))?.id).toBe("umrah.ihram");
-    expect(suggestStep(umrah, ["umrah.ihram"], region("yalamlam"))).toBeNull();
+    // The ihram reference step is also performed at the miqat (T049).
+    expect(suggestStep(umrah, ["umrah.ihram"], region("yalamlam"))?.id).toBe("umrah.ihram-rules");
+    expect(suggestStep(umrah, ["umrah.ihram", "umrah.ihram-rules"], region("yalamlam"))).toBeNull();
   });
 
   it("has nothing to suggest at Arafah", () => {

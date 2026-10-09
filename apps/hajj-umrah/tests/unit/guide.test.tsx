@@ -176,3 +176,48 @@ describe("Ruling notes (T033)", () => {
     expect(screen.getByText("The Hanafi school holds otherwise.")).toBeInTheDocument();
   });
 });
+
+describe("Illustrations and long details (T049)", () => {
+  const items = Object.fromEntries(["1", "2", "3", "4", "5"].flatMap((n) => [[`miqat.${n}.name`, `Miqat ${n}`], [`miqat.${n}.for`, `for people ${n}`]]));
+  Object.assign(items, { "ihram-dress.man": "Man", "ihram-dress.tawaf": "Tawaf", "ihram-dress.woman": "Woman", "ihram-dress.caption": "Dress caption" });
+  const illustrated: Journey = {
+    ...journey,
+    stages: [{ id: "s", order: 1, steps: [step("t.one", 1, { diagram: ["miqat", "ihram-dress"], place: "miqat" })] }],
+  };
+
+  it("shows each illustration of the step in order, captioned from the step text, and the details in paragraphs", async () => {
+    render(
+      <I18nProvider language="en">
+        <Guide
+          journey={illustrated}
+          texts={{ "t.one": { ...text("One"), details: "First paragraph.\n\nSecond paragraph.", diagramLabel: "Miqat caption", diagramItems: items } }}
+          completed={[]}
+          onStepDone={async () => undefined}
+          saveFailed={false}
+        />
+      </I18nProvider>,
+    );
+    const figures = document.querySelectorAll(".instruction-card figure");
+    expect([...figures].map((f) => f.className)).toEqual(["diagram miqat-figure", "diagram dress-figure"]);
+    expect(screen.getByText("Miqat caption")).toBeInTheDocument();
+    expect(screen.getByText("Dress caption")).toBeInTheDocument();
+    await userEvent.click(screen.getByRole("button", { name: /Details/ }));
+    expect(screen.getByText("First paragraph.")).toBeInTheDocument();
+    expect(screen.getByText("Second paragraph.")).toBeInTheDocument();
+  });
+
+  it("skips a later illustration that has no caption instead of showing it unlabelled", () => {
+    render(
+      <I18nProvider language="en">
+        <Guide
+          journey={illustrated}
+          texts={{ "t.one": { ...text("One"), diagramLabel: "Miqat caption", diagramItems: { ...items, "ihram-dress.caption": "" } } }}
+          completed={[]}
+          onStepDone={async () => undefined}
+          saveFailed={false}
+        />
+      </I18nProvider>,
+    );
+    expect(document.querySelectorAll(".instruction-card figure")).toHaveLength(1);
+  });
+});

@@ -32,6 +32,7 @@ describe("progress (T019)", () => {
   it("orders the Umrah content as performed", () => {
     expect(orderedSteps(umrah as Journey).map((s) => s.id)).toEqual([
       "umrah.ihram",
+      "umrah.ihram-rules",
       "umrah.tawaf",
       "umrah.tawaf-prayer",
       "umrah.sai",
