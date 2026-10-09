@@ -3,7 +3,8 @@ import { render, screen } from "@testing-library/react";
 import { ReviewBadge } from "../../src/components/ReviewBadge";
 import { RulingTag } from "../../src/components/RulingTag";
 import { displayStatus } from "../../src/data/types";
-import { I18nProvider } from "../../src/i18n";
+import { SaiDiagram, TawafDiagram } from "../../src/components/Diagrams";
+import { I18nProvider, strings } from "../../src/i18n";
 
 const inEnglish = (ui: React.ReactNode) => render(<I18nProvider language="en">{ui}</I18nProvider>);
 
@@ -64,5 +65,25 @@ describe("RulingTag", () => {
     );
     expect(screen.getByText("Ibn Baz: Obligatory")).toBeInTheDocument();
     expect(screen.getByText("Ibn Al-Uthaymeen: Sunnah")).toBeInTheDocument();
+  });
+});
+
+describe("Diagrams (T021)", () => {
+  it.each(["ar", "en", "ur"] as const)("keeps Tawaf counter-clockwise and Safa on the left in %s", (language) => {
+    render(
+      <I18nProvider language={language}>
+        <div dir={language === "en" ? "ltr" : "rtl"}>
+          <TawafDiagram />
+          <SaiDiagram />
+        </div>
+      </I18nProvider>,
+    );
+    const [tawaf, sai] = screen.getAllByRole("img");
+    expect(tawaf).toHaveAttribute("dir", "ltr");
+    expect(tawaf.querySelector(".direction-arrow")?.textContent).toBe("↺");
+    expect(sai).toHaveAttribute("dir", "ltr");
+    const labels = sai.querySelectorAll(".sai-labels span");
+    expect(labels[0].textContent).toBe(strings[language].diagrams.safa);
+    expect(labels[1].textContent).toBe(strings[language].diagrams.marwah);
   });
 });

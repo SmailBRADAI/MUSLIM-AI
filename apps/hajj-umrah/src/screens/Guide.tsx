@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { SaiDiagram, TawafDiagram } from "../components/Diagrams";
 import { Icon } from "../components/Icon";
 import { ReviewBadge } from "../components/ReviewBadge";
 import { RulingTag } from "../components/RulingTag";
@@ -115,15 +116,8 @@ export function Guide({
         </div>
         <h2>{t.instructionTitle}</h2>
         <p>{text.instruction}</p>
-        {step.diagram === "tawaf" && (
-          <div className="kaaba-diagram" aria-hidden="true">
-            <span className="orbit orbit-a" />
-            <span className="orbit orbit-b" />
-            <span className="diagram-kaaba"><Icon name="kaaba" size={40} /></span>
-            {/* Tawaf is always counter-clockwise; this must never mirror with text direction. */}
-            <span className="direction-arrow">↺</span>
-          </div>
-        )}
+        {step.diagram === "tawaf" && <TawafDiagram />}
+        {step.diagram === "sai" && <SaiDiagram />}
       </section>
 
       <div className="action-list">

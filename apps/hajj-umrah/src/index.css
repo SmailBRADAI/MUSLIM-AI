@@ -191,3 +191,13 @@ small { color: var(--muted); font-size: 13px; line-height: 1.6; }
 .settings-group { margin-bottom: 26px; }
 .settings-group h2 { margin: 0 0 12px; font-size: 18px; }
 .text-link { color: var(--action); font-weight: 700; }
+
+/* T021 Sa'i diagram: fixed left-to-right, never mirrored. */
+.sai-diagram { margin: 12px 0 0; direction: ltr; color: #e6c990; }
+.sai-diagram svg { display: block; width: 100%; height: auto; }
+.sai-track { stroke: currentColor; stroke-width: 3; }
+.sai-track.back { stroke-dasharray: 6 5; }
+.sai-diagram marker path { fill: currentColor; }
+.sai-hill { fill: rgba(255,255,255,.12); stroke: currentColor; stroke-width: 2; }
+.sai-green { fill: rgba(120,190,140,.35); }
+.sai-labels { display: flex; justify-content: space-between; font-weight: 700; font-size: 14px; }
