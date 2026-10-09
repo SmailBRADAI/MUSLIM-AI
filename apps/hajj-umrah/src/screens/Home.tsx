@@ -4,7 +4,8 @@ import { useT } from "../i18n";
 
 /** Where the pilgrim is in their journey; null while the journey has no content yet. */
 export interface JourneyStatus {
-  /** Title of the first step not done, or null when every step is done. */
+  done: boolean;
+  /** Title of the first step not done; null when done or when its text is missing. */
   currentTitle: string | null;
   /** 0 to 100. */
   percent: number;
@@ -57,7 +58,11 @@ export function Home({ setScreen, status }: { setScreen: (s: Screen) => void; st
             <span className="mini-kaaba"><Icon name="kaaba" /></span>
             <span className="grow">
               <strong>{t.continue}</strong>
-              <small>{status.currentTitle ? `${t.currentStep}: ${status.currentTitle}` : t.allStepsDone}</small>
+              {status.done ? (
+                <small>{t.allStepsDone}</small>
+              ) : (
+                status.currentTitle && <small>{`${t.currentStep}: ${status.currentTitle}`}</small>
+              )}
             </span>
             <span className="progress-number">{status.percent}%</span>
           </div>

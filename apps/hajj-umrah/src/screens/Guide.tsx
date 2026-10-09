@@ -119,8 +119,8 @@ export function Guide({
         </div>
         <h2>{t.instructionTitle}</h2>
         <p>{text.instruction}</p>
-        {step.diagram === "tawaf" && <TawafDiagram />}
-        {step.diagram === "sai" && <SaiDiagram />}
+        {step.diagram === "tawaf" && text.diagramLabel && <TawafDiagram label={text.diagramLabel} />}
+        {step.diagram === "sai" && text.diagramLabel && <SaiDiagram label={text.diagramLabel} />}
       </section>
 
       <div className="action-list">

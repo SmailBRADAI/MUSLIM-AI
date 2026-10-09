@@ -69,21 +69,38 @@ describe("RulingTag", () => {
 });
 
 describe("Diagrams (T021)", () => {
-  it.each(["ar", "en", "ur"] as const)("keeps Tawaf counter-clockwise and Safa on the left in %s", (language) => {
-    render(
+  it.each(["ar", "en", "ur"] as const)("keeps Tawaf counter-clockwise and Safa to Marwah left-to-right in %s", (language) => {
+    const { container } = render(
       <I18nProvider language={language}>
         <div dir={language === "en" ? "ltr" : "rtl"}>
-          <TawafDiagram />
-          <SaiDiagram />
+          <TawafDiagram label="tawaf caption" />
+          <SaiDiagram label="sai caption" />
         </div>
       </I18nProvider>,
     );
-    const [tawaf, sai] = screen.getAllByRole("img");
-    expect(tawaf).toHaveAttribute("dir", "ltr");
-    expect(tawaf.querySelector(".direction-arrow")?.textContent).toBe("↺");
+    expect(container.querySelector(".kaaba-diagram")).toHaveAttribute("dir", "ltr");
+    expect(container.querySelector(".direction-arrow")?.textContent).toBe("↺");
+
+    const sai = container.querySelector(".sai-diagram")!;
     expect(sai).toHaveAttribute("dir", "ltr");
+    const out = sai.querySelector(".sai-track.out")!;
+    // The outward line runs from Safa (left) to Marwah (right) and points at Marwah.
+    expect(Number(out.getAttribute("x1"))).toBeLessThan(Number(out.getAttribute("x2")));
+    const markerId = sai.querySelector("marker")!.id;
+    expect(out.getAttribute("marker-end")).toBe(`url(#${markerId})`);
     const labels = sai.querySelectorAll(".sai-labels span");
     expect(labels[0].textContent).toBe(strings[language].diagrams.safa);
-    expect(labels[1].textContent).toBe(strings[language].diagrams.marwah);
+    expect(labels[2].textContent).toBe(strings[language].diagrams.marwah);
+  });
+
+  it("shows the reviewed caption as visible text", () => {
+    inEnglish(<SaiDiagram label="Safa to Marwah is one round" />);
+    expect(screen.getByText("Safa to Marwah is one round")).toBeVisible();
+  });
+
+  it("gives each Sa'i diagram its own arrow marker id", () => {
+    const { container } = inEnglish(<><SaiDiagram label="a" /><SaiDiagram label="b" /></>);
+    const ids = [...container.querySelectorAll("marker")].map((m) => m.id);
+    expect(new Set(ids).size).toBe(2);
   });
 });

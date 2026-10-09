@@ -76,10 +76,9 @@
   "otherSchools": "Other schools",
   "sources": "Sources",
   "diagrams": {
-    "tawaf": "Tawaf direction: counter-clockwise, with the Kaaba on your left",
-    "sai": "Sa'i: Safa to Marwah is one round, back is another; the green area is between the two markers",
     "safa": "Safa",
-    "marwah": "Marwah"
+    "marwah": "Marwah",
+    "greenMarkers": "Green markers"
   },
   "currentStep": "Current step",
   "allStepsDone": "All steps are done",

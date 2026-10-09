@@ -112,7 +112,8 @@ export default function App() {
   const content = journey ? journeyContent(journey) : null;
   const current = content ? currentStep(content.journey, completed) : null;
   const homeStatus = content && {
-    currentTitle: current ? (content.texts[language][current.id]?.title ?? current.id) : null,
+    done: !current,
+    currentTitle: current ? (content.texts[language][current.id]?.title ?? null) : null,
     percent: Math.round(completion(content.journey, completed) * 100),
   };
 

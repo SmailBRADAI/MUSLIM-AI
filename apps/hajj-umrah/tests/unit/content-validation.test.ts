@@ -47,6 +47,15 @@ describe("validateContent", () => {
     expect(validateContent(files())).toEqual([]);
   });
 
+  it("requires a reviewed caption for a step with a diagram", () => {
+    const withDiagram = files();
+    const journey = withDiagram.journeys["umrah.json"] as { stages: { steps: { diagram?: string }[] }[] };
+    journey.stages[0].steps[0].diagram = "tawaf";
+    expect(validateContent(withDiagram)).toContain('umrah.json: "umrah.tawaf" has a tawaf diagram but no ar diagramLabel');
+    const labelled = { "umrah.json": { "umrah.tawaf": { ...text, diagramLabel: "Kaaba on your left" } } };
+    expect(validateContent({ ...withDiagram, texts: { ar: labelled, en: labelled, ur: labelled } })).toEqual([]);
+  });
+
   it("rejects a step with no source", () => {
     expect(validateContent(files({ source: [] })).join()).toMatch(/source/);
   });
