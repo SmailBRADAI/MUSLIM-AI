@@ -68,8 +68,8 @@
 
 ## Phase 7: User story 5 — Supplications (P2)
 
-- [ ] T034 [US5] `content/supplications.json` with Arabic, transliteration, translations, source, grading, specific-or-general flag
-- [ ] T035 [US5] Supplications screen and per-step list; never label a general remembrance as specific to a step
+- [x] T034 [US5] `content/supplications.json` with Arabic, transliteration, translations, source, grading, specific-or-general flag
+- [ ] T035 [US5] Supplications screen (browse; the per-step highlighted panel is done, FR-030) and per-step list; never label a general remembrance as specific to a step
 - [ ] T036 [US5] Offline audio playback for downloaded audio
 
 ## Phase 8: User stories 6 and 7 — Map and search (P3)
@@ -91,6 +91,7 @@
 - [ ] T040 Size budget check in CI (P1 pack < 15 MB without audio)
 - [x] T052 Content review helper CLI `npm run review` (FR-028): list, show, approve and unapprove with dry run, reviewer check, version bump and validation; unit tests; README "Reviewing" section
 - [x] T053 Step pictures in the Guide (FR-029): five AI-generated illustrations (ihram, ihram rules, prayer behind the Maqam, Sa'i, halq) optimised to WebP in `public/illustrations/`, shown on 11 steps, ar/en/ur descriptions, precached, provenance and known issues in `content/sources/step-pictures.md`; unit test (mapping, files, descriptions)
+- [x] T054 [US5] Per-step highlighted supplications panel (FR-030): `supplicationIds` filled on all steps, loader and validation, panel in Guide in ar/en/ur, unit and e2e tests
 - [ ] T041 Content review: reviewer approves each item; validator confirms 100% approved before release (SC-002)
 
 ## Phase 10: App stores

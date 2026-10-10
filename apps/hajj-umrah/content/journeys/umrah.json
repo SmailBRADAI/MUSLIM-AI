@@ -1,7 +1,7 @@
 {
   "id": "umrah",
   "type": "umrah",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "framework": "ibn-baz+ibn-uthaymeen",
   "stages": [
     {
@@ -12,7 +12,10 @@
           "id": "umrah.ihram",
           "order": 1,
           "ruling": "rukn",
-          "supplicationIds": [],
+          "supplicationIds": [
+            "niyyah-umrah",
+            "talbiyah"
+          ],
           "diagram": [
             "miqat",
             "ihram-dress"
@@ -29,14 +32,16 @@
               "الإمام أحمد، حديث «وليحرم أحدكم في إزار ورداء ونعلين» (كما ورد في صفة العمرة المصورة)"
             ],
             "status": "draft",
-            "version": "0.3.1"
+            "version": "0.3.2"
           }
         },
         {
           "id": "umrah.ihram-rules",
           "order": 2,
           "ruling": "wajib",
-          "supplicationIds": [],
+          "supplicationIds": [
+            "rabbana-general"
+          ],
           "diagram": "ihram-rules",
           "place": "miqat",
           "meta": {
@@ -44,7 +49,7 @@
               "صفة العمرة المصورة، علي بدوي، جمعها من كلام الإمام ابن باز (دار نور الإسلام، 2018)"
             ],
             "status": "draft",
-            "version": "0.3.1"
+            "version": "0.3.2"
           }
         }
       ]
@@ -57,7 +62,11 @@
           "id": "umrah.tawaf",
           "order": 3,
           "ruling": "rukn",
-          "supplicationIds": [],
+          "supplicationIds": [
+            "tawaf-start",
+            "rabbana-tawaf",
+            "tawaf-iman"
+          ],
           "diagram": "tawaf",
           "place": "mataf",
           "meta": {
@@ -70,14 +79,17 @@
               "القرآن الكريم، سورة النور 24:31"
             ],
             "status": "draft",
-            "version": "0.3.1"
+            "version": "0.3.2"
           }
         },
         {
           "id": "umrah.tawaf-prayer",
           "order": 4,
           "ruling": "sunnah",
-          "supplicationIds": [],
+          "supplicationIds": [
+            "maqam-ayah",
+            "two-rakah-surahs"
+          ],
           "place": "maqam",
           "meta": {
             "source": [
@@ -88,7 +100,7 @@
               "صفة العمرة المصورة، علي بدوي، جمعها من كلام الإمام ابن باز (دار نور الإسلام، 2018)"
             ],
             "status": "draft",
-            "version": "0.3.1"
+            "version": "0.3.2"
           }
         },
         {
@@ -96,7 +108,10 @@
           "order": 5,
           "ruling": "rukn",
           "rulingNote": "otherSchools",
-          "supplicationIds": [],
+          "supplicationIds": [
+            "safa-ayah",
+            "safa-marwa-dhikr"
+          ],
           "diagram": "sai",
           "place": "masa",
           "meta": {
@@ -108,7 +123,7 @@
               "صفة العمرة المصورة، علي بدوي، جمعها من كلام الإمام ابن باز (دار نور الإسلام، 2018)"
             ],
             "status": "draft",
-            "version": "0.3.1"
+            "version": "0.3.2"
           }
         }
       ]
@@ -121,7 +136,9 @@
           "id": "umrah.halq",
           "order": 6,
           "ruling": "wajib",
-          "supplicationIds": [],
+          "supplicationIds": [
+            "rabbana-general"
+          ],
           "place": "makkah",
           "meta": {
             "source": [
@@ -132,7 +149,7 @@
               "صفة العمرة المصورة، علي بدوي، جمعها من كلام الإمام ابن باز (دار نور الإسلام، 2018)"
             ],
             "status": "draft",
-            "version": "0.3.1"
+            "version": "0.3.2"
           }
         }
       ]

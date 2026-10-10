@@ -1,7 +1,7 @@
 {
   "id": "hajj-qiran",
   "type": "hajj-qiran",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "framework": "ibn-baz+ibn-uthaymeen",
   "stages": [
     {
@@ -13,7 +13,10 @@
           "id": "hajj-qiran.ihram",
           "order": 1,
           "ruling": "rukn",
-          "supplicationIds": [],
+          "supplicationIds": [
+            "niyyah-qiran",
+            "talbiyah"
+          ],
           "place": "miqat",
           "meta": {
             "source": [
@@ -26,7 +29,7 @@
               "ابن عثيمين، الشرح الممتع على زاد المستقنع، كتاب المناسك"
             ],
             "status": "draft",
-            "version": "0.3.0"
+            "version": "0.3.1"
           }
         },
         {
@@ -34,7 +37,11 @@
           "order": 2,
           "ruling": "sunnah",
           "rulingNote": "otherSchools",
-          "supplicationIds": [],
+          "supplicationIds": [
+            "tawaf-start",
+            "rabbana-tawaf",
+            "tawaf-iman"
+          ],
           "diagram": "tawaf",
           "place": "mataf",
           "meta": {
@@ -46,14 +53,17 @@
               "ابن قدامة، المغني، كتاب الحج"
             ],
             "status": "draft",
-            "version": "0.3.0"
+            "version": "0.3.1"
           }
         },
         {
           "id": "hajj-qiran.tawaf-prayer",
           "order": 3,
           "ruling": "sunnah",
-          "supplicationIds": [],
+          "supplicationIds": [
+            "maqam-ayah",
+            "two-rakah-surahs"
+          ],
           "place": "maqam",
           "meta": {
             "source": [
@@ -63,7 +73,7 @@
               "ابن عثيمين، مناسك الحج والعمرة والمشروع في الزيارة"
             ],
             "status": "draft",
-            "version": "0.3.0"
+            "version": "0.3.1"
           }
         },
         {
@@ -71,7 +81,10 @@
           "order": 4,
           "ruling": "rukn",
           "rulingNote": "otherSchools",
-          "supplicationIds": [],
+          "supplicationIds": [
+            "safa-ayah",
+            "safa-marwa-dhikr"
+          ],
           "diagram": "sai",
           "place": "masa",
           "meta": {
@@ -83,7 +96,7 @@
               "ابن قدامة، المغني، كتاب الحج"
             ],
             "status": "draft",
-            "version": "0.3.0"
+            "version": "0.3.1"
           }
         }
       ]
@@ -97,7 +110,9 @@
           "id": "hajj-qiran.mina-tarwiyah",
           "order": 5,
           "ruling": "sunnah",
-          "supplicationIds": [],
+          "supplicationIds": [
+            "rabbana-general"
+          ],
           "place": "mina",
           "meta": {
             "source": [
@@ -106,7 +121,7 @@
               "ابن عثيمين، مناسك الحج والعمرة والمشروع في الزيارة"
             ],
             "status": "draft",
-            "version": "0.3.0"
+            "version": "0.3.1"
           }
         }
       ]
@@ -121,7 +136,9 @@
           "order": 6,
           "ruling": "rukn",
           "rulingNote": "otherSchools",
-          "supplicationIds": [],
+          "supplicationIds": [
+            "arafah-dua"
+          ],
           "place": "arafah",
           "meta": {
             "source": [
@@ -134,7 +151,7 @@
               "ابن قدامة، المغني، كتاب الحج"
             ],
             "status": "draft",
-            "version": "0.3.0"
+            "version": "0.3.1"
           }
         }
       ]
@@ -149,7 +166,9 @@
           "order": 7,
           "ruling": "wajib",
           "rulingNote": "otherSchools",
-          "supplicationIds": [],
+          "supplicationIds": [
+            "muzdalifah-dhikr"
+          ],
           "place": "muzdalifah",
           "meta": {
             "source": [
@@ -162,14 +181,16 @@
               "ابن قدامة، المغني، كتاب الحج"
             ],
             "status": "draft",
-            "version": "0.3.0"
+            "version": "0.3.1"
           }
         },
         {
           "id": "hajj-qiran.jamrat-aqabah",
           "order": 8,
           "ruling": "wajib",
-          "supplicationIds": [],
+          "supplicationIds": [
+            "jamarah-takbir"
+          ],
           "place": "jamarat",
           "meta": {
             "source": [
@@ -179,14 +200,16 @@
               "ابن عثيمين، مناسك الحج والعمرة والمشروع في الزيارة"
             ],
             "status": "draft",
-            "version": "0.3.0"
+            "version": "0.3.1"
           }
         },
         {
           "id": "hajj-qiran.hady",
           "order": 9,
           "ruling": "wajib",
-          "supplicationIds": [],
+          "supplicationIds": [
+            "hady-bismillah"
+          ],
           "place": "mina",
           "meta": {
             "source": [
@@ -196,14 +219,16 @@
               "ابن عثيمين، الشرح الممتع على زاد المستقنع، كتاب المناسك"
             ],
             "status": "draft",
-            "version": "0.3.0"
+            "version": "0.3.1"
           }
         },
         {
           "id": "hajj-qiran.halq",
           "order": 10,
           "ruling": "wajib",
-          "supplicationIds": [],
+          "supplicationIds": [
+            "rabbana-general"
+          ],
           "place": "mina",
           "meta": {
             "source": [
@@ -215,14 +240,18 @@
               "ابن عثيمين، مناسك الحج والعمرة والمشروع في الزيارة"
             ],
             "status": "draft",
-            "version": "0.3.0"
+            "version": "0.3.1"
           }
         },
         {
           "id": "hajj-qiran.tawaf-ifadah",
           "order": 11,
           "ruling": "rukn",
-          "supplicationIds": [],
+          "supplicationIds": [
+            "tawaf-start",
+            "rabbana-tawaf",
+            "tawaf-iman"
+          ],
           "diagram": "tawaf",
           "place": "mataf",
           "meta": {
@@ -233,7 +262,7 @@
               "ابن عثيمين، مناسك الحج والعمرة والمشروع في الزيارة"
             ],
             "status": "draft",
-            "version": "0.3.0"
+            "version": "0.3.1"
           }
         }
       ]
@@ -248,7 +277,9 @@
           "order": 12,
           "ruling": "wajib",
           "rulingNote": "otherSchools",
-          "supplicationIds": [],
+          "supplicationIds": [
+            "rabbana-general"
+          ],
           "place": "mina",
           "meta": {
             "source": [
@@ -259,7 +290,7 @@
               "ابن قدامة، المغني، كتاب الحج"
             ],
             "status": "draft",
-            "version": "0.3.0"
+            "version": "0.3.1"
           }
         },
         {
@@ -267,7 +298,9 @@
           "order": 13,
           "ruling": "wajib",
           "rulingNote": "otherSchools",
-          "supplicationIds": [],
+          "supplicationIds": [
+            "jamarah-takbir"
+          ],
           "place": "jamarat",
           "meta": {
             "source": [
@@ -279,7 +312,7 @@
               "ابن قدامة، المغني، كتاب الحج"
             ],
             "status": "draft",
-            "version": "0.3.0"
+            "version": "0.3.1"
           }
         }
       ]
@@ -294,7 +327,9 @@
           "order": 14,
           "ruling": "wajib",
           "rulingNote": "otherSchools",
-          "supplicationIds": [],
+          "supplicationIds": [
+            "jamarah-takbir"
+          ],
           "place": "jamarat",
           "meta": {
             "source": [
@@ -305,7 +340,7 @@
               "ابن قدامة، المغني، كتاب الحج"
             ],
             "status": "draft",
-            "version": "0.3.0"
+            "version": "0.3.1"
           }
         }
       ]
@@ -319,7 +354,9 @@
           "id": "hajj-qiran.jamarat-13",
           "order": 15,
           "ruling": "wajib",
-          "supplicationIds": [],
+          "supplicationIds": [
+            "jamarah-takbir"
+          ],
           "place": "jamarat",
           "meta": {
             "source": [
@@ -329,7 +366,7 @@
               "ابن عثيمين، مناسك الحج والعمرة والمشروع في الزيارة"
             ],
             "status": "draft",
-            "version": "0.3.0"
+            "version": "0.3.1"
           }
         }
       ]
@@ -344,7 +381,11 @@
           "order": 16,
           "ruling": "wajib",
           "rulingNote": "otherSchools",
-          "supplicationIds": [],
+          "supplicationIds": [
+            "tawaf-start",
+            "rabbana-tawaf",
+            "tawaf-iman"
+          ],
           "diagram": "tawaf",
           "place": "mataf",
           "meta": {
@@ -355,7 +396,7 @@
               "ابن قدامة، المغني، كتاب الحج"
             ],
             "status": "draft",
-            "version": "0.3.0"
+            "version": "0.3.1"
           }
         }
       ]

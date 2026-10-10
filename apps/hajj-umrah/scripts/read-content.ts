@@ -4,10 +4,12 @@ import { join } from "node:path";
 import { LANGUAGES } from "./content-validation.ts";
 import type { ContentFiles } from "./content-validation.ts";
 
+const SUPPLICATIONS_FILE = "supplications.json";
 export const appDir = join(import.meta.dirname, "..");
 export const defaultContentDir = join(appDir, "content");
 const readJson = (path: string) => JSON.parse(readFileSync(path, "utf8"));
-const jsonFiles = (dir: string) => (existsSync(dir) ? readdirSync(dir).filter((f) => f.endsWith(".json")).sort() : []);
+const jsonFiles = (dir: string) =>
+  existsSync(dir) ? readdirSync(dir).filter((f) => f.endsWith(".json") && f !== SUPPLICATIONS_FILE).sort() : [];
 
 /** Reads the real content, or a copy of the content folder (the review helper tests use one). */
 export function readContent(contentDir: string = defaultContentDir): ContentFiles {
@@ -16,6 +18,13 @@ export function readContent(contentDir: string = defaultContentDir): ContentFile
     schema: readJson(join(appDir, "../../specs/001-hajj-umrah-companion/contracts/content-pack.schema.json")),
     reviewers: readJson(join(contentDir, "reviewers.json")),
     journeys: Object.fromEntries(jsonFiles(journeysDir).map((f) => [f, readJson(join(journeysDir, f))])),
+    supplications: existsSync(join(contentDir, SUPPLICATIONS_FILE)) ? readJson(join(contentDir, SUPPLICATIONS_FILE)) : { items: [] },
+    supplicationTexts: Object.fromEntries(
+      LANGUAGES.map((lang) => {
+        const file = join(contentDir, "i18n", lang, SUPPLICATIONS_FILE);
+        return [lang, existsSync(file) ? readJson(file) : {}];
+      }),
+    ),
     texts: Object.fromEntries(
       LANGUAGES.map((lang) => {
         const dir = join(contentDir, "i18n", lang);

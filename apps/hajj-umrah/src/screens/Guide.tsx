@@ -6,6 +6,7 @@ import { Icon } from "../components/Icon";
 import { LiveMode } from "../components/LiveMode";
 import { LockCard, WakeLockSwitch } from "../components/LockCard";
 import { PlaceVisual } from "../components/PlaceVisual";
+import { supplicationsOf } from "../data/supplications";
 import { ReviewBadge } from "../components/ReviewBadge";
 import { RulingTag } from "../components/RulingTag";
 import { useSwipe } from "../components/useSwipe";
@@ -109,6 +110,7 @@ export function Guide({
   const moved = useRef(false);
   const step = steps[index];
   const text = texts[step.id];
+  const supplications = supplicationsOf(step, language);
 
   // After an action changes the step or removes the focused button, put focus on the step title
   // so screen readers announce where the pilgrim is.
@@ -290,8 +292,37 @@ export function Guide({
       </div>
       <p className="visually-hidden" role="status">{swiped}</p>
 
+      {/* T054, FR-030: the recommended supplications, highlighted. A general remembrance is labelled as such. */}
+      {supplications.length > 0 && (
+        <section className="supplications-panel" aria-labelledby="supplications-title">
+          <h2 id="supplications-title"><Icon name="sparkle" size={18} />{t.supplications.title}</h2>
+          <ul>
+            {supplications.map(({ supplication, text: s }) => (
+              <li key={supplication.id} className={`supplication ${supplication.scope}`}>
+                <div className="supplication-head">
+                  <strong>{s.title}</strong>
+                  <span className={`scope-tag ${supplication.scope}`}>
+                    {supplication.scope === "specific" ? t.supplications.specific : t.supplications.general}
+                  </span>
+                  <ReviewBadge status={displayStatus(supplication, s)} />
+                </div>
+                <p className="supplication-arabic" lang="ar" dir="rtl">{supplication.arabic}</p>
+                {s.transliteration && <p className="supplication-translit" lang="en" dir="ltr"><span>{t.supplications.transliteration}: </span>{s.transliteration}</p>}
+                {s.meaning && <p className="supplication-meaning"><span>{t.supplications.meaning}: </span>{s.meaning}</p>}
+                <p className="supplication-when"><span>{t.supplications.when}: </span>{s.when}</p>
+                <p className="supplication-source">
+                  <span>{t.supplications.source}: </span>
+                  <bdi lang="ar" dir="rtl">{supplication.meta.source.join("؛ ")}</bdi>
+                  {" · "}{t.supplications.grading[supplication.grading]}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
       <div className="action-list">
-        {/* TODO(T035, T036): related supplications and audio, shown only when the step has them. */}
+        {/* TODO(T036): audio, shown only when the step has it. */}
         <button className="action-row" onClick={() => setDetails(!details)} aria-expanded={details} aria-controls="step-details">
           <span className="action-icon sage"><Icon name="book" /></span>
           <span className="grow"><strong>{t.details}</strong></span>

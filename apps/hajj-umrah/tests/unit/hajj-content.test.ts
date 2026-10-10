@@ -23,12 +23,11 @@ describe("Hajj journeys (T031)", () => {
         expect(steps.at(-1)?.id).toBe(`${id}.tawaf-wada`);
       });
 
-      it("is draft, cites both sheikhs on every step, and has no supplications yet (T034)", () => {
+      it("is draft and cites both sheikhs on every step", () => {
         for (const step of steps) {
           expect(step.meta.status).toBe("draft");
           expect(step.meta.source.some((s) => IBN_BAZ.test(s)), step.id).toBe(true);
           expect(step.meta.source.some((s) => IBN_UTHAYMEEN.test(s)), step.id).toBe(true);
-          expect(step.supplicationIds).toEqual([]);
         }
       });
 

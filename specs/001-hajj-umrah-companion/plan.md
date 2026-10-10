@@ -201,6 +201,13 @@ interface StepText {
 - `main` is published to GitHub Pages (`.github/workflows/hajj-umrah-pages.yml`) at `https://<owner>.github.io/MUSLIM-AI/`, so the app can be installed on a phone over https and tested offline. The site is public but unlisted; it is a test site, not a release (store release is Phase 6).
 - The app uses relative paths (Vite `base`, manifest `start_url: "./"`), so it works under a sub-path.
 
+## Supplications per step (T034, T054)
+
+- Data: `content/supplications.json` (id, kind, scope specific|general, Arabic, grading, meta) and per-language `content/i18n/<lang>/supplications.json` (title, when, meaning, transliteration for en, review). All entries start as draft.
+- Validation: every `supplicationIds` entry on a step exists; each supplication has at least one source; scope is specific or general; each language has a text for each id.
+- Loader: `src/data/content.ts` exposes `supplicationsOf(step, lang)`; the Guide renders a highlighted panel after the step details with the scope label, source, grading and review badge.
+- Risk: Arabic texts and sources were drafted without online verification; the content reviewer must verify each before approval.
+
 ## Risks
 
 - **Content review is the critical path.** Code can ship with draft content marked as pending, but nothing should be presented as authoritative until reviewed. The clarifications in the spec must be answered first.

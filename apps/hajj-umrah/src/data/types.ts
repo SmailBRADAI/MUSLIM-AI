@@ -107,3 +107,30 @@ export function displayStatus(step: Pick<Step, "meta">, text: Pick<StepText, "re
   if (step.meta.status === "approved" && text.review.status === "approved") return "approved";
   return step.meta.status === "draft" || text.review.status === "draft" ? "draft" : "in-review";
 }
+
+/** A supplication or remembrance (T034, FR-030). Arabic is in content/supplications.json; the rest is per language. */
+export const SUPPLICATION_SCOPES = ["specific", "general"] as const;
+export const GRADINGS = ["sahih", "hasan", "reported"] as const;
+export type Grading = (typeof GRADINGS)[number];
+export const SUPPLICATION_KINDS = ["talbiyah", "dua", "dhikr", "recitation"] as const;
+
+export interface Supplication {
+  id: string;
+  kind: (typeof SUPPLICATION_KINDS)[number];
+  /** specific: tied to this moment in the sources. general: a remembrance the pilgrim may say at any time. */
+  scope: (typeof SUPPLICATION_SCOPES)[number];
+  arabic: string;
+  grading: Grading;
+  meta: ContentMeta;
+}
+
+/** Per-language text of a supplication, keyed by supplication id in content/i18n/{lang}/supplications.json. */
+export interface SupplicationText {
+  title: string;
+  when: string;
+  /** Absent in Arabic. */
+  meaning?: string;
+  /** English only. */
+  transliteration?: string;
+  review: TextReview;
+}
