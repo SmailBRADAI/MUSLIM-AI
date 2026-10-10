@@ -112,7 +112,7 @@ small { color: var(--muted); font-size: 13px; line-height: 1.6; }
 
 .guide-page { padding-top: 30px; }
 .guide-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 15px; }
-.guide-heading h1 { margin: 5px 0 0; font-size: 30px; line-height: 1.3; }
+.guide-heading h1 { margin: 5px 0 0; font-size: clamp(38px, 10vw, 48px); line-height: 1.25; }
 .step-pill { flex: 0 0 auto; padding: 7px 12px; border-radius: 99px; color: var(--action); background: var(--sage); font-family: "Manrope", sans-serif; font-weight: 700; font-size: 13px; direction: ltr; }
 .progress-panel { margin: 22px 0 18px; padding: 16px 18px 14px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); }
 .progress-label { display: flex; justify-content: space-between; font-size: 14px; font-weight: 700; }
@@ -373,3 +373,11 @@ small { color: var(--muted); font-size: 13px; line-height: 1.6; }
 .supplications-panel .tag.pending { border: 1px dashed var(--muted); background: transparent; }
 .scope-tag { padding: 5px 9px; border-radius: 99px; font-size: 12px; font-weight: 700; color: #fff; background: var(--forest); }
 .scope-tag.general { color: var(--forest); background: transparent; border: 1px solid var(--forest); }
+.all-steps { margin: 14px 0 16px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
+.all-steps summary { min-height: 44px; gap: 8px; display: flex; align-items: center; padding: 0 16px; font-size: 15px; font-weight: 700; cursor: pointer; }
+.all-steps[open] { padding-bottom: 12px; }
+.all-steps > ol { padding: 0 12px; }
+.guide-settings { margin: 12px 0 14px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
+.guide-settings summary { min-height: 44px; display: flex; align-items: center; gap: 8px; padding: 0 16px; font-size: 15px; font-weight: 700; cursor: pointer; }
+.guide-settings > :not(summary) { margin-inline: 12px; }
+.guide-settings[open] { padding-bottom: 12px; }

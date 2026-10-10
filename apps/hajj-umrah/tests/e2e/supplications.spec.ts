@@ -6,6 +6,7 @@ import { onboard } from "./helpers";
 test("Tawaf step lists its supplications, accessibly", async ({ page }) => {
   await onboard(page, "English");
   await page.locator(".nav-item").nth(1).click();
+  await page.locator(".all-steps:not([open]) summary").click({ timeout: 1000 }).catch(() => undefined);
   await page.locator(".steps button").nth(2).click();
   const panel = page.getByRole("region", { name: "Recommended supplications" });
   await expect(panel).toBeVisible();
