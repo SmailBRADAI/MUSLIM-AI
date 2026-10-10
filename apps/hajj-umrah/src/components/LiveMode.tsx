@@ -126,8 +126,12 @@ export function LiveMode({
   busy?: boolean;
 }) {
   const t = useT();
-  const geo = useGeolocation(on);
-  const shown = useSettled(geo ? keyOf(geo) : "off", SETTLE_MS);
+  // FR-033: test mode simulates a place so the experience can be tried anywhere; the real location is not read.
+  const [testMode, setTestMode] = useState(false);
+  const [testPlace, setTestPlace] = useState("");
+  const geo = useGeolocation(on && !testMode);
+  const settled = useSettled(geo ? keyOf(geo) : "off", SETTLE_MS);
+  const shown = on && testMode ? (testPlace ? `near:${testPlace}` : "waiting") : settled;
   const region = shown.startsWith("near:") ? regionById(shown.slice(5)) : undefined;
   const suggestion = region ? suggestStep(journey, completed, region) : null;
   const suggestedTitle = suggestion ? (texts[suggestion.id]?.title ?? suggestion.id) : "";
@@ -136,7 +140,7 @@ export function LiveMode({
   const switchRef = useRef<HTMLButtonElement>(null);
 
   let message = "";
-  if (shown === "waiting") message = t.live.finding;
+  if (shown === "waiting") message = testMode ? t.live.testChoose : t.live.finding;
   else if (shown === "uncertain") message = t.live.uncertain;
   else if (shown === "outside") message = t.live.outside;
   else if (shown === "unsupported") message = t.live.errors.unsupported;
@@ -179,7 +183,26 @@ export function LiveMode({
       </div>
 
       {on && (
+        <div className="live-test">
+          <label className="live-test-toggle">
+            <input type="checkbox" checked={testMode} onChange={(event) => { setTestMode(event.target.checked); setTestPlace(""); }} />
+            <span>{t.live.testToggle}</span>
+          </label>
+          {testMode && (
+            <>
+              <small>{t.live.testHint}</small>
+              <select value={testPlace} onChange={(event) => setTestPlace(event.target.value)} aria-label={t.live.testSelect}>
+                <option value="">{t.live.testChoose}</option>
+                {GEO_REGIONS.map((r) => <option key={r.id} value={r.id}>{regionSentence(t, r)}</option>)}
+              </select>
+            </>
+          )}
+        </div>
+      )}
+
+      {on && (
         <div className="live-body">
+          {testMode && <p className="live-note live-test-banner"><Icon name="shield" size={16} />{t.live.testBanner}</p>}
           {region ? (
             <>
               <PlaceVisual place={region.place} caption={sentence} />

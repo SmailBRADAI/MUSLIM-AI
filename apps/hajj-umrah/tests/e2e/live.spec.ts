@@ -99,3 +99,17 @@ test.describe("without permission", () => {
     await expect(live).toBeFocused();
   });
 });
+
+test("test mode: try Live mode anywhere by picking a place, without location permission", async ({ page }) => {
+  await onboard(page, "English");
+  await openGuide(page);
+  await openSettings(page);
+  await page.getByRole("switch", { name: en.live.title }).click();
+  await page.getByRole("checkbox", { name: en.live.testToggle }).check();
+  await expect(page.locator(".live-card")).toContainText(en.live.testBanner);
+  await page.getByRole("combobox", { name: en.live.testSelect }).selectOption({ label: en.live.regions.arafah });
+  const card = page.locator(".live-card");
+  await expect(card.locator("figcaption")).toHaveText(en.live.regions.arafah);
+  await expect(card.locator(".place-stop.here")).toHaveAttribute("data-stop", "arafah");
+  await expectAccessible(page);
+});
