@@ -216,6 +216,10 @@ interface StepText {
 - The bottom navigation loses its Settings tab; Home's offline card opens the panel.
 - Step hero: when `pictureOf(step.id)` exists the heading block is drawn over the picture with a dark scrim; otherwise the heading is unchanged.
 
+## Live mode test mode (T057)
+
+- `LiveMode` has a "Test mode" checkbox (visible while Live mode is on) and a select of `GEO_REGIONS`. In test mode `useGeolocation` is disabled and the key `near:<id>` of the chosen region drives the same card; a banner states the place is simulated. State is local to the component, so it is gone on the next launch.
+
 ## Risks
 
 - **Content review is the critical path.** Code can ship with draft content marked as pending, but nothing should be presented as authoritative until reviewed. The clarifications in the spec must be answered first.

@@ -396,3 +396,9 @@ small { color: var(--muted); font-size: 13px; line-height: 1.6; }
 .language-ur { font-family: "Noto Nastaliq Urdu", serif; }
 .language-ur .place-labels { line-height: 2; }
 .language-ur .live-card, .language-ur .setting-card { line-height: 2; }
+
+/* FR-033: Live mode test mode */
+.live-test { display: grid; gap: 8px; padding: 10px 0 4px; }
+.live-test-toggle { min-height: 44px; display: flex; align-items: center; gap: 10px; font-weight: 700; cursor: pointer; }
+.live-test-toggle input { width: 22px; height: 22px; }
+.live-test select { min-height: 48px; width: 100%; padding: 0 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); color: var(--ink); font: inherit; }

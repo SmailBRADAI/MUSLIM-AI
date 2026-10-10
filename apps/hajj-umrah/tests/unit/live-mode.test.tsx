@@ -260,3 +260,33 @@ describe("Live mode wording near boundaries (T048, constitution I)", () => {
     }
   });
 });
+
+describe("Live mode test mode (T057, FR-033)", () => {
+  it("is off by default, lets you pick a place without reading the real location, and says it is simulated", async () => {
+    const geo = mockGeolocation();
+    renderGuide("umrah", []);
+    await userEvent.click(liveSwitch());
+    expect(geo.watchPosition).toHaveBeenCalledTimes(1);
+    const testBox = screen.getByRole("checkbox", { name: "Test mode" });
+    expect(testBox).not.toBeChecked();
+
+    await userEvent.click(testBox);
+    expect(geo.clearWatch).toHaveBeenCalled();
+    expect(shown(strings.en.live.testBanner)).toBeInTheDocument();
+    await userEvent.selectOptions(screen.getByRole("combobox", { name: "Simulated place" }), screen.getByRole("option", { name: "You seem to be in the Mataf" }));
+    const card = screen.getByRole("region", { name: "Live mode" });
+    expect(card).toHaveTextContent("Suggested stepTawaf");
+    expect(card.querySelector(".place-part.here")).toHaveAttribute("data-part", "mataf");
+    expect(status()).toHaveTextContent("You seem to be in the Mataf. Suggested step: Tawaf");
+  });
+
+  it("returns to the real location when test mode is turned off", async () => {
+    const geo = mockGeolocation();
+    renderGuide("umrah", []);
+    await userEvent.click(liveSwitch());
+    await userEvent.click(screen.getByRole("checkbox", { name: "Test mode" }));
+    await userEvent.click(screen.getByRole("checkbox", { name: "Test mode" }));
+    expect(geo.watchPosition).toHaveBeenCalledTimes(2);
+    expect(shown(strings.en.live.finding)).toBeInTheDocument();
+  });
+});
