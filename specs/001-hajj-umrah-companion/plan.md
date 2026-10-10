@@ -227,6 +227,12 @@ interface StepText {
 - `Sites` loads the weather when opened and online, with loading, offline and failed states and a refresh button.
 - The AI helper is a separate step (T059).
 
+## Ask helper (T059)
+
+- `src/data/ask.ts`: `buildDocs` turns the journey's steps and every supplication (current language) into searchable documents with weights (title 4, instruction 2, details and mistakes 1); `search` normalises Arabic and Urdu letters, drops stop words, matches word starts, ranks by weight and by how many question words match, and returns the best sentence as the excerpt. No text is generated.
+- `Ask` shows the results with the passage, sources and review badge, and "Open this step" (Guide opens on that step via `startStepId`). No match: a message and a pointer to a scholar.
+- A language-model answer (summaries in the pilgrim's words) would need a server and an API key and a retrieval step that quotes the same reviewed content; it is not part of this task.
+
 ## Risks
 
 - **Content review is the critical path.** Code can ship with draft content marked as pending, but nothing should be presented as authoritative until reviewed. The clarifications in the spec must be answered first.

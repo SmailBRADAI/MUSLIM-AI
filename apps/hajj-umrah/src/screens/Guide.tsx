@@ -77,6 +77,7 @@ export function Guide({
   onLockCardChange,
   settingsSlot,
   closeSettings,
+  startStepId,
 }: {
   journey: Journey;
   texts: StepTexts;
@@ -94,12 +95,16 @@ export function Guide({
   settingsSlot?: HTMLElement | null;
   /** Closes the settings panel, e.g. after Live mode opens a step. */
   closeSettings?: () => void;
+  /** Opens on this step instead of the first one not done (from a search result). */
+  startStepId?: string;
 }) {
   const t = useT();
   const language = useLanguage();
   const rtl = isRtl(language);
   const steps = orderedSteps(journey);
   const [index, setIndex] = useState(() => {
+    const start = startStepId ? steps.findIndex((s) => s.id === startStepId) : -1;
+    if (start >= 0) return start;
     const current = currentStep(journey, completed);
     return current ? steps.indexOf(current) : steps.length - 1;
   });

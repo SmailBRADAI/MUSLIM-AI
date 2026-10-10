@@ -417,3 +417,19 @@ small { color: var(--muted); font-size: 13px; line-height: 1.6; }
 .site-facts, .site-advice, .site-facilities { margin: 6px 0; padding-inline-start: 20px; line-height: 1.7; }
 .site-advice li { margin-bottom: 6px; font-weight: 700; }
 .site-card small { color: var(--muted); }
+
+/* FR-035: Ask page */
+.ask-page h1 { margin: 6px 0 8px; }
+.ask-intro { margin: 0 0 14px; color: var(--muted); line-height: 1.7; }
+.ask-form { display: grid; gap: 10px; margin-bottom: 18px; }
+.ask-form label { font-weight: 700; }
+.ask-form input { min-height: 52px; padding: 0 14px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); color: var(--ink); font: inherit; }
+.ask-results { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.ask-result { padding: 14px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
+.ask-result-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.ask-result-head .tag { color: var(--forest); background: var(--sage-pale); border: 1px solid var(--line); }
+.ask-result-head .tag.pending { border: 1px dashed var(--muted); background: transparent; }
+.ask-result h3 { margin: 6px 0; font-size: 18px; }
+.ask-result p { margin: 6px 0; line-height: 1.7; }
+.ask-sources, .ask-scholar { color: var(--muted); font-size: 14px; }
+.ask-scholar { display: flex; gap: 8px; margin-top: 14px; }
