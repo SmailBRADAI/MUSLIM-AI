@@ -43,7 +43,7 @@ describe("App", () => {
     await userEvent.click(await screen.findByRole("button", { name: "English" }));
     await userEvent.click(screen.getByRole("button", { name: /Umrah rituals/ }));
     expect(screen.getByText("Pillar")).toBeInTheDocument();
-    expect(screen.getByText("Pending scholarly review")).toBeInTheDocument();
+    expect(screen.getAllByText("Pending scholarly review").length).toBeGreaterThan(0);
     expect(screen.queryByText(/Reviewed content/)).not.toBeInTheDocument();
   });
 

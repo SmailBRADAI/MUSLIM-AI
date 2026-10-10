@@ -16,6 +16,7 @@ const languages = [
 
 async function openStep(page: Page, n: number) {
   await page.locator(".nav-item").nth(1).click();
+  await page.locator(".all-steps:not([open]) summary").click({ timeout: 1000 }).catch(() => undefined);
   await page.locator(".steps button").nth(n - 1).click();
 }
 

@@ -6,6 +6,7 @@ import { Icon } from "../components/Icon";
 import { LiveMode } from "../components/LiveMode";
 import { LockCard, WakeLockSwitch } from "../components/LockCard";
 import { PlaceVisual } from "../components/PlaceVisual";
+import { supplicationsOf } from "../data/supplications";
 import { ReviewBadge } from "../components/ReviewBadge";
 import { RulingTag } from "../components/RulingTag";
 import { useSwipe } from "../components/useSwipe";
@@ -109,6 +110,7 @@ export function Guide({
   const moved = useRef(false);
   const step = steps[index];
   const text = texts[step.id];
+  const supplications = supplicationsOf(step, language);
 
   // After an action changes the step or removes the focused button, put focus on the step title
   // so screen readers announce where the pilgrim is.
@@ -197,39 +199,43 @@ export function Guide({
         </div>
         <span className="step-pill">{index + 1} / {steps.length}</span>
       </div>
-      {/* T048: suggests the step for where the pilgrim seems to be; the location is watched only while
-          this is on and the Guide is open, and never leaves the device. */}
-      {onLiveChange && (
-        <LiveMode
-          on={live}
-          onChange={onLiveChange}
-          journey={journey}
-          texts={texts}
-          completed={completed}
-          openStepId={step.id}
-          onGoToStep={(id) => goTo(steps.findIndex((s) => s.id === id))}
-          busy={saving}
-        />
-      )}
-      {onLockCardChange && (
-        <LockCard
-          on={lockCard}
-          onChange={onLockCardChange}
-          step={step}
-          text={text}
-          index={index}
-          total={steps.length}
-          finished={percent === 100}
-          onMove={(delta) => {
-            const target = index + delta;
-            if (target >= 0 && target < steps.length) goTo(target);
-          }}
-        />
-      )}
-      <WakeLockSwitch on={keepAwake} onChange={setKeepAwake} />
-      <section className="progress-panel">
-        <div className="progress-label"><span>{t.progress}</span><strong>{percent}%</strong></div>
-        <div className="progress-track"><span style={{ width: `${percent}%` }} /></div>
+      {/* The switches live in one settings panel, closed by default, instead of on every step. */}
+      <details className="guide-settings">
+        <summary><Icon name="settings" size={18} />{t.settings}</summary>
+        {/* T048: suggests the step for where the pilgrim seems to be; the location is watched only while
+            this is on and the Guide is open, and never leaves the device. */}
+        {onLiveChange && (
+          <LiveMode
+            on={live}
+            onChange={onLiveChange}
+            journey={journey}
+            texts={texts}
+            completed={completed}
+            openStepId={step.id}
+            onGoToStep={(id) => goTo(steps.findIndex((s) => s.id === id))}
+            busy={saving}
+          />
+        )}
+        {onLockCardChange && (
+          <LockCard
+            on={lockCard}
+            onChange={onLockCardChange}
+            step={step}
+            text={text}
+            index={index}
+            total={steps.length}
+            finished={percent === 100}
+            onMove={(delta) => {
+              const target = index + delta;
+              if (target >= 0 && target < steps.length) goTo(target);
+            }}
+          />
+        )}
+        <WakeLockSwitch on={keepAwake} onChange={setKeepAwake} />
+      </details>
+      {/* The timeline is tucked away: closed by default, still the way to open any step (T023). */}
+      <details className="all-steps">
+        <summary><span className="grow">{t.stepList}</span><strong>{percent}%</strong></summary>
         {/* T023: any step can be opened from here, and steps may be done in any order. */}
         {byDay ? (
           // T032: the same step buttons, grouped under each day or part of the Hajj.
@@ -248,7 +254,7 @@ export function Guide({
             {steps.map((s, i) => stepButton(s, i))}
           </ol>
         )}
-      </section>
+      </details>
 
       {/* T047: where this step is performed, above the step content. Content is validated in CI, but an
           unknown place must not crash the guide. */}
@@ -290,8 +296,37 @@ export function Guide({
       </div>
       <p className="visually-hidden" role="status">{swiped}</p>
 
+      {/* T054, FR-030: the recommended supplications, highlighted. A general remembrance is labelled as such. */}
+      {supplications.length > 0 && (
+        <section className="supplications-panel" aria-labelledby="supplications-title">
+          <h2 id="supplications-title"><Icon name="sparkle" size={18} />{t.supplications.title}</h2>
+          <ul>
+            {supplications.map(({ supplication, text: s }) => (
+              <li key={supplication.id} className={`supplication ${supplication.scope}`}>
+                <div className="supplication-head">
+                  <strong>{s.title}</strong>
+                  <span className={`scope-tag ${supplication.scope}`}>
+                    {supplication.scope === "specific" ? t.supplications.specific : t.supplications.general}
+                  </span>
+                  <ReviewBadge status={displayStatus(supplication, s)} />
+                </div>
+                <p className="supplication-arabic" lang="ar" dir="rtl">{supplication.arabic}</p>
+                {s.transliteration && <p className="supplication-translit" lang="en" dir="ltr"><span>{t.supplications.transliteration}: </span>{s.transliteration}</p>}
+                {s.meaning && <p className="supplication-meaning"><span>{t.supplications.meaning}: </span>{s.meaning}</p>}
+                <p className="supplication-when"><span>{t.supplications.when}: </span>{s.when}</p>
+                <p className="supplication-source">
+                  <span>{t.supplications.source}: </span>
+                  <bdi lang="ar" dir="rtl">{supplication.meta.source.join("؛ ")}</bdi>
+                  {" · "}{t.supplications.grading[supplication.grading]}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
       <div className="action-list">
-        {/* TODO(T035, T036): related supplications and audio, shown only when the step has them. */}
+        {/* TODO(T036): audio, shown only when the step has it. */}
         <button className="action-row" onClick={() => setDetails(!details)} aria-expanded={details} aria-controls="step-details">
           <span className="action-icon sage"><Icon name="book" /></span>
           <span className="grow"><strong>{t.details}</strong></span>

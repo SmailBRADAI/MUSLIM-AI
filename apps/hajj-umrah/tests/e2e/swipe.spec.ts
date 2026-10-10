@@ -6,7 +6,10 @@ import ar from "../../src/i18n/ar.json" with { type: "json" };
 import en from "../../src/i18n/en.json" with { type: "json" };
 import { onboard } from "./helpers";
 
-const openGuide = (page: Page) => page.locator(".nav-item").nth(1).click();
+const openGuide = async (page: Page) => {
+  await page.locator(".nav-item").nth(1).click();
+  await page.locator(".guide-settings summary").click();
+};
 
 /** A real touch drag from (x, y) by dx, through Chrome's input pipeline, so touch-action applies. */
 async function swipe(page: Page, dx: number, dy = 0) {
@@ -65,7 +68,7 @@ test("English: swiping left shows the next step, right the previous, and nothing
   await expect(pill(page)).toHaveText("1 / 6");
   await swipe(page, -120);
   await expect(pill(page)).toHaveText("2 / 6");
-  await expect(page.locator(".progress-label strong")).toHaveText("0%");
+  await expect(page.locator(".all-steps summary strong")).toHaveText("0%");
   await expect(page.getByText(en.swipe.hint)).toHaveCount(0);
   await expect(page.getByRole("status").filter({ hasText: /Step 2 of 6/ })).toHaveCount(1);
   await swipe(page, 120);
@@ -82,7 +85,7 @@ test("Arabic: the swipe is mirrored (right is next), and the hint is shown", asy
   await expect(page.getByText(ar.swipe.hint)).toBeVisible();
   await swipe(page, 120);
   await expect(pill(page)).toHaveText("2 / 6");
-  await expect(page.locator(".progress-label strong")).toHaveText("0%");
+  await expect(page.locator(".all-steps summary strong")).toHaveText("0%");
   await swipe(page, -120);
   await expect(pill(page)).toHaveText("1 / 6");
 });

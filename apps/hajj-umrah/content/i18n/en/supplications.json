@@ -1,0 +1,137 @@
+{
+  "talbiyah": {
+    "title": "The Talbiyah",
+    "when": "From the intention of ihram. In Umrah, stop when the Tawaf begins; in Hajj, continue until you throw the first pebble at Jamrat al-Aqabah on the day of Eid.",
+    "meaning": "Here I am, O Allah, here I am. Here I am, You have no partner, here I am. Truly all praise and favour belong to You, and all sovereignty. You have no partner.",
+    "review": {
+      "status": "draft"
+    },
+    "transliteration": "Labbayka Allahumma labbayk, labbayka la sharika laka labbayk, innal-hamda wan-ni'mata laka wal-mulk, la sharika lak."
+  },
+  "niyyah-umrah": {
+    "title": "Saying the intention for Umrah",
+    "when": "At the miqat, when you form the intention for Umrah.",
+    "meaning": "Here I am for Umrah.",
+    "review": {
+      "status": "draft"
+    },
+    "transliteration": "Labbayka 'umrah."
+  },
+  "niyyah-qiran": {
+    "title": "Saying the intention for Qiran",
+    "when": "At the miqat, when you form the intention for Umrah and Hajj together.",
+    "meaning": "Here I am for Umrah and Hajj.",
+    "review": {
+      "status": "draft"
+    },
+    "transliteration": "Labbayka 'umratan wa hajjan."
+  },
+  "tawaf-start": {
+    "title": "At the Black Stone",
+    "when": "When you reach the Black Stone to begin the Tawaf; at each later circuit say «Allahu akbar».",
+    "meaning": "In the name of Allah, and Allah is the Greatest.",
+    "review": {
+      "status": "draft"
+    },
+    "transliteration": "Bismillah, wallahu akbar."
+  },
+  "tawaf-iman": {
+    "title": "Supplication at the start of the Tawaf",
+    "when": "At the start of the Tawaf; recommended, not obligatory.",
+    "meaning": "O Allah, in faith in You, in belief in Your Book, and in following the Sunnah of Your Prophet Muhammad ﷺ.",
+    "review": {
+      "status": "draft"
+    },
+    "transliteration": "Allahumma imanan bika, wa tasdiqan bi-kitabika, wattiba'an li-sunnati nabiyyika Muhammad."
+  },
+  "rabbana-tawaf": {
+    "title": "Between the Yemeni Corner and the Black Stone",
+    "when": "In each circuit, between the Yemeni Corner and the Black Stone.",
+    "meaning": "Our Lord, give us good in this world and good in the Hereafter, and protect us from the punishment of the Fire.",
+    "review": {
+      "status": "draft"
+    },
+    "transliteration": "Rabbana atina fid-dunya hasanah, wa fil-akhirati hasanah, wa qina 'adhaban-nar."
+  },
+  "maqam-ayah": {
+    "title": "On approaching Maqam Ibrahim",
+    "when": "When you approach Maqam Ibrahim after the Tawaf, before the two rak'ahs.",
+    "meaning": "And take the standing place of Ibrahim as a place of prayer.",
+    "review": {
+      "status": "draft"
+    },
+    "transliteration": "Wattakhidhu min Maqami Ibrahima musalla."
+  },
+  "two-rakah-surahs": {
+    "title": "What is recited in the two rak'ahs",
+    "when": "After Al-Fatihah: Al-Kafirun in the first rak'ah and Al-Ikhlas in the second.",
+    "meaning": "Surah 109, Al-Kafirun («Say: O disbelievers…»), then Surah 112, Al-Ikhlas («Say: He is Allah, the One»).",
+    "review": {
+      "status": "draft"
+    },
+    "transliteration": "Qul ya ayyuhal-kafirun … / Qul huwa Allahu ahad."
+  },
+  "safa-ayah": {
+    "title": "On approaching Safa",
+    "when": "As you approach Safa, in the first lap only.",
+    "meaning": "«Indeed, Safa and Marwah are among the symbols of Allah.» «I begin with what Allah began with.»",
+    "review": {
+      "status": "draft"
+    },
+    "transliteration": "Innas-Safa wal-Marwata min sha'a'irillah. Abda'u bima bada'a Allahu bih."
+  },
+  "safa-marwa-dhikr": {
+    "title": "Dhikr on Safa and Marwah",
+    "when": "Standing on Safa and on Marwah, facing the qibla. The Prophet ﷺ said it three times with a supplication between.",
+    "meaning": "Allah is the Greatest (three times). There is no god but Allah alone, with no partner. His is the dominion and His is the praise, and He is able to do all things. There is no god but Allah alone; He fulfilled His promise, gave victory to His servant, and defeated the confederates alone.",
+    "review": {
+      "status": "draft"
+    },
+    "transliteration": "Allahu akbar, Allahu akbar, Allahu akbar. La ilaha illallahu wahdahu la sharika lah, lahul-mulku wa lahul-hamdu wa huwa 'ala kulli shay'in qadir. La ilaha illallahu wahdah, anjaza wa'dah, wa nasara 'abdah, wa hazamal-ahzaba wahdah."
+  },
+  "arafah-dua": {
+    "title": "The best supplication on the day of Arafah",
+    "when": "On the day of Arafah, during the standing at Arafah.",
+    "meaning": "There is no god but Allah alone, with no partner. His is the dominion and His is the praise, and He is able to do all things.",
+    "review": {
+      "status": "draft"
+    },
+    "transliteration": "La ilaha illallahu wahdahu la sharika lah, lahul-mulku wa lahul-hamdu wa huwa 'ala kulli shay'in qadir."
+  },
+  "muzdalifah-dhikr": {
+    "title": "Takbir and tahlil at the Mash'ar al-Haram",
+    "when": "At Muzdalifah, at the Mash'ar al-Haram after Fajr, facing the qibla, until it is very bright.",
+    "meaning": "Allah is the Greatest. There is no god but Allah.",
+    "review": {
+      "status": "draft"
+    },
+    "transliteration": "Allahu akbar. La ilaha illallah."
+  },
+  "jamarah-takbir": {
+    "title": "Takbir with each pebble",
+    "when": "With each pebble you throw at the Jamrah.",
+    "meaning": "Allah is the Greatest.",
+    "review": {
+      "status": "draft"
+    },
+    "transliteration": "Allahu akbar."
+  },
+  "hady-bismillah": {
+    "title": "Naming Allah and takbir at the slaughter",
+    "when": "When slaughtering the sacrificial animal.",
+    "meaning": "In the name of Allah, and Allah is the Greatest.",
+    "review": {
+      "status": "draft"
+    },
+    "transliteration": "Bismillah, wallahu akbar."
+  },
+  "rabbana-general": {
+    "title": "A general supplication for any time",
+    "when": "At any time and in any step. It was the Prophet's ﷺ most frequent supplication; it is not specific to this step.",
+    "meaning": "Our Lord, give us good in this world and good in the Hereafter, and protect us from the punishment of the Fire.",
+    "review": {
+      "status": "draft"
+    },
+    "transliteration": "Rabbana atina fid-dunya hasanah, wa fil-akhirati hasanah, wa qina 'adhaban-nar."
+  }
+}

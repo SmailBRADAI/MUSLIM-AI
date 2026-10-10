@@ -31,6 +31,7 @@ for (const { button, dir } of languages) {
       await page.locator(".journey-card.primary").click();
       // Steps 1 (miqat map and ihram clothing), 2 (ihram rules), 3 (Tawaf diagram) and 5 (Sa'i diagram).
       for (const n of [1, 2, 3, 5]) {
+        await page.locator(".all-steps:not([open]) summary").click({ timeout: 1000 }).catch(() => undefined);
         await page.locator(".steps button").nth(n - 1).click();
         const results = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag22aa"]).analyze();
         expect(results.violations).toEqual([]);

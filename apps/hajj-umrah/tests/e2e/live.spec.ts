@@ -15,7 +15,10 @@ async function expectAccessible(page: Page) {
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 }
 
-const openGuide = (page: Page) => page.locator(".nav-item").nth(1).click();
+const openGuide = async (page: Page) => {
+  await page.locator(".nav-item").nth(1).click();
+  await page.locator(".guide-settings summary").click();
+};
 
 test.describe("in the Mataf", () => {
   test.use({ geolocation: MATAF, permissions: ["geolocation"] });
@@ -41,7 +44,7 @@ test.describe("in the Mataf", () => {
     await expect(page.getByRole("heading", { level: 1 })).toHaveText("الطواف");
     await expect(page.getByRole("heading", { level: 1 })).toBeFocused();
     await expect(card.getByText(ar.live.openNow)).toBeVisible();
-    await expect(page.locator(".progress-label strong")).toHaveText("0%");
+    await expect(page.locator(".all-steps summary strong")).toHaveText("0%");
 
     // Turning it off removes the place and the suggestion.
     await live.click();

@@ -80,6 +80,7 @@ for (const { button, ui, texts, dir } of languages) {
 
     // The Umrah's Tawaf, Arafah (day 9) and the Hajj Sa'i (day 10, with its diagram).
     for (const id of ["hajj-tamattu.umrah-tawaf", "hajj-tamattu.arafah", "hajj-tamattu.sai"] as const) {
+      await page.locator(".all-steps:not([open]) summary").click({ timeout: 1000 }).catch(() => undefined);
       await page.getByRole("button", { name: new RegExp(`^\\d+\\. ${escape(texts[id].title)}$`) }).click();
       await expect(page.getByRole("heading", { level: 1, name: texts[id].title, exact: true })).toBeFocused();
       await page.getByRole("button", { name: ui.details }).click();
@@ -92,6 +93,7 @@ for (const { button, ui, texts, dir } of languages) {
     await expect(page.getByRole("heading", { level: 3, name: ui.otherSchools })).toBeVisible();
     await expect(page.getByText(texts["hajj-tamattu.sai"].otherSchools)).toBeVisible();
     // Every step button keeps a 44px touch target inside the day groups (constitution IV).
+    await page.locator(".all-steps:not([open]) summary").click({ timeout: 1000 }).catch(() => undefined);
     for (const box of await page.locator(".stage-groups .steps button").evaluateAll((els) => els.map((e) => e.getBoundingClientRect()))) {
       expect(box.width).toBeGreaterThanOrEqual(44);
       expect(box.height).toBeGreaterThanOrEqual(44);

@@ -3,6 +3,7 @@
 import { Ajv2020 } from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 import { diagramsOf, requiredDiagramItems } from "../src/data/diagrams.ts";
+import { GRADINGS, SUPPLICATION_KINDS, SUPPLICATION_SCOPES } from "../src/data/types.ts";
 import type { Journey, ReviewStatus, StepText } from "../src/data/types.ts";
 import type { Language } from "../src/i18n/index.tsx";
 
@@ -17,6 +18,10 @@ export interface ContentFiles {
   journeys: Record<string, unknown>;
   /** Language → journey file name → step id → text. Parsed JSON, so shapes are checked here. */
   texts: Record<string, Record<string, Record<string, Partial<StepText> & Record<string, unknown>>>>;
+  /** content/supplications.json (T034). */
+  supplications?: { items?: Array<Record<string, any>> };
+  /** Language → supplication id → text. */
+  supplicationTexts?: Record<string, Record<string, Record<string, any>>>;
 }
 
 export function validateContent(files: ContentFiles): string[] {
@@ -28,6 +33,9 @@ export function validateContent(files: ContentFiles): string[] {
   const journeyIds = new Map<string, string>();
   const stageIds = new Map<string, string>();
   const stepIds = new Map<string, string>();
+
+  const supplicationIds = new Set<string>();
+  errors.push(...validateSupplications(files, reviewers, supplicationIds));
 
   const unique = (seen: Map<string, string>, kind: string, id: string, file: string) => {
     const previous = seen.get(id);
@@ -75,6 +83,9 @@ export function validateContent(files: ContentFiles): string[] {
 
       for (const step of stage.steps) {
         unique(stepIds, "step", step.id, file);
+        for (const id of step.supplicationIds) {
+          if (!supplicationIds.has(id)) errors.push(`${file}: "${step.id}" lists supplication "${id}", which content/supplications.json does not define`);
+        }
         if (step.meta.status === "approved" && !reviewers.has(step.meta.reviewer ?? "")) {
           errors.push(`${file}: "${step.id}" is approved by "${step.meta.reviewer}", who does not hold the content reviewer role`);
         }
@@ -122,6 +133,48 @@ export function validateContent(files: ContentFiles): string[] {
       for (const id of Object.keys(entries)) {
         if (!stepIds.has(id)) errors.push(`i18n/${lang}/${file}: "${id}" matches no step in any journey`);
       }
+    }
+  }
+  return errors;
+}
+
+/** T034: every supplication is sourced, graded, scoped and written in every language; approvals need a reviewer (constitution I). */
+function validateSupplications(files: ContentFiles, reviewers: Set<string>, ids: Set<string>): string[] {
+  const errors: string[] = [];
+  for (const item of files.supplications?.items ?? []) {
+    const id = String(item.id ?? "");
+    if (!/^[a-z0-9-]+$/.test(id)) errors.push(`supplications: invalid id "${id}"`);
+    if (ids.has(id)) errors.push(`supplications: duplicate id "${id}"`);
+    ids.add(id);
+    if (!SUPPLICATION_KINDS.includes(item.kind)) errors.push(`supplications: "${id}" has an unknown kind`);
+    if (!SUPPLICATION_SCOPES.includes(item.scope)) errors.push(`supplications: "${id}" must be specific or general`);
+    if (!GRADINGS.includes(item.grading)) errors.push(`supplications: "${id}" has no valid grading`);
+    if (typeof item.arabic !== "string" || !item.arabic.trim()) errors.push(`supplications: "${id}" has no Arabic text`);
+    const meta = item.meta ?? {};
+    if (!Array.isArray(meta.source) || meta.source.length === 0) errors.push(`supplications: "${id}" has no source`);
+    if (!REVIEW_STATUSES.includes(meta.status)) errors.push(`supplications: "${id}" has no valid status`);
+    if (meta.status === "approved" && !reviewers.has(meta.reviewer ?? "")) {
+      errors.push(`supplications: "${id}" is approved by "${meta.reviewer}", who does not hold the content reviewer role`);
+    }
+    for (const lang of LANGUAGES) {
+      const text = files.supplicationTexts?.[lang]?.[id];
+      if (!text) {
+        errors.push(`supplications: "${id}" has no ${lang} text`);
+        continue;
+      }
+      for (const field of ["title", "when", ...(lang === "ar" ? [] : ["meaning"]), ...(lang === "en" ? ["transliteration"] : [])]) {
+        if (typeof text[field] !== "string" || !text[field].trim()) errors.push(`supplications: "${id}" is missing ${lang} ${field}`);
+      }
+      const review = text.review;
+      if (!review || !REVIEW_STATUSES.includes(review.status)) errors.push(`supplications: "${id}" ${lang} text has no valid review status`);
+      else if (review.status === "approved" && !reviewers.has(review.reviewer ?? "")) {
+        errors.push(`supplications: "${id}" ${lang} text is approved by "${review.reviewer}", who does not hold the content reviewer role`);
+      }
+    }
+  }
+  for (const lang of LANGUAGES) {
+    for (const id of Object.keys(files.supplicationTexts?.[lang] ?? {})) {
+      if (!ids.has(id)) errors.push(`i18n/${lang}/supplications.json: "${id}" matches no supplication`);
     }
   }
   return errors;
