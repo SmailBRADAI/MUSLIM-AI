@@ -10,6 +10,7 @@ export function BottomNav({ screen, setScreen }: { screen: Screen; setScreen: (s
     { screen: "guide", icon: "book", label: t.guide },
     { screen: "prayers", icon: "prayer", label: t.duas },
     { screen: "sites", icon: "map", label: t.sitesTab },
+    { screen: "ask", icon: "sparkle", label: t.askTab },
   ];
   return (
     <nav className="bottom-nav" aria-label={t.a11y.mainNav}>

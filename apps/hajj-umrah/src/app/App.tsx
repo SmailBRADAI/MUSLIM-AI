@@ -3,6 +3,7 @@ import { AppHeader } from "../components/AppHeader";
 import { BottomNav } from "../components/BottomNav";
 import { SettingsPanel } from "../components/SettingsPanel";
 import { Sites } from "../screens/Sites";
+import { Ask } from "../screens/Ask";
 import { Icon } from "../components/Icon";
 import * as db from "../data/db";
 import { readCardPreference } from "../data/lockcard";
@@ -48,6 +49,7 @@ export default function App() {
   // T048: Live mode is off at each launch and never stored; the location is watched only in the Guide.
   const [live, setLive] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [startStepId, setStartStepId] = useState<string | undefined>();
   const [guideSlot, setGuideSlot] = useState<HTMLElement | null>(null);
   // T051: the lock-screen card is remembered on the device, but only counts as on while notifications are still allowed.
   const [lockCard, setLockCard] = useState(readCardPreference);
@@ -237,10 +239,20 @@ export default function App() {
           />
         )}
         {screen === "guide" && content && (
-          <Guide key={journey} journey={content.journey} texts={content.texts} completed={completed} onStepDone={markStep} saveFailed={saveFailed} live={live} onLiveChange={setLive} lockCard={lockCard} onLockCardChange={setLockCard} settingsSlot={guideSlot} closeSettings={() => setSettingsOpen(false)} />
+          <Guide key={`${journey}:${startStepId ?? ""}`} startStepId={startStepId} journey={content.journey} texts={content.texts} completed={completed} onStepDone={markStep} saveFailed={saveFailed} live={live} onLiveChange={setLive} lockCard={lockCard} onLockCardChange={setLockCard} settingsSlot={guideSlot} closeSettings={() => setSettingsOpen(false)} />
         )}
         {screen === "guide" && !content && <GuideNotReady />}
         {screen === "sites" && <Sites />}
+        {screen === "ask" && (
+          <Ask
+            journey={content?.journey ?? null}
+            texts={content?.texts ?? null}
+            onOpenStep={(id) => {
+              setStartStepId(id);
+              setScreen("guide");
+            }}
+          />
+        )}
         {(screen === "prayers" || screen === "map") && <Placeholder screen={screen} setScreen={setScreen} />}
         <BottomNav screen={screen} setScreen={setScreen} />
       </div>

@@ -331,5 +331,20 @@
       "openArea": "Open area for the night"
     }
   },
-  "sitesTab": "Sites"
+  "sitesTab": "Sites",
+  "ask": {
+    "title": "Ask",
+    "intro": "Ask about the journey. Answers are found in the reviewed content inside the app. This is a search, not a scholar: it never makes up rulings or supplications.",
+    "label": "Your question",
+    "placeholder": "For example: what is forbidden in ihram?",
+    "button": "Search",
+    "resultsFor": "Results for “{q}”",
+    "none": "Nothing in the app's reviewed content matches. Try other words, or ask a qualified scholar.",
+    "step": "Step",
+    "supplication": "Supplication",
+    "openStep": "Open this step",
+    "sources": "Sources",
+    "scholar": "For a ruling about your own situation, ask a qualified scholar."
+  },
+  "askTab": "Ask"
 }

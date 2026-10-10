@@ -96,7 +96,7 @@
 - [x] T056 Settings button in the top bar opening a side panel (language, journey, offline, Live mode, lock card, keep screen on); step picture behind the step title (FR-032); tests updated
 - [x] T057 Live mode test mode (FR-033): pick a bundled place to try the experience anywhere; no real location read; unit and e2e tests
 - [x] T058 Sites page (FR-034): weather advice from a free service for the four sites, typical busy times, main facilities, ar/en/ur, pending-verification notice; unit and e2e tests
-- [ ] T059 Helper that answers questions only from the reviewed content, with sources (never invents rulings or supplications)
+- [x] T059 Ask helper (FR-035): searches the reviewed steps and supplications offline, shows passage, sources and review badge, opens the step; never generates text; unit and e2e tests
 - [ ] T041 Content review: reviewer approves each item; validator confirms 100% approved before release (SC-002)
 
 ## Phase 10: App stores
