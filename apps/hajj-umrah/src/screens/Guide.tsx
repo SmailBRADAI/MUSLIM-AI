@@ -5,7 +5,6 @@ import { pictureOf, pictureSrc } from "../data/pictures";
 import { Icon } from "../components/Icon";
 import { LiveMode } from "../components/LiveMode";
 import { LockCard, WakeLockSwitch } from "../components/LockCard";
-import { PlaceVisual } from "../components/PlaceVisual";
 import { supplicationsOf } from "../data/supplications";
 import { ReviewBadge } from "../components/ReviewBadge";
 import { RulingTag } from "../components/RulingTag";
@@ -13,7 +12,7 @@ import { useSwipe } from "../components/useSwipe";
 import type { StepTexts } from "../data/content";
 import { completion, currentStep, orderedSteps } from "../data/progress";
 import { prefersReducedMotion } from "../data/swipe";
-import { displayStatus, isPlace } from "../data/types";
+import { displayStatus } from "../data/types";
 import type { Journey, JourneyType, Stage, Step } from "../data/types";
 import { isRtl, useLanguage, useT } from "../i18n";
 import type { Strings } from "../i18n";
@@ -272,7 +271,6 @@ export function Guide({
         onAnimationEnd={() => setSlide(null)}
         {...swipe}
       >
-      {isPlace(step.place) && <PlaceVisual place={step.place} />}
       {/* T053: the step's picture, where there is one; decorative to the ritual text, described by a UI string. */}
       {pictureOf(step.id) && (
         <figure className="step-picture">

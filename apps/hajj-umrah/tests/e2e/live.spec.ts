@@ -29,7 +29,7 @@ test.describe("in the Mataf", () => {
     const live = page.getByRole("switch", { name: ar.live.title });
     await expect(live).toHaveAttribute("aria-checked", "false");
     await expect(page.locator(".live-card")).toContainText(ar.live.privacy);
-    await expect(page.locator(".place-visual")).toHaveCount(1);
+    await expect(page.locator(".place-visual")).toHaveCount(0);
 
     await live.click();
     const card = page.locator(".live-card");
