@@ -95,6 +95,8 @@
 - [x] T055 Remove the place map from each Guide step (FR-019 amended); Live mode's card keeps it; tests updated
 - [x] T056 Settings button in the top bar opening a side panel (language, journey, offline, Live mode, lock card, keep screen on); step picture behind the step title (FR-032); tests updated
 - [x] T057 Live mode test mode (FR-033): pick a bundled place to try the experience anywhere; no real location read; unit and e2e tests
+- [x] T058 Sites page (FR-034): weather advice from a free service for the four sites, typical busy times, main facilities, ar/en/ur, pending-verification notice; unit and e2e tests
+- [ ] T059 Helper that answers questions only from the reviewed content, with sources (never invents rulings or supplications)
 - [ ] T041 Content review: reviewer approves each item; validator confirms 100% approved before release (SC-002)
 
 ## Phase 10: App stores
