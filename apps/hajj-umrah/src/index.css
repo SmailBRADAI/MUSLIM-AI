@@ -229,6 +229,8 @@ small { color: var(--muted); font-size: 13px; line-height: 1.6; }
 
 /* T047 "you are here": the step's place on a schematic of the pilgrimage places. Drawn left-to-right
    in every language; the place is filled, pinned and named in bold underlined text, not by colour alone. */
+.step-picture { margin: 0 0 16px; }
+.step-picture img { display: block; width: 100%; height: auto; max-width: 100%; border-radius: 18px; border: 1px solid var(--line); background: var(--sage-pale); }
 .place-visual { margin: 0 0 16px; padding: 12px 14px 10px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); }
 .place-visual figcaption { margin-bottom: 6px; color: var(--forest); font-size: 16px; font-weight: 800; line-height: 1.6; }
 .place-map { direction: ltr; container-type: inline-size; }

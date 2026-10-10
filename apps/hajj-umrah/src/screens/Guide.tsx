@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { DiagramView } from "../components/Illustrations";
 import { diagramsOf } from "../data/diagrams";
+import { pictureOf, pictureSrc } from "../data/pictures";
 import { Icon } from "../components/Icon";
 import { LiveMode } from "../components/LiveMode";
 import { LockCard, WakeLockSwitch } from "../components/LockCard";
@@ -266,6 +267,12 @@ export function Guide({
         {...swipe}
       >
       {isPlace(step.place) && <PlaceVisual place={step.place} />}
+      {/* T053: the step's picture, where there is one; decorative to the ritual text, described by a UI string. */}
+      {pictureOf(step.id) && (
+        <figure className="step-picture">
+          <img src={pictureSrc(pictureOf(step.id)!)} alt={t.stepPictures[pictureOf(step.id)!]} width={960} height={644} decoding="async" />
+        </figure>
+      )}
       <section className="instruction-card">
         <div className="instruction-meta">
           <span className="ritual-icon"><Icon name="compass" /></span>

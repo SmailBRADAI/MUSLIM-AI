@@ -236,5 +236,12 @@
     "unsupported": "This browser cannot keep the screen on.",
     "failed": "The screen could not be kept on. Battery saver may be blocking it.",
     "turnOff": "Turn off keeping the screen on"
+  },
+  "stepPictures": {
+    "ihram": "Illustration: a pilgrim seen from behind, in the two white ihram cloths, stands by a marker at the miqat.",
+    "ihram-rules": "Illustration: three prohibition signs crossing out a perfume bottle, a pair of scissors and a stitched shirt.",
+    "tawaf-prayer": "Illustration: seen from above, a pilgrim prays on a small mat behind Maqam Ibrahim, facing the Kaaba.",
+    "sai": "Illustration: pilgrims in white walk back and forth along the Mas'a between the two hills of Safa and Marwah.",
+    "halq": "Illustration: a man seen from behind has his head shaved by a barber."
   }
 }
