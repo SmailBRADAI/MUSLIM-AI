@@ -3,7 +3,7 @@ import { expect, test } from "@playwright/test";
 import { onboard } from "./helpers";
 
 async function openOfflineSection(page: import("@playwright/test").Page) {
-  await page.getByRole("navigation").getByRole("button", { name: "Settings" }).click();
+  await page.locator(".settings-button").click();
   await expect(page.getByRole("heading", { name: "Offline content" })).toBeVisible();
 }
 
@@ -13,6 +13,7 @@ test("downloads the English pack and shows Ready offline, then works offline", a
   await page.getByRole("listitem").filter({ hasText: "English" }).getByRole("button", { name: "Download" }).click();
   await expect(page.getByRole("listitem").filter({ hasText: "English" })).toContainText("On this device");
 
+  await page.getByRole("button", { name: "Close settings" }).click();
   await page.getByRole("navigation").getByRole("button", { name: "Home" }).click();
   await expect(page.getByText("Your guide is ready offline")).toBeVisible();
 
@@ -37,6 +38,7 @@ test("an interrupted download is not marked ready", async ({ page }) => {
   await expect(page.getByRole("alert")).toContainText("Download failed");
   await expect(page.getByRole("listitem").filter({ hasText: "English" })).not.toContainText("On this device");
 
+  await page.getByRole("button", { name: "Close settings" }).click();
   await page.getByRole("navigation").getByRole("button", { name: "Home" }).click();
   await expect(page.getByText("Download your guide for offline use")).toBeVisible();
 });
@@ -73,9 +75,11 @@ test("leaving Settings does not cancel a download", async ({ page }) => {
   await onboard(page, "English");
   await openOfflineSection(page);
   await page.getByRole("listitem").filter({ hasText: "English" }).getByRole("button", { name: "Download" }).click();
+  await page.getByRole("button", { name: "Close settings" }).click();
   await page.getByRole("navigation").getByRole("button", { name: "Home" }).click();
-  await page.getByRole("navigation").getByRole("button", { name: "Settings" }).click();
+  await page.locator(".settings-button").click();
   await expect(page.getByRole("listitem").filter({ hasText: "English" })).toContainText("On this device");
+  await page.getByRole("button", { name: "Close settings" }).click();
   await page.getByRole("navigation").getByRole("button", { name: "Home" }).click();
   await expect(page.getByText("Your guide is ready offline")).toBeVisible();
 });

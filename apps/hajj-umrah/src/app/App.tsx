@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { AppHeader } from "../components/AppHeader";
 import { BottomNav } from "../components/BottomNav";
+import { SettingsPanel } from "../components/SettingsPanel";
 import { Icon } from "../components/Icon";
 import * as db from "../data/db";
 import { readCardPreference } from "../data/lockcard";
@@ -15,7 +16,6 @@ import { Guide, GuideNotReady } from "../screens/Guide";
 import { Home } from "../screens/Home";
 import { Onboarding } from "../screens/Onboarding";
 import { Placeholder } from "../screens/Placeholder";
-import { Settings } from "../screens/Settings";
 import type { OnboardingStep, Screen } from "./screens";
 
 // Some WebKit versions never settle indexedDB.open; never leave the pilgrim on a blank screen.
@@ -46,6 +46,8 @@ export default function App() {
   const [onboarding, setOnboarding] = useState<OnboardingStep | null>(null);
   // T048: Live mode is off at each launch and never stored; the location is watched only in the Guide.
   const [live, setLive] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [guideSlot, setGuideSlot] = useState<HTMLElement | null>(null);
   // T051: the lock-screen card is remembered on the device, but only counts as on while notifications are still allowed.
   const [lockCard, setLockCard] = useState(readCardPreference);
 
@@ -208,13 +210,24 @@ export default function App() {
   return (
     <I18nProvider language={language}>
       <div className={`app-shell language-${language}`}>
-        <AppHeader onLanguageChange={changeLanguage} />
+        <AppHeader settingsOpen={settingsOpen} onToggleSettings={() => setSettingsOpen((open) => !open)} />
+        <SettingsPanel
+          open={settingsOpen}
+          onClose={() => setSettingsOpen(false)}
+          journey={journey}
+          onLanguageChange={changeLanguage}
+          onChangeJourney={() => setOnboarding("journey")}
+          onPackInstalled={() => setPackCheck((n) => n + 1)}
+          onGuideSlot={setGuideSlot}
+          showGuideSection={screen === "guide" && !!content}
+        />
         {choiceNotSaved && (
           <p className="save-note save-failed" role="alert"><Icon name="shield" size={16} />{strings[language].choiceNotSaved}</p>
         )}
         {screen === "home" && (
           <Home
             setScreen={setScreen}
+            onOpenSettings={() => setSettingsOpen(true)}
             status={homeStatus}
             pack={pack}
             updateAvailable={updateAvailable}
@@ -223,17 +236,9 @@ export default function App() {
           />
         )}
         {screen === "guide" && content && (
-          <Guide key={journey} journey={content.journey} texts={content.texts} completed={completed} onStepDone={markStep} saveFailed={saveFailed} live={live} onLiveChange={setLive} lockCard={lockCard} onLockCardChange={setLockCard} />
+          <Guide key={journey} journey={content.journey} texts={content.texts} completed={completed} onStepDone={markStep} saveFailed={saveFailed} live={live} onLiveChange={setLive} lockCard={lockCard} onLockCardChange={setLockCard} settingsSlot={guideSlot} closeSettings={() => setSettingsOpen(false)} />
         )}
         {screen === "guide" && !content && <GuideNotReady />}
-        {screen === "settings" && journey && (
-          <Settings
-            journey={journey}
-            onLanguageChange={changeLanguage}
-            onChangeJourney={() => setOnboarding("journey")}
-            onPackInstalled={() => setPackCheck((n) => n + 1)}
-          />
-        )}
         {(screen === "prayers" || screen === "map") && <Placeholder screen={screen} setScreen={setScreen} />}
         <BottomNav screen={screen} setScreen={setScreen} />
       </div>

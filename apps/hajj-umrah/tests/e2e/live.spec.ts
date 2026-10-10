@@ -15,10 +15,8 @@ async function expectAccessible(page: Page) {
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 }
 
-const openGuide = async (page: Page) => {
-  await page.locator(".nav-item").nth(1).click();
-  await page.locator(".guide-settings summary").click();
-};
+const openGuide = (page: Page) => page.locator(".nav-item").nth(1).click();
+const openSettings = (page: Page) => page.locator(".settings-button").click();
 
 test.describe("in the Mataf", () => {
   test.use({ geolocation: MATAF, permissions: ["geolocation"] });
@@ -26,6 +24,7 @@ test.describe("in the Mataf", () => {
   test("Arabic Umrah: off by default, then suggests Tawaf and opens it without marking anything done", async ({ page }) => {
     await onboard(page, "العربية");
     await openGuide(page);
+    await openSettings(page);
     const live = page.getByRole("switch", { name: ar.live.title });
     await expect(live).toHaveAttribute("aria-checked", "false");
     await expect(page.locator(".live-card")).toContainText(ar.live.privacy);
@@ -43,6 +42,7 @@ test.describe("in the Mataf", () => {
     await card.getByRole("button", { name: ar.live.goToStep }).click();
     await expect(page.getByRole("heading", { level: 1 })).toHaveText("الطواف");
     await expect(page.getByRole("heading", { level: 1 })).toBeFocused();
+    await openSettings(page);
     await expect(card.getByText(ar.live.openNow)).toBeVisible();
     await expect(page.locator(".all-steps summary strong")).toHaveText("0%");
 
@@ -63,6 +63,7 @@ test.describe("at Arafah", () => {
     await page.getByRole("button", { name: "Hajj Tamattu’" }).click();
     await page.getByRole("navigation").waitFor();
     await openGuide(page);
+    await openSettings(page);
 
     await page.getByRole("switch", { name: en.live.title }).click();
     const card = page.locator(".live-card");
@@ -88,6 +89,7 @@ test.describe("without permission", () => {
   test("explains that location is off and turns live mode off", async ({ page }) => {
     await onboard(page, "English");
     await openGuide(page);
+    await openSettings(page);
     const live = page.getByRole("switch", { name: en.live.title });
     await live.click();
     await expect(page.locator(".live-card")).toContainText(en.live.errors.denied);

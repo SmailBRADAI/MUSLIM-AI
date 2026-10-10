@@ -6,17 +6,17 @@ import ar from "../../src/i18n/ar.json" with { type: "json" };
 import en from "../../src/i18n/en.json" with { type: "json" };
 import { onboard } from "./helpers";
 
-const openGuide = async (page: Page) => {
-  await page.locator(".nav-item").nth(1).click();
-  await page.locator(".guide-settings summary").click();
-};
+const openGuide = (page: Page) => page.locator(".nav-item").nth(1).click();
+const openSettings = (page: Page) => page.locator(".settings-button").click();
+const closeSettings = (page: Page) => page.locator(".settings-close").click();
 
 /** A real touch drag from (x, y) by dx, through Chrome's input pipeline, so touch-action applies. */
 async function swipe(page: Page, dx: number, dy = 0) {
   await page.locator(".swipe-area .instruction-card").scrollIntoViewIfNeeded();
   const box = (await page.locator(".swipe-area .instruction-card").boundingBox())!;
   const x = box.x + box.width / 2;
-  const y = box.y + box.height / 2;
+  // A tall card can reach under the bottom bar: start the drag inside the visible upper half.
+  const y = Math.max(box.y + 40, Math.min(box.y + box.height / 2, (page.viewportSize()?.height ?? 700) / 2));
   const cdp = await page.context().newCDPSession(page);
   const point = (px: number, py: number) => [{ x: px, y: py, id: 1 }];
   await cdp.send("Input.dispatchTouchEvent", { type: "touchStart", touchPoints: point(x, y) });
@@ -98,6 +98,7 @@ test.describe("lock-screen card", () => {
     await page.evaluate(() => navigator.serviceWorker.ready);
     await ensureNotifications(page);
     await openGuide(page);
+    await openSettings(page);
     const toggle = page.getByRole("switch", { name: en.lockCard.title });
     await expect(toggle).toHaveAttribute("aria-checked", "false");
     expect(await cards(page)).toEqual([]);
@@ -110,11 +111,13 @@ test.describe("lock-screen card", () => {
     expect(card.lang).toBe("en");
     expect(card.dir).toBe("ltr");
 
+    await closeSettings(page);
     await swipe(page, -120);
     await expect.poll(async () => (await cards(page)).map((c) => c.title)).not.toContain("Ihram");
     expect((await cards(page)).length).toBe(1);
     expect((await cards(page))[0].body).toMatch(/^2 \/ 6/);
 
+    await openSettings(page);
     await toggle.click();
     await expect.poll(async () => (await cards(page)).length).toBe(0);
   });
@@ -125,6 +128,7 @@ test.describe("lock-screen card", () => {
     await page.evaluate(() => navigator.serviceWorker.ready);
     await ensureNotifications(page);
     await openGuide(page);
+    await openSettings(page);
     await page.getByRole("switch", { name: ar.lockCard.title }).click();
     await expect.poll(async () => (await cards(page)).map((c) => c.dir)).toEqual(["rtl"]);
     expect((await cards(page))[0].lang).toBe("ar");
@@ -141,6 +145,7 @@ test("a message from the notification worker changes the step", async ({ page })
   await page.evaluate(() => navigator.serviceWorker.ready);
   await ensureNotifications(page);
   await openGuide(page);
+  await openSettings(page);
   await page.getByRole("switch", { name: en.lockCard.title }).click();
   await expect(page.getByRole("switch", { name: en.lockCard.title })).toHaveAttribute("aria-checked", "true");
   await page.evaluate(() => navigator.serviceWorker.dispatchEvent(new MessageEvent("message", { data: { type: "rafiq-step-action", action: "next" } })));
@@ -153,6 +158,7 @@ test.describe("permission denied", () => {
   test("says so and stays off", async ({ page }) => {
     await onboard(page, "English");
     await openGuide(page);
+    await openSettings(page);
     await page.evaluate(() => {
       Notification.requestPermission = async () => "denied";
     });
@@ -166,6 +172,7 @@ test.describe("permission denied", () => {
 test("keep screen on: switch is off by default and reports state", async ({ page }) => {
   await onboard(page, "English");
   await openGuide(page);
+  await openSettings(page);
   const toggle = page.getByRole("switch", { name: en.wakeLock.title });
   await expect(toggle).toHaveAttribute("aria-checked", "false");
   await toggle.click();

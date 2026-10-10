@@ -210,6 +210,12 @@ interface StepText {
 - Loader: `src/data/content.ts` exposes `supplicationsOf(step, lang)`; the Guide renders a highlighted panel after the step details with the scope label, source, grading and review badge.
 - Risk: Arabic texts and sources were drafted without online verification; the content reviewer must verify each before approval.
 
+## Settings side panel and step hero (T056)
+
+- `AppHeader` shows the brand and one settings button (`aria-expanded`, `aria-controls`). `SettingsPanel` is an always-mounted `<aside role="dialog" aria-modal>` that slides in from the inline end; closed it is `inert` and `visibility: hidden`, so Guide controls rendered into it by a portal (`settingsSlot`) keep their state. It holds language, journey, offline packs (formerly the Settings screen) and a Guide section for Live mode, the lock-screen card and keep-screen-on.
+- The bottom navigation loses its Settings tab; Home's offline card opens the panel.
+- Step hero: when `pictureOf(step.id)` exists the heading block is drawn over the picture with a dark scrim; otherwise the heading is unchanged.
+
 ## Risks
 
 - **Content review is the critical path.** Code can ship with draft content marked as pending, but nothing should be presented as authoritative until reviewed. The clarifications in the spec must be answered first.
