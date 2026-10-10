@@ -90,6 +90,7 @@
 - [ ] T039 Accessibility pass: 200% text, screen readers in all 3 languages, contrast audit of the palette
 - [ ] T040 Size budget check in CI (P1 pack < 15 MB without audio)
 - [x] T052 Content review helper CLI `npm run review` (FR-028): list, show, approve and unapprove with dry run, reviewer check, version bump and validation; unit tests; README "Reviewing" section
+- [x] T053 Step pictures in the Guide (FR-029): five AI-generated illustrations (ihram, ihram rules, prayer behind the Maqam, Sa'i, halq) optimised to WebP in `public/illustrations/`, shown on 11 steps, ar/en/ur descriptions, precached, provenance and known issues in `content/sources/step-pictures.md`; unit test (mapping, files, descriptions)
 - [ ] T041 Content review: reviewer approves each item; validator confirms 100% approved before release (SC-002)
 
 ## Phase 10: App stores

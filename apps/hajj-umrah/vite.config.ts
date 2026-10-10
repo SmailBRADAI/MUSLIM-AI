@@ -11,7 +11,7 @@ export default defineConfig({
       manifest: false,
       workbox: {
         // Precache the whole build, fonts included, so a fresh install works in airplane mode.
-        globPatterns: ["**/*.{js,css,html,svg,woff2,webmanifest}"],
+        globPatterns: ["**/*.{js,css,html,svg,webp,woff2,webmanifest}"],
         maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
         navigateFallback: "index.html",
         // T051: handles taps on the lock-screen card; see public/sw-extra.js.
