@@ -145,7 +145,9 @@ interface StepText {
 - The Guide shows the stage of the open step (day number and name, or the part's name) and groups the step list by stage. Stage names are UI strings (`src/i18n`), not content, since they only name the day.
 - Ruling labels follow Ibn Baz and Ibn Al-Uthaymeen. Where the two differ on a detail rather than the label, the step's details state both views; `rulingViews` is used only when their labels differ. Other schools' positions go in the step's `otherSchools` note (`rulingNote`), shown under "Other schools" in the details.
 
-### Step place visual (T047)
+### Step place visual (T047, removed from the Guide by T055)
+
+- T055: `Guide` no longer renders `PlaceVisual`; Live mode's card still does. The `place` field and its content review are unchanged.
 
 - Every step has a required `place` from a fixed enum (schema, `src/data/types.ts`, checked by `npm run validate:content`). It is step content, so adding or changing it bumps the step's and the journey's version (content/README.md) and goes through content review.
 - Assignment: Ihram from the miqat is `miqat`; the Tamattu' pilgrim's Hajj Ihram on the 8th, taken where they stay in Makkah, is `makkah`; every Tawaf is `mataf`; the two rak'ahs after Tawaf are `maqam` (behind Maqam Ibrahim where possible); Sa'i is `masa`; shaving or shortening after the Umrah is `makkah`; on the 10th, the sacrifice and shaving are `mina` (where the Prophet ﷺ did them); the stoning is `jamarat`; the days and nights in Mina, Arafah and Muzdalifah are their own places.

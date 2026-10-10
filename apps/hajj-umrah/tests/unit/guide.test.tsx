@@ -47,11 +47,10 @@ function renderGuide(completed: string[], onStepDone: (id: string, done: boolean
 }
 
 describe("Guide (T020)", () => {
-  it("shows where the open step is performed above the step (T047)", () => {
-    renderGuide([], vi.fn());
-    const figure = screen.getByText("I am in the Mataf").closest("figure");
-    expect(figure).toHaveClass("place-visual");
-    expect(figure?.compareDocumentPosition(screen.getByRole("heading", { level: 2 })) ?? 0).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+  it("shows no place map on the step (T055)", () => {
+    const { container } = renderGuide([], vi.fn());
+    expect(container.querySelector(".place-visual")).toBeNull();
+    expect(screen.queryByText("I am in the Mataf")).toBeNull();
   });
 
   it("moves on only after the step is saved, and ignores a second tap while saving", async () => {

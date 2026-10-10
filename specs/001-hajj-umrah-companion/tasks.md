@@ -92,6 +92,7 @@
 - [x] T052 Content review helper CLI `npm run review` (FR-028): list, show, approve and unapprove with dry run, reviewer check, version bump and validation; unit tests; README "Reviewing" section
 - [x] T053 Step pictures in the Guide (FR-029): five AI-generated illustrations (ihram, ihram rules, prayer behind the Maqam, Sa'i, halq) optimised to WebP in `public/illustrations/`, shown on 11 steps, ar/en/ur descriptions, precached, provenance and known issues in `content/sources/step-pictures.md`; unit test (mapping, files, descriptions)
 - [x] T054 [US5] Per-step highlighted supplications panel (FR-030): `supplicationIds` filled on all steps, loader and validation, panel in Guide in ar/en/ur, unit and e2e tests
+- [x] T055 Remove the place map from each Guide step (FR-019 amended); Live mode's card keeps it; tests updated
 - [ ] T041 Content review: reviewer approves each item; validator confirms 100% approved before release (SC-002)
 
 ## Phase 10: App stores
