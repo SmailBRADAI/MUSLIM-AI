@@ -192,3 +192,13 @@
 ## 20. عدد المواضيع المستخرجة
 
 17 موضوعاً رئيسياً (من المقدمة إلى المباحات) مع نحو 70 نقطة. الصور والرسوم المصاحبة لم تُستنسخ؛ رُسمت بدائل أصلية (T049).
+
+## 21. Comparaison avec la version JSON structurée fournie par le propriétaire (2026-10-10)
+
+Le propriétaire a fourni un JSON (`umrah_guide`, 32 pages, même source : «صفة العمرة»). Il reprend les mêmes 17 sujets que ci-dessus ; **aucun nouveau point n'a été ajouté au contenu** (tout est déjà couvert, ou volontairement laissé de côté ci-dessus). Écarts du JSON par rapport au livret tel que lu sur les photos, **non repris** :
+
+1. **Mubahat classés comme interdits.** Le JSON met sous `muharramat` (items 13 à 17) l'ombre d'un parasol, l'égorgement du bétail et de la volaille, la mise à mort des insectes et reptiles nuisibles et celle des « cinq nuisibles » (corbeau, milan, scorpion, souris, chien enragé), avec la mention « selon certains savants ». Le livret p.32 les range parmi les **permis**. Le contenu reste conforme au livret (`umrah.ihram-rules`).
+2. **Expiation.** Le JSON dit que l'oubli ou l'ignorance exigent une expiation (mouton, 3 jours de jeûne ou 6 pauvres). Le livret p.31 dit qu'en cas d'oubli ou d'ignorance il n'y a **rien** à payer, et que l'expiation au choix vaut pour l'acte délibéré. Le contenu reste conforme au livret.
+3. **Rapport conjugal.** Le JSON ajoute que l'ihram est « invalidé », qu'il faut un chameau, une vache ou un septième, puis la reprise l'année suivante. Le livret ne le dit pas dans les pages lues ; non ajouté faute de source (à trancher par le relecteur selon les écrits d'Ibn Baz).
+4. **Invocation initiale du Tawaf** (« اللهم إيماناً بك… ») : présente dans le JSON, déjà notée en §7 comme non ajoutée ; elle relève du fichier des invocations (T034).
+5. **Règles des femmes** : « stop Tawaf, Sa'i après la purification » du JSON mélange deux phrases du livret ; §12 reste la référence.
