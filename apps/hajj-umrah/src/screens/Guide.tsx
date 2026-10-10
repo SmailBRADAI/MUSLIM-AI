@@ -1,3 +1,4 @@
+import { createPortal } from "react-dom";
 import { useEffect, useRef, useState } from "react";
 import { DiagramView } from "../components/Illustrations";
 import { diagramsOf } from "../data/diagrams";
@@ -74,6 +75,8 @@ export function Guide({
   onLiveChange,
   lockCard = false,
   onLockCardChange,
+  settingsSlot,
+  closeSettings,
 }: {
   journey: Journey;
   texts: StepTexts;
@@ -87,6 +90,10 @@ export function Guide({
   /** T051: the lock-screen card, remembered on the device; the toggle is shown when onLockCardChange is given. */
   lockCard?: boolean;
   onLockCardChange?: (on: boolean) => void;
+  /** FR-032: where the switches are rendered (the settings panel). Undefined renders them inline; null waits for the panel. */
+  settingsSlot?: HTMLElement | null;
+  /** Closes the settings panel, e.g. after Live mode opens a step. */
+  closeSettings?: () => void;
 }) {
   const t = useT();
   const language = useLanguage();
@@ -110,6 +117,7 @@ export function Guide({
   const step = steps[index];
   const text = texts[step.id];
   const supplications = supplicationsOf(step, language);
+  const picture = pictureOf(step.id);
 
   // After an action changes the step or removes the focused button, put focus on the step title
   // so screen readers announce where the pilgrim is.
@@ -187,20 +195,8 @@ export function Guide({
   // Content is validated in CI; a missing translation must still never crash the guide.
   if (!text) return <GuideNotReady />;
 
-  return (
-    <main className="page guide-page">
-      <div className="guide-heading">
-        <div>
-          <span className="eyebrow">{guideLabel(t, journey.type)}</span>
-          {stageNow && <p className="stage-now" id="stage-now">{stageNow}</p>}
-          {/* Focus moves to the title after each action; the day is read with it, since it may have changed. */}
-          <h1 ref={headingRef} tabIndex={-1} aria-describedby={stageNow ? "stage-now" : undefined}>{text.title}</h1>
-        </div>
-        <span className="step-pill">{index + 1} / {steps.length}</span>
-      </div>
-      {/* The switches live in one settings panel, closed by default, instead of on every step. */}
-      <details className="guide-settings">
-        <summary><Icon name="settings" size={18} />{t.settings}</summary>
+  const controls = (
+    <>
         {/* T048: suggests the step for where the pilgrim seems to be; the location is watched only while
             this is on and the Guide is open, and never leaves the device. */}
         {onLiveChange && (
@@ -211,7 +207,10 @@ export function Guide({
             texts={texts}
             completed={completed}
             openStepId={step.id}
-            onGoToStep={(id) => goTo(steps.findIndex((s) => s.id === id))}
+            onGoToStep={(id) => {
+            goTo(steps.findIndex((s) => s.id === id));
+            closeSettings?.();
+          }}
             busy={saving}
           />
         )}
@@ -231,7 +230,25 @@ export function Guide({
           />
         )}
         <WakeLockSwitch on={keepAwake} onChange={setKeepAwake} />
-      </details>
+    </>
+  );
+
+  return (
+    <main className="page guide-page">
+      {/* FR-032: the step's picture sits behind the title and counter; without a picture the heading is plain. */}
+      <div className={picture ? "step-hero has-picture" : "step-hero"}>
+        {picture && <img className="step-hero-image" src={pictureSrc(picture)} alt={t.stepPictures[picture]} width={960} height={644} decoding="async" />}
+      <div className="guide-heading">
+        <div>
+          <span className="eyebrow">{guideLabel(t, journey.type)}</span>
+          {stageNow && <p className="stage-now" id="stage-now">{stageNow}</p>}
+          {/* Focus moves to the title after each action; the day is read with it, since it may have changed. */}
+          <h1 ref={headingRef} tabIndex={-1} aria-describedby={stageNow ? "stage-now" : undefined}>{text.title}</h1>
+        </div>
+        <span className="step-pill">{index + 1} / {steps.length}</span>
+      </div>
+      </div>
+      {settingsSlot === undefined ? controls : settingsSlot && createPortal(controls, settingsSlot)}
       {/* The timeline is tucked away: closed by default, still the way to open any step (T023). */}
       <details className="all-steps">
         <summary><span className="grow">{t.stepList}</span><strong>{percent}%</strong></summary>
@@ -271,12 +288,6 @@ export function Guide({
         onAnimationEnd={() => setSlide(null)}
         {...swipe}
       >
-      {/* T053: the step's picture, where there is one; decorative to the ritual text, described by a UI string. */}
-      {pictureOf(step.id) && (
-        <figure className="step-picture">
-          <img src={pictureSrc(pictureOf(step.id)!)} alt={t.stepPictures[pictureOf(step.id)!]} width={960} height={644} decoding="async" />
-        </figure>
-      )}
       <section className="instruction-card">
         <div className="instruction-meta">
           <span className="ritual-icon"><Icon name="compass" /></span>

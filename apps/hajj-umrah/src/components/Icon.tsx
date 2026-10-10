@@ -4,6 +4,7 @@ export type IconName =
   | "arrow"
   | "book"
   | "check"
+  | "close"
   | "chevron"
   | "compass"
   | "download"
@@ -24,6 +25,7 @@ export function Icon({ name, size = 22 }: { name: IconName; size?: number }) {
     arrow: <path d="m9 18 6-6-6-6" />,
     book: <><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" /><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z" /></>,
     check: <path d="m5 12 4 4L19 6" />,
+    close: <path d="M6 6l12 12M18 6 6 18" />,
     chevron: <path d="m9 18 6-6-6-6" />,
     compass: <><circle cx="12" cy="12" r="9" /><path d="m16 8-2.7 5.3L8 16l2.7-5.3Z" /></>,
     download: <><path d="M12 3v12m0 0 4-4m-4 4-4-4" /><path d="M5 19h14" /></>,

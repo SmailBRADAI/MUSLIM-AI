@@ -28,6 +28,7 @@ export interface JourneyStatus {
 
 export function Home({
   setScreen,
+  onOpenSettings,
   status,
   pack,
   updateAvailable,
@@ -35,6 +36,7 @@ export function Home({
   onOpenJourney,
 }: {
   setScreen: (s: Screen) => void;
+  onOpenSettings: () => void;
   status: JourneyStatus | null;
   pack: PackState;
   updateAvailable: boolean;
@@ -58,7 +60,7 @@ export function Home({
       </section>
 
       {/* T028: "Ready offline" only when the pack for this language is installed and its file is present. */}
-      <button className={pack.state === "ready" ? "offline-card" : "offline-card pending"} onClick={() => setScreen("settings")}>
+      <button className={pack.state === "ready" ? "offline-card" : "offline-card pending"} onClick={onOpenSettings}>
         <span className="status-icon"><Icon name={pack.state === "ready" ? "shield" : "download"} /></span>
         {pack.state === "ready" ? (
           <span className="grow">

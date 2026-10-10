@@ -64,7 +64,9 @@
     "language": "Language",
     "journey": "Your journey",
     "change": "Change",
-    "progressKept": "Progress is kept for each journey on this device"
+    "progressKept": "Progress is kept for each journey on this device",
+    "close": "Close settings",
+    "guide": "While reading the guide"
   },
   "guideNotReady": "This guide is being prepared and reviewed, and is not available yet.",
   "choiceNotSaved": "Your choice could not be saved on this device; it applies until you close the app.",

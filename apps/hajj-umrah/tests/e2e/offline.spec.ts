@@ -13,11 +13,16 @@ test("works in airplane mode after one online visit, fonts included", async ({ p
   await page.evaluate(() => document.fonts.ready);
   expect(await page.evaluate(() => document.fonts.check('16px "Noto Naskh Arabic"', "س"))).toBe(true);
 
-  await page.getByRole("button", { name: "اردو", exact: true }).click();
-  await page.evaluate(() => document.fonts.ready);
-  expect(await page.evaluate(() => document.fonts.check('16px "Noto Nastaliq Urdu"', "س"))).toBe(true);
+  await page.locator(".settings-button").click();
+  await page.getByRole("dialog").getByRole("button", { name: "اردو", exact: true }).click();
+  await expect(page.locator("html")).toHaveAttribute("lang", "ur");
+  await expect.poll(async () => {
+    await page.evaluate(() => document.fonts.ready);
+    return page.evaluate(() => document.fonts.check('16px "Noto Nastaliq Urdu"', "س"));
+  }).toBe(true);
 
-  await page.getByRole("button", { name: "English", exact: true }).click();
+  await page.getByRole("dialog").getByRole("button", { name: "English", exact: true }).click();
+  await page.locator(".settings-close").click();
   await page.getByRole("button", { name: /Umrah rituals/ }).click();
   await expect(page.getByRole("heading", { level: 1, name: "Ihram" })).toBeVisible();
 });

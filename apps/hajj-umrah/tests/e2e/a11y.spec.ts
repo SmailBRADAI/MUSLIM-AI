@@ -22,7 +22,8 @@ for (const { button, dir } of languages) {
     });
 
     test("settings has no WCAG A/AA violations", async ({ page }) => {
-      await page.locator(".nav-item").last().click();
+      await page.locator(".settings-button").click();
+      await expect(page.getByRole("dialog")).toBeVisible();
       const results = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag22aa"]).analyze();
       expect(results.violations).toEqual([]);
     });

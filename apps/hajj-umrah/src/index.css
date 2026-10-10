@@ -32,8 +32,6 @@ body {
 button { font: inherit; }
 button:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
 
-.language-en { font-family: "Manrope", sans-serif; }
-.language-ur { font-family: "Noto Nastaliq Urdu", serif; }
 
 .app-shell {
   width: 100%;
@@ -54,9 +52,6 @@ button:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
 
 .brand { display: flex; align-items: center; gap: 10px; color: var(--forest); font-size: 17px; font-weight: 800; letter-spacing: .5px; white-space: nowrap; }
 .brand-mark { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; color: var(--gold); background: var(--forest); }
-.language-switcher { direction: ltr; display: flex; gap: 2px; padding: 3px; background: var(--sage-pale); border-radius: 12px; }
-.language { border: 0; min-width: 44px; height: 44px; padding: 0 7px; border-radius: 9px; background: transparent; color: var(--muted); cursor: pointer; font-family: "Manrope", "Noto Naskh Arabic", sans-serif; font-weight: 700; }
-.language.active { background: var(--surface); color: var(--forest); box-shadow: 0 2px 8px rgba(25, 53, 44, 0.1); }
 
 .page { width: 100%; max-width: 720px; margin: 0 auto; padding: 0 18px 32px; }
 .hero { min-height: 270px; position: relative; margin: 0 -18px 20px; padding: 52px 28px 32px; overflow: hidden; color: var(--white); background: linear-gradient(135deg, var(--forest-deep), var(--forest)); }
@@ -229,8 +224,6 @@ small { color: var(--muted); font-size: 13px; line-height: 1.6; }
 
 /* T047 "you are here": the step's place on a schematic of the pilgrimage places. Drawn left-to-right
    in every language; the place is filled, pinned and named in bold underlined text, not by colour alone. */
-.step-picture { margin: 0 0 16px; }
-.step-picture img { display: block; width: 100%; height: auto; max-width: 100%; border-radius: 18px; border: 1px solid var(--line); background: var(--sage-pale); }
 .place-visual { margin: 0 0 16px; padding: 12px 14px 10px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); }
 .place-visual figcaption { margin-bottom: 6px; color: var(--forest); font-size: 16px; font-weight: 800; line-height: 1.6; }
 .place-map { direction: ltr; container-type: inline-size; }
@@ -240,7 +233,6 @@ small { color: var(--muted); font-size: 13px; line-height: 1.6; }
 .place-labels + svg + .place-labels { align-items: start; }
 .place-label { padding: 0 2px; text-align: center; overflow-wrap: anywhere; }
 .place-label.here { color: var(--ink); font-weight: 800; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
-.language-ur .place-labels { line-height: 2; }
 /* Narrow screens and large text: names no longer fit under their stops, so only the step's place is
    named, across the row; its stop is still marked by the pin and the fill. */
 @container (max-width: 299px) {
@@ -283,7 +275,6 @@ small { color: var(--muted); font-size: 13px; line-height: 1.6; }
 [dir="rtl"] .live-go svg { transform: rotate(180deg); }
 .live-off { min-height: 48px; justify-self: start; padding: 0 16px; border: 1px solid var(--line); border-radius: 14px; color: var(--ink); background: var(--surface); font-weight: 700; cursor: pointer; }
 .live-attribution { font-size: 12px; }
-.language-ur .live-card, .language-ur .setting-card { line-height: 2; }
 
 /* T051: swipe between steps, lock-screen card. Vertical scroll stays native. */
 .swipe-area { margin: 0; touch-action: pan-y; }
@@ -377,7 +368,31 @@ small { color: var(--muted); font-size: 13px; line-height: 1.6; }
 .all-steps summary { min-height: 44px; gap: 8px; display: flex; align-items: center; padding: 0 16px; font-size: 15px; font-weight: 700; cursor: pointer; }
 .all-steps[open] { padding-bottom: 12px; }
 .all-steps > ol { padding: 0 12px; }
-.guide-settings { margin: 12px 0 14px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
-.guide-settings summary { min-height: 44px; display: flex; align-items: center; gap: 8px; padding: 0 16px; font-size: 15px; font-weight: 700; cursor: pointer; }
-.guide-settings > :not(summary) { margin-inline: 12px; }
-.guide-settings[open] { padding-bottom: 12px; }
+
+/* FR-032: settings button and side panel */
+.settings-button { width: 48px; height: 48px; display: grid; place-items: center; border: 0; border-radius: 14px; color: var(--forest); background: var(--sage-pale); cursor: pointer; }
+.settings-button[aria-expanded="true"] { background: var(--sage); }
+.settings-backdrop { position: fixed; z-index: 40; inset: 0; border: 0; background: rgba(25, 53, 44, .45); }
+.settings-backdrop[hidden] { display: none; }
+.settings-panel { position: fixed; z-index: 50; inset-block: 0; inset-inline-end: 0; width: min(420px, 100vw); overflow-y: auto; padding: 18px 18px 40px; background: var(--surface); box-shadow: -8px 0 30px rgba(25, 53, 44, .2); visibility: hidden; transform: translateX(100%); transition: transform .25s ease, visibility 0s linear .25s; }
+[dir="rtl"] .settings-panel, .language-ar .settings-panel, .language-ur .settings-panel { transform: translateX(-100%); box-shadow: 8px 0 30px rgba(25, 53, 44, .2); }
+.settings-panel.open { visibility: visible; transform: none; transition: transform .25s ease; }
+@media (prefers-reduced-motion: reduce) { .settings-panel, .settings-panel.open { transition: none; } }
+.settings-panel-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.settings-panel-head h2 { margin: 0; font-size: 24px; }
+.settings-close { width: 48px; height: 48px; display: grid; place-items: center; border: 0; border-radius: 14px; color: var(--forest); background: var(--sage-pale); cursor: pointer; }
+.settings-panel h3 { margin: 18px 0 8px; font-size: 16px; color: var(--forest); }
+.settings-guide-slot { display: grid; gap: 12px; }
+
+/* FR-032: the step picture behind the title */
+.step-hero { position: relative; }
+.step-hero.has-picture { overflow: hidden; display: flex; align-items: flex-end; aspect-ratio: 960 / 644; margin-inline: -4px; border-radius: 18px; background: var(--forest); }
+.step-hero-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.step-hero.has-picture::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(10, 28, 22, .92) 0%, rgba(10, 28, 22, .72) 45%, rgba(10, 28, 22, .2) 100%); }
+.step-hero.has-picture .guide-heading { position: relative; z-index: 1; width: 100%; padding: 16px; color: #fff; }
+.step-hero.has-picture .eyebrow, .step-hero.has-picture .stage-now { color: #f4dbab; }
+.step-hero.has-picture .step-pill { color: var(--forest); background: #fff; }
+.language-en { font-family: "Manrope", sans-serif; }
+.language-ur { font-family: "Noto Nastaliq Urdu", serif; }
+.language-ur .place-labels { line-height: 2; }
+.language-ur .live-card, .language-ur .setting-card { line-height: 2; }
