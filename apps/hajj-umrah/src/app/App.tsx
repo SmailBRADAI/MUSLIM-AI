@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { AppHeader } from "../components/AppHeader";
 import { BottomNav } from "../components/BottomNav";
 import { SettingsPanel } from "../components/SettingsPanel";
+import { Sites } from "../screens/Sites";
 import { Icon } from "../components/Icon";
 import * as db from "../data/db";
 import { readCardPreference } from "../data/lockcard";
@@ -239,6 +240,7 @@ export default function App() {
           <Guide key={journey} journey={content.journey} texts={content.texts} completed={completed} onStepDone={markStep} saveFailed={saveFailed} live={live} onLiveChange={setLive} lockCard={lockCard} onLockCardChange={setLockCard} settingsSlot={guideSlot} closeSettings={() => setSettingsOpen(false)} />
         )}
         {screen === "guide" && !content && <GuideNotReady />}
+        {screen === "sites" && <Sites />}
         {(screen === "prayers" || screen === "map") && <Placeholder screen={screen} setScreen={setScreen} />}
         <BottomNav screen={screen} setScreen={setScreen} />
       </div>
