@@ -31,7 +31,7 @@ export function Icon({ name, size = 22 }: { name: IconName; size?: number }) {
     download: <><path d="M12 3v12m0 0 4-4m-4 4-4-4" /><path d="M5 19h14" /></>,
     headphones: <><path d="M4 14v-2a8 8 0 0 1 16 0v2" /><path d="M18 19h-1a2 2 0 0 1-2-2v-3h5v3a2 2 0 0 1-2 2ZM6 19H5a2 2 0 0 1-2-2v-3h5v3a2 2 0 0 1-2 2Z" /></>,
     home: <><path d="m3 11 9-8 9 8" /><path d="M5 10v10h14V10M9 20v-6h6v6" /></>,
-    kaaba: <><path d="m5 6 7-3 7 3v13l-7 2-7-2Z" /><path d="M5 9h14M12 3v18M15 9v4h4" /></>,
+    kaaba: <><path d="M4 8.5 12 6l8 2.5v9.5l-8 2.5L4 18Z" /><path d="M4 12.5 12 10l8 2.5" /><path d="M14.5 19.7V16h3v2.8" /></>,
     map: <><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3Z" /><path d="M9 3v15m6-12v15" /></>,
     menu: <><path d="M4 7h16M4 12h16M4 17h10" /></>,
     moon: <path d="M20 15.5A8.5 8.5 0 0 1 8.5 4 8.5 8.5 0 1 0 20 15.5Z" />,
