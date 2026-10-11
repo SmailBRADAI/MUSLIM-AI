@@ -136,3 +136,13 @@ export async function getInstalledPack(language: Language): Promise<InstalledPac
 export async function saveInstalledPack(pack: InstalledPack) {
   await (await getDb()).put("packs", pack);
 }
+
+/** Small values kept on the device (counters, emergency card, display); null when absent or unreadable. */
+export async function getSetting<T>(key: string): Promise<T | null> {
+  const value = await (await getDb()).get("settings", key);
+  return (value ?? null) as T | null;
+}
+
+export async function setSetting(key: string, value: unknown) {
+  await (await getDb()).put("settings", value, key);
+}

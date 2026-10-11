@@ -133,6 +133,10 @@ export function Home({
             <span className="tool-icon gold"><Icon name="prayer" /></span>
             <strong>{t.duas}</strong><small>{t.duasHint}</small>
           </button>
+          <button className="tool-card" onClick={() => setScreen("emergency")}>
+            <span className="tool-icon gold"><Icon name="shield" /></span>
+            <strong>{t.emergency.title}</strong><small>{t.emergency.hint}</small>
+          </button>
           <button className="tool-card" onClick={() => setScreen("map")}>
             <span className="tool-icon green"><Icon name="map" /></span>
             <strong>{t.map}</strong><small>{t.mapHint}</small>

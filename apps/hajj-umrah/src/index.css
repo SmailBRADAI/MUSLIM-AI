@@ -433,3 +433,28 @@ small { color: var(--muted); font-size: 13px; line-height: 1.6; }
 .ask-result p { margin: 6px 0; line-height: 1.7; }
 .ask-sources, .ask-scholar { color: var(--muted); font-size: 14px; }
 .ask-scholar { display: flex; gap: 8px; margin-top: 14px; }
+
+/* FR-036 lap counter, FR-037 emergency card, FR-038 large text */
+.lap-counter { margin: 16px 0; padding: 16px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); }
+.lap-counter h2 { margin: 0 0 6px; font-size: 18px; }
+.lap-hint { margin: 0 0 10px; color: var(--muted); line-height: 1.7; }
+.lap-count { margin: 0 0 8px; font-size: 22px; }
+.lap-dots { display: flex; gap: 8px; margin-bottom: 12px; }
+.lap-dots span { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--forest); background: transparent; }
+.lap-dots span.on { background: var(--forest); }
+.lap-add { width: 100%; min-height: 64px; font-size: 20px; }
+.lap-add:disabled, .lap-secondary button:disabled { opacity: .5; cursor: default; }
+.lap-secondary { display: flex; gap: 10px; margin-top: 10px; }
+.lap-secondary button { flex: 1; min-height: 48px; justify-content: center; }
+.field { display: grid; gap: 6px; }
+.field label { font-weight: 700; }
+.field input, .field textarea { min-height: 48px; padding: 10px 14px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); color: var(--ink); font: inherit; }
+.emergency-card, .emergency-numbers { margin: 0 0 18px; padding: 14px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
+.emergency-card dl { margin: 0 0 10px; display: grid; gap: 10px; }
+.emergency-card dt { color: var(--muted); font-size: 14px; }
+.emergency-card dd { margin: 2px 0 0; font-size: 18px; font-weight: 700; overflow-wrap: anywhere; }
+.emergency-numbers h2 { margin: 0 0 8px; font-size: 18px; }
+.emergency-numbers ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.emergency-numbers li { display: flex; align-items: center; gap: 10px; }
+.call-link { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; min-width: 48px; padding: 0 14px; border-radius: 14px; background: var(--forest); color: #fff; font-weight: 800; text-decoration: none; }
+html.large-text body { zoom: 1.25; }

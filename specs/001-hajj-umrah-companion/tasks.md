@@ -69,7 +69,7 @@
 ## Phase 7: User story 5 — Supplications (P2)
 
 - [x] T034 [US5] `content/supplications.json` with Arabic, transliteration, translations, source, grading, specific-or-general flag
-- [ ] T035 [US5] Supplications screen (browse; the per-step highlighted panel is done, FR-030) and per-step list; never label a general remembrance as specific to a step
+- [x] T035 [US5] Supplications screen (browse; the per-step highlighted panel is done, FR-030) and per-step list; never label a general remembrance as specific to a step
 - [ ] T036 [US5] Offline audio playback for downloaded audio
 
 ## Phase 8: User stories 6 and 7 — Map and search (P3)
@@ -97,6 +97,9 @@
 - [x] T057 Live mode test mode (FR-033): pick a bundled place to try the experience anywhere; no real location read; unit and e2e tests
 - [x] T058 Sites page (FR-034): weather advice from a free service for the four sites, typical busy times, main facilities, ar/en/ur, pending-verification notice; unit and e2e tests
 - [x] T059 Ask helper (FR-035): searches the reviewed steps and supplications offline, shows passage, sources and review badge, opens the step; never generates text; unit and e2e tests
+- [x] T060 Tawaf and Sa'i lap counter (FR-036); unit and e2e tests
+- [x] T061 Emergency card (FR-037), stored on the device only; unit and e2e tests
+- [x] T062 Large text switch (FR-038); unit test
 - [ ] T041 Content review: reviewer approves each item; validator confirms 100% approved before release (SC-002)
 
 ## Phase 10: App stores

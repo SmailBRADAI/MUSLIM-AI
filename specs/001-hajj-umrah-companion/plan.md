@@ -233,6 +233,14 @@ interface StepText {
 - `Ask` shows the results with the passage, sources and review badge, and "Open this step" (Guide opens on that step via `startStepId`). No match: a message and a pointer to a scholar.
 - A language-model answer (summaries in the pilgrim's words) would need a server and an API key and a retrieval step that quotes the same reviewed content; it is not part of this task.
 
+## Essentials from the expert review (T035, T060–T062)
+
+- `Duas` lists `allSupplications(language)` with the shared `SupplicationCard`, which the Guide now uses too.
+- `lapKindOf(stepId)` picks the Tawaf and Sa'i steps by id; `LapCounter` keeps `laps:<stepId>` in the settings store.
+- `Emergency` keeps one `emergency` record in the settings store; nothing is sent anywhere. Numbers are fixed in code and marked pending verification.
+- `largeText` setting toggles `html.large-text` (CSS `zoom: 1.25` on body).
+- Not done here, still blocked: audio (licence), offline map (user removed the map; needs a design), content approval (reviewer), replacing the generated pictures.
+
 ## Risks
 
 - **Content review is the critical path.** Code can ship with draft content marked as pending, but nothing should be presented as authoritative until reviewed. The clarifications in the spec must be answered first.
