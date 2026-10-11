@@ -27,3 +27,11 @@ export function supplicationsOf(step: Pick<Step, "supplicationIds">, language: L
     return supplication && text ? [{ supplication, text }] : [];
   });
 }
+
+/** Every supplication with its text in one language, for search (T059). */
+export function allSupplications(language: Language): StepSupplication[] {
+  return items.flatMap((supplication) => {
+    const text = texts[language][supplication.id];
+    return text ? [{ supplication, text }] : [];
+  });
+}
