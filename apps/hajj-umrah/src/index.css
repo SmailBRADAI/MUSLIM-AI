@@ -402,3 +402,18 @@ small { color: var(--muted); font-size: 13px; line-height: 1.6; }
 .live-test-toggle { min-height: 44px; display: flex; align-items: center; gap: 10px; font-weight: 700; cursor: pointer; }
 .live-test-toggle input { width: 22px; height: 22px; }
 .live-test select { min-height: 48px; width: 100%; padding: 0 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); color: var(--ink); font: inherit; }
+
+/* FR-034: Sites page */
+.sites-page h1 { margin: 6px 0 8px; }
+.sites-intro { margin: 0 0 10px; color: var(--muted); }
+.sites-pending { display: flex; gap: 8px; align-items: flex-start; margin: 0 0 12px; padding: 10px 12px; border: 1px dashed var(--muted); border-radius: 12px; font-size: 14px; }
+.sites-actions { display: grid; gap: 6px; justify-items: start; margin-bottom: 14px; }
+.site-card { margin: 0 0 16px; padding: 16px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); }
+.site-card h2 { margin: 0 0 4px; font-size: 22px; }
+.site-card h3 { margin: 16px 0 6px; font-size: 16px; color: var(--forest); }
+.site-card p { margin: 6px 0; line-height: 1.7; }
+.site-temp { display: flex; align-items: baseline; gap: 10px; }
+.site-temp strong { font-size: 30px; }
+.site-facts, .site-advice, .site-facilities { margin: 6px 0; padding-inline-start: 20px; line-height: 1.7; }
+.site-advice li { margin-bottom: 6px; font-weight: 700; }
+.site-card small { color: var(--muted); }

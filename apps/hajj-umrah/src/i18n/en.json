@@ -265,5 +265,71 @@
       "reported": "Reported from the Companions or scholars"
     },
     "note": "Texts are shown exactly as reviewed. Draft texts are marked pending."
-  }
+  },
+  "sites": {
+    "title": "Sites",
+    "intro": "Weather advice, typical busy times and main facilities for the sites of the journey.",
+    "pending": "General information, pending verification with official sources. Always follow the signs and the staff on site.",
+    "weather": "Today's weather",
+    "loading": "Loading weather…",
+    "refresh": "Refresh",
+    "offline": "Weather needs a connection. It is not saved on the device.",
+    "failed": "The weather could not be loaded. Try again later.",
+    "privacy": "Only the place's fixed position is sent to the weather service, never yours.",
+    "now": "Now",
+    "feels": "feels like {n}°C",
+    "humidity": "Humidity {n}%",
+    "wind": "Wind {n} km/h",
+    "uv": "UV index {n}",
+    "rain": "Rain chance today {n}%",
+    "high": "Today's high feels like {n}°C",
+    "advice": {
+      "extremeHeat": "Extreme heat: drink water often, rest in the shade, and use a wet towel or umbrella. Do what you can during cooler hours.",
+      "heat": "Hot: drink water regularly, take shade breaks and wear light clothing.",
+      "uv": "Very strong sun: use an umbrella or sun protection and avoid long stops in direct sun.",
+      "rain": "Rain is possible: the floor can be slippery, so walk slowly and keep your phone and papers dry.",
+      "wind": "Windy: dust is likely; cover your nose and mouth if needed.",
+      "humid": "Humid air makes heat harder: drink more water than you think you need.",
+      "mild": "No special weather advice right now."
+    },
+    "crowd": "Typical busy times",
+    "crowdNote": "This is the usual pattern, not live crowd data. Real crowds can differ.",
+    "busiest": "Usually busiest",
+    "quieter": "Usually quieter",
+    "facilitiesTitle": "Main facilities",
+    "facilitiesNote": "Exact places change. Look for official signs and ask the staff.",
+    "names": {
+      "haram": "Masjid al-Haram",
+      "mina": "Mina",
+      "arafah": "Arafah",
+      "muzdalifah": "Muzdalifah"
+    },
+    "busy": {
+      "haram": "Around the five prayers, especially after Maghrib and Isha, on Fridays and during Dhul-Hijjah.",
+      "mina": "The days of Tashriq and the days of stoning, Dhul-Hijjah 10 to 13. Follow the time given to your group.",
+      "arafah": "The whole of the 9th of Dhul-Hijjah, with many people moving after sunset.",
+      "muzdalifah": "On arrival at night on the 10th, and again when everyone leaves after Fajr."
+    },
+    "quiet": {
+      "haram": "Late at night and in the middle of the morning, outside prayer times.",
+      "mina": "Outside the days of stoning.",
+      "arafah": "Early morning of the 9th.",
+      "muzdalifah": "Later in the night, once most groups have arrived."
+    },
+    "facilities": {
+      "zamzam": "Zamzam water points",
+      "restrooms": "Restrooms",
+      "medical": "Medical help",
+      "wheelchair": "Wheelchair and mobility help",
+      "prayerAreas": "Prayer areas",
+      "tents": "Tents",
+      "jamaratBridge": "Jamarat bridge and its levels",
+      "mashairTrain": "Mashair train",
+      "namirah": "Namirah mosque",
+      "shade": "Shaded and misted areas",
+      "water": "Drinking water",
+      "openArea": "Open area for the night"
+    }
+  },
+  "sitesTab": "Sites"
 }

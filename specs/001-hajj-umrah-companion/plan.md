@@ -220,6 +220,13 @@ interface StepText {
 
 - `LiveMode` has a "Test mode" checkbox (visible while Live mode is on) and a select of `GEO_REGIONS`. In test mode `useGeolocation` is disabled and the key `near:<id>` of the chosen region drives the same card; a banner states the place is simulated. State is local to the component, so it is gone on the next launch.
 
+## Sites page (T058)
+
+- `src/data/sites.ts` lists the four sites with fixed coordinates and facility keys; texts (names, busy and quiet times, facilities, advice) are UI strings in ar/en/ur under `sites`, shown with a "pending verification" notice.
+- `src/data/weather.ts` builds the Open-Meteo request (no key; fixed site coordinates only), parses and validates the answer, and `adviceFor` maps numbers to advice keys by thresholds (feels-like 35/40 °C, UV 8, rain chance 40%, wind 30 km/h, humidity 70%). Nothing is stored.
+- `Sites` loads the weather when opened and online, with loading, offline and failed states and a refresh button.
+- The AI helper is a separate step (T059).
+
 ## Risks
 
 - **Content review is the critical path.** Code can ship with draft content marked as pending, but nothing should be presented as authoritative until reviewed. The clarifications in the spec must be answered first.
