@@ -172,6 +172,7 @@ Requested by the project owner: "User can swap between steps using screen swipes
 - **FR-037**: The app MUST have an emergency card, reachable from Home, where the pilgrim enters their name, hotel, group leader and phone, a family phone, blood type, illnesses/medicines/allergies and notes. It MUST be stored only on the device, work offline, show phone numbers as call links, and list the emergency numbers in Saudi Arabia (997 ambulance, 999 police, 998 civil defense, 911 unified) marked pending verification.
 - **FR-038**: Settings MUST offer a "Large text" switch, remembered on the device, that enlarges text and buttons across the app.
 - **FR-030 (addition)**: The Duas tab MUST list every supplication of the app with the same card as the Guide (text, scope, source, grading, review badge).
+- **FR-039**: The app icon, favicon and every Kaaba glyph MUST NOT contain a cross or any shape that reads as a symbol of another religion (for example a vertical line crossing a horizontal one at their middles). The mark MUST be checked at 22, 42 and 512 px and approved by the content reviewer before a store release; the reasoning is in `content/sources/brand-mark.md`.
 - **FR-018**: If progress cannot be saved on the device, the app MUST say so instead of claiming it was saved.
 - **FR-008**: Audio MUST be optional and downloaded separately.
 - **FR-009**: Content updates MUST be checked only when online and MUST NOT block use of the installed version.

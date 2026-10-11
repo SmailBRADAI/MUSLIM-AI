@@ -100,6 +100,7 @@
 - [x] T060 Tawaf and Sa'i lap counter (FR-036); unit and e2e tests
 - [x] T061 Emergency card (FR-037), stored on the device only; unit and e2e tests
 - [x] T062 Large text switch (FR-038); unit test
+- [x] T063 Replace the app icon and the Kaaba glyph, which read as a cross (FR-039); brand-mark note
 - [ ] T041 Content review: reviewer approves each item; validator confirms 100% approved before release (SC-002)
 
 ## Phase 10: App stores
