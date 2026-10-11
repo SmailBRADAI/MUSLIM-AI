@@ -3,10 +3,10 @@ import { Icon } from "../components/Icon";
 import type { IconName } from "../components/Icon";
 import { useT } from "../i18n";
 
-export function Placeholder({ screen, setScreen }: { screen: PlaceholderScreen; setScreen: (s: Screen) => void }) {
+export function Placeholder({ setScreen }: { screen?: PlaceholderScreen; setScreen: (s: Screen) => void }) {
   const t = useT();
-  const icon: IconName = screen === "map" ? "map" : "prayer";
-  const title = screen === "map" ? t.map : t.duas;
+  const icon: IconName = "map";
+  const title = t.map;
   return (
     <main className="page placeholder-page">
       <span className="placeholder-icon"><Icon name={icon} size={34} /></span>

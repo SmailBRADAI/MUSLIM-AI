@@ -4,6 +4,8 @@ import { useT } from "../i18n";
 import type { Language } from "../i18n";
 import { Icon } from "./Icon";
 import { LanguageChoiceList } from "./LanguageChoiceList";
+import { Switch } from "./LockCard";
+import { getSetting, setSetting } from "../data/db";
 import { OfflinePacks } from "./OfflinePacks";
 
 /**
@@ -32,6 +34,18 @@ export function SettingsPanel({
 }) {
   const t = useT();
   const closeRef = useRef<HTMLButtonElement>(null);
+  // T062 (FR-038): large text is remembered on the device and applied to the whole app.
+  const [largeText, setLargeText] = useState(false);
+  useEffect(() => {
+    getSetting<boolean>("largeText").then((v) => v === true && setLargeText(true)).catch(() => undefined);
+  }, []);
+  useEffect(() => {
+    document.documentElement.classList.toggle("large-text", largeText);
+  }, [largeText]);
+  const setLarge = (next: boolean) => {
+    setLargeText(next);
+    setSetting("largeText", next).catch(() => undefined);
+  };
   const wasOpen = useRef(false);
   const onCloseRef = useRef(onClose);
   onCloseRef.current = onClose;
@@ -88,6 +102,11 @@ export function SettingsPanel({
             </button>
           </section>
         )}
+
+        <section className="settings-group">
+          <h3>{t.display.title}</h3>
+          <Switch id="large-text" title={t.display.largeTitle} hint={t.display.largeHint} on={largeText} onClick={() => setLarge(!largeText)} />
+        </section>
 
         <section className="settings-group" id="offline">
           <h3>{t.packs.title}</h3>

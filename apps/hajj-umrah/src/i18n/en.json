@@ -346,5 +346,51 @@
     "sources": "Sources",
     "scholar": "For a ruling about your own situation, ask a qualified scholar."
   },
-  "askTab": "Ask"
+  "askTab": "Ask",
+  "laps": {
+    "tawafTitle": "Tawaf lap counter",
+    "saiTitle": "Sa'i trip counter",
+    "tawafHint": "Start and end each lap at the Black Stone line. Tap after each lap.",
+    "saiHint": "Safa to Marwah is one trip; the seventh ends at Marwah. Tap after each trip.",
+    "tawafAdd": "Count a lap",
+    "saiAdd": "Count a trip",
+    "undo": "Undo",
+    "reset": "Start again",
+    "complete": "Seven completed",
+    "progress": "{n} of {total}",
+    "notSaved": "The count could not be saved on this device."
+  },
+  "emergency": {
+    "title": "Emergency card",
+    "hint": "Your details and emergency numbers, offline",
+    "intro": "Kept only on this device and never sent anywhere. Fill it in before you travel.",
+    "name": "Your name",
+    "hotel": "Hotel name and room",
+    "leader": "Group leader",
+    "leaderPhone": "Group leader phone",
+    "relativePhone": "Family contact phone",
+    "blood": "Blood type",
+    "medical": "Illnesses, medicines, allergies",
+    "notes": "Other notes",
+    "save": "Save",
+    "edit": "Edit",
+    "saved": "Saved on this device",
+    "notSaved": "Could not save on this device.",
+    "numbers": "Emergency numbers in Saudi Arabia",
+    "ambulance": "Ambulance (Red Crescent)",
+    "police": "Police",
+    "civilDefense": "Civil Defense",
+    "unified": "Unified emergency number",
+    "call": "Call",
+    "verify": "Pending verification: confirm these numbers with your group leader or hotel.",
+    "empty": "Nothing filled in yet."
+  },
+  "display": {
+    "title": "Display",
+    "largeTitle": "Large text",
+    "largeHint": "Bigger text and buttons for easier reading"
+  },
+  "duasScreen": {
+    "intro": "All supplications in the app, with sources and review status. A general remembrance is not tied to a particular step."
+  }
 }

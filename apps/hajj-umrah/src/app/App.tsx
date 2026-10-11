@@ -17,6 +17,8 @@ import type { Language } from "../i18n";
 import { Guide, GuideNotReady } from "../screens/Guide";
 import { Home } from "../screens/Home";
 import { Onboarding } from "../screens/Onboarding";
+import { Duas } from "../screens/Duas";
+import { Emergency } from "../screens/Emergency";
 import { Placeholder } from "../screens/Placeholder";
 import type { OnboardingStep, Screen } from "./screens";
 
@@ -253,7 +255,9 @@ export default function App() {
             }}
           />
         )}
-        {(screen === "prayers" || screen === "map") && <Placeholder screen={screen} setScreen={setScreen} />}
+        {screen === "prayers" && <Duas />}
+        {screen === "emergency" && <Emergency />}
+        {screen === "map" && <Placeholder screen={screen} setScreen={setScreen} />}
         <BottomNav screen={screen} setScreen={setScreen} />
       </div>
     </I18nProvider>

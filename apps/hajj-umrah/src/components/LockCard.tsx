@@ -10,7 +10,7 @@ import { Icon } from "./Icon";
 type CardError = "unsupported" | "denied" | "failed";
 
 /** One switch row, styled like Live mode's. */
-function Switch({ id, title, hint, on, onClick, children }: { id: string; title: string; hint: string; on: boolean; onClick: () => void; children?: React.ReactNode }) {
+export function Switch({ id, title, hint, on, onClick, children }: { id: string; title: string; hint: string; on: boolean; onClick: () => void; children?: React.ReactNode }) {
   return (
     <section className={on ? "setting-card on" : "setting-card"} aria-labelledby={`${id}-title`}>
       <div className="live-head">
