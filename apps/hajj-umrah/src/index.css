@@ -30,7 +30,7 @@ body {
 }
 
 button { font: inherit; }
-button:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus-visible, [role="switch"]:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
 
 
 .app-shell {
@@ -458,3 +458,11 @@ small { color: var(--muted); font-size: 13px; line-height: 1.6; }
 .emergency-numbers li { display: flex; align-items: center; gap: 10px; }
 .call-link { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; min-width: 48px; padding: 0 14px; border-radius: 14px; background: var(--forest); color: #fff; font-weight: 800; text-decoration: none; }
 html.large-text body { zoom: 1.25; }
+
+/* UI audit: hero text clears the badge, page titles breathe, example chips, visible focus on every control */
+.hero p { padding-inline-end: 84px; }
+.ask-page h1, .duas-page h1, .emergency-page h1, .sites-page h1 { margin-top: 18px; }
+.ask-examples h2 { margin: 0 0 10px; font-size: 16px; color: var(--muted); }
+.ask-examples ul { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.chip { min-height: 48px; padding: 0 18px; border: 1px solid var(--line); border-radius: 24px; background: var(--surface); color: var(--forest); font: inherit; font-weight: 700; cursor: pointer; }
+.chip:hover { background: var(--sage-pale); }
