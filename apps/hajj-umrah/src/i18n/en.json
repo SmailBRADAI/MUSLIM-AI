@@ -344,7 +344,14 @@
     "supplication": "Supplication",
     "openStep": "Open this step",
     "sources": "Sources",
-    "scholar": "For a ruling about your own situation, ask a qualified scholar."
+    "scholar": "For a ruling about your own situation, ask a qualified scholar.",
+    "examples": [
+      "ihram",
+      "tawaf",
+      "talbiyah",
+      "safa"
+    ],
+    "tryLabel": "Try asking about"
   },
   "askTab": "Ask",
   "laps": {

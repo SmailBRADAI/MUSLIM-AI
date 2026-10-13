@@ -65,3 +65,14 @@ describe("Ask screen", () => {
     expect(screen.getByText(/Nothing in the app's reviewed content matches/)).toBeTruthy();
   });
 });
+
+describe("example questions", () => {
+  it.each(["ar", "en", "ur"] as const)("every example finds an answer in %s", async (language) => {
+    const { journeyContent } = await import("../../src/data/content");
+    const { strings } = await import("../../src/i18n");
+    const content = journeyContent("umrah", language);
+    expect(content).not.toBeNull();
+    const docs = buildDocs(content!.journey, content!.texts, language);
+    for (const example of strings[language].ask.examples) expect(search(example, docs).length, example).toBeGreaterThan(0);
+  });
+});

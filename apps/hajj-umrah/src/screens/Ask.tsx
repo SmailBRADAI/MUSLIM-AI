@@ -20,6 +20,10 @@ export function Ask({ journey, texts, onOpenStep }: { journey: Journey | null; t
     event.preventDefault();
     setAsked(draft.trim() || null);
   };
+  const ask = (query: string) => {
+    setDraft(query);
+    setAsked(query);
+  };
 
   return (
     <main className="page ask-page">
@@ -30,6 +34,17 @@ export function Ask({ journey, texts, onOpenStep }: { journey: Journey | null; t
         <input id="ask-input" type="search" value={draft} onChange={(e) => setDraft(e.target.value)} placeholder={t.ask.placeholder} enterKeyHint="search" />
         <button type="submit" className="complete-button"><Icon name="sparkle" />{t.ask.button}</button>
       </form>
+
+      {!asked && (
+        <section className="ask-examples" aria-labelledby="ask-try">
+          <h2 id="ask-try">{t.ask.tryLabel}</h2>
+          <ul>
+            {t.ask.examples.map((example) => (
+              <li key={example}><button type="button" className="chip" onClick={() => ask(example)}>{example}</button></li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       {asked && (
         <section aria-live="polite" aria-labelledby="ask-results">

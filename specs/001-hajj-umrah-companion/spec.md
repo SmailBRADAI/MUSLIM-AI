@@ -173,6 +173,7 @@ Requested by the project owner: "User can swap between steps using screen swipes
 - **FR-038**: Settings MUST offer a "Large text" switch, remembered on the device, that enlarges text and buttons across the app.
 - **FR-030 (addition)**: The Duas tab MUST list every supplication of the app with the same card as the Guide (text, scope, source, grading, review badge).
 - **FR-039**: The app icon, favicon and every Kaaba glyph MUST NOT contain a cross or any shape that reads as a symbol of another religion (for example a vertical line crossing a horizontal one at their middles). The mark MUST be checked at 22, 42 and 512 px and approved by the content reviewer before a store release; the reasoning is in `content/sources/brand-mark.md`.
+- **FR-040**: Keyboard focus MUST be visible on every interactive control (buttons, links, inputs, switches, summaries). Text MUST NOT run under decorative badges at a 360 px width in any language. The Ask page MUST offer example questions in the pilgrim's language, each of which finds an answer in the bundled content. Findings and open items are in `ui-audit.md`.
 - **FR-018**: If progress cannot be saved on the device, the app MUST say so instead of claiming it was saved.
 - **FR-008**: Audio MUST be optional and downloaded separately.
 - **FR-009**: Content updates MUST be checked only when online and MUST NOT block use of the installed version.
